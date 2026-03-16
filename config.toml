@@ -6,7 +6,7 @@ languageCode = "en-us"
     path = "github.com/CaiJimmy/hugo-theme-stack/v4"
 
 [params]
-  subtitle = "Backend|Engineering|Strategy|Tools"
+  subtitle = "Backend Engineering Strategy Tools"
   description = "Specializing in backend systems, CI/CD, automation, and DevOps practices"
 
 [menu]
@@ -19,8 +19,3 @@ languageCode = "en-us"
     name = "Projects"
     url = "/projects/"
     weight = 2
-
-  [[menu.main]]
-    name = "CV"
-    url = "/cv/"
-    weight = 3
