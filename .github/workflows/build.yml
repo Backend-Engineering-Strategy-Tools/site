@@ -23,6 +23,12 @@ jobs:
           hugo-version: '0.157.0'
           extended: true
 
+      - name: Download latest CV & letters
+        run: |
+          mkdir -p static
+          curl -L -o static/cd.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/latest/download/cv_standard.pdf
+          curl -L -o static/letter.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/latest/download/letter_standard.pdf
+
       - name: Build
         run: hugo --minify
 
