@@ -26,9 +26,10 @@ jobs:
       - name: Download latest CV & letters
         run: |
           mkdir -p static
-          LATEST_TAG=v0.0.4
-          curl -L -o static/cv.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/download/${LATEST_TAG}/cv_standard.pdf
-          curl -L -o static/letter.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/download/${LATEST_TAG}/letter_standard.pdf
+          LATEST_TAG=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/latest | jq -r '.tag_name')
+          echo ${LATEST_TAG}
+          curl -L -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -o static/cv.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/download/${LATEST_TAG}/cv_standard.pdf
+          curl -L -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}"  -o static/letter.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/download/${LATEST_TAG}/letter_standard.pdf
           ls -la static/**
 
       - name: Build
