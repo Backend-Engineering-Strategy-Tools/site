@@ -1,0 +1,26 @@
+baseURL = "https://backend-engineering-strategy-tools.github.io/site/"
+title = "Backend Engineering Strategy Tools"
+languageCode = "en-us"
+
+[[module.imports]]
+    path = "github.com/CaiJimmy/hugo-theme-stack/v4"
+
+[params]
+  subtitle = "Backend Engineering Strategy Tools"
+  description = "Specializing in backend systems, CI/CD, automation, and DevOps practices"
+
+[menu]
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 1
+
+  [[menu.main]]
+    name = "Projects"
+    url = "/projects/"
+    weight = 2
+
+  [[menu.main]]
+    name = "CV"
+    url = "/cv/"
+    weight = 3
