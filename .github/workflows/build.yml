@@ -26,10 +26,9 @@ jobs:
       - name: Download latest CV & letters
         run: |
           mkdir -p static
-          CV_URL=$(curl -s https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/latest | jq -r '.assets[] | select(.name=="cv_standard.pdf") | .browser_download_url')
-          LETTER_URL=$(curl -s https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/latest | jq -r '.assets[] | select(.name=="letter_standard.pdf") | .browser_download_url')
-          curl -L -o static/cv.pdf $CV_URL
-          curl -L -o static/letter.pdf $LETTER_URL
+          LATEST_TAG=$(curl -s https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/latest | jq -r '.tag_name')
+          curl -L -o static/cv.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/download/${LATEST_TAG}/cv_standard.pdf
+          curl -L -o static/letter.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/download/${LATEST_TAG}/letter_standard.pdf
 
       - name: Build
         run: hugo --minify
