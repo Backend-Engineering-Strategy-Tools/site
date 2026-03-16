@@ -27,6 +27,7 @@ jobs:
         run: |
           mkdir -p static
           LATEST_TAG=$(curl -s https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/latest | jq -r '.tag_name')
+          echo "Latest tag: $LATEST_TAG"
           curl -L -o static/cv.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/download/${LATEST_TAG}/cv_standard.pdf
           curl -L -o static/letter.pdf https://github.com/Backend-Engineering-Strategy-Tools/cv/releases/download/${LATEST_TAG}/letter_standard.pdf
           pwd
