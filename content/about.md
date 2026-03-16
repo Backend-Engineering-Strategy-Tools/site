@@ -9,5 +9,5 @@ draft: false
 I specialize in backend systems, CI/CD, automation, and DevOps practices.  
 Currently focused on enterprise backend integration and tooling.
 
-- [LinkedIn](https://www.linkedin.com/in/manfred)
-- [GitHub Org](https://github.com/backend-engineering-strategy-tools)
+- [LinkedIn](https://www.linkedin.com/in/manfred-nilsson-461a893/)
+- [GitHub Org](https://github.com/Backend-Engineering-Strategy-Tools)
