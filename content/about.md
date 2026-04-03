@@ -18,5 +18,5 @@ Currently focused on enterprise backend integration and tooling.
 
 The latest version of my CV can be downloaded or viewed below:
 
-- [CV PDF](https://backend-engineering-strategy-tools.github.io/site/cv.pdf)
-- [Letter PDF](https://backend-engineering-strategy-tools.github.io/site/letter.pdf)
+- [CV PDF](/cv.pdf)
+- [Letter PDF](/letter.pdf)

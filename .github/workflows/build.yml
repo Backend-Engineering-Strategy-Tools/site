@@ -25,15 +25,18 @@ jobs:
 
       - name: Download latest CV & letters
         run: |
+          set -euo pipefail
           mkdir -p static
-          LATEST_JSON=$(curl -s -H "Authorization: token ${{ secrets.BEST_SITE_PAT }}" https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/latest)
+          LATEST_JSON=$(curl -sf -H "Authorization: token ${{ secrets.BEST_SITE_PAT }}" https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/latest)
           # Extract asset ID for CV and Letter
           CV_ID=$(echo "$LATEST_JSON" | jq -r '.assets[] | select(.name=="cv_standard.pdf") | .id')
           LETTER_ID=$(echo "$LATEST_JSON" | jq -r '.assets[] | select(.name=="letter_standard.pdf") | .id')
+          [ -z "$CV_ID" ] && echo "ERROR: cv_standard.pdf not found in latest release" && exit 1
+          [ -z "$LETTER_ID" ] && echo "ERROR: letter_standard.pdf not found in latest release" && exit 1
           # Download asset using API (private repos need this endpoint)
-          curl -L -H "Authorization: token ${{ secrets.BEST_SITE_PAT }}" -H "Accept: application/octet-stream" https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/assets/${CV_ID} -o static/cv.pdf
-          curl -L -H "Authorization: token ${{ secrets.BEST_SITE_PAT }}" -H "Accept: application/octet-stream" https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/assets/${LETTER_ID} -o static/letter.pdf
-          ls -la static/**
+          curl -Lf -H "Authorization: token ${{ secrets.BEST_SITE_PAT }}" -H "Accept: application/octet-stream" https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/assets/${CV_ID} -o static/cv.pdf
+          curl -Lf -H "Authorization: token ${{ secrets.BEST_SITE_PAT }}" -H "Accept: application/octet-stream" https://api.github.com/repos/Backend-Engineering-Strategy-Tools/cv/releases/assets/${LETTER_ID} -o static/letter.pdf
+          ls -la static/
 
       - name: Build
         run: hugo --minify
