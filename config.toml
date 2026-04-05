@@ -16,6 +16,11 @@ languageCode = "en-us"
     weight = 1
 
   [[menu.main]]
+    name = "Experience"
+    url = "/experience/"
+    weight = 2
+
+  [[menu.main]]
     name = "Projects"
     url = "/projects/"
-    weight = 2
+    weight = 3
