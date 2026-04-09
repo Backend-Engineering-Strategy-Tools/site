@@ -1,6 +1,7 @@
 baseURL = "https://backend-engineering-strategy-tools.github.io/site/"
 title = "Backend Engineering Strategy Tools"
 languageCode = "en-us"
+
 canonifyURLs = true
 
 [[module.imports]]
@@ -25,3 +26,8 @@ canonifyURLs = true
     name = "Projects"
     url = "/projects/"
     weight = 3
+
+  [[menu.main]]
+    name = "Notes"
+    url = "/public-notes/"
+    weight = 4
