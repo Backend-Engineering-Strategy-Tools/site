@@ -31,3 +31,13 @@ canonifyURLs = true
     name = "Notes"
     url = "/public-notes/"
     weight = 4
+
+  [[menu.main]]
+    name = "Homelab"
+    url = "/homelab/"
+    weight = 5
+
+  [[menu.main]]
+    name = "Garage"
+    url = "/garage/"
+    weight = 6
