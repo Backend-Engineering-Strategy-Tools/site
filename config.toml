@@ -15,24 +15,69 @@ canonifyURLs = true
   [[menu.main]]
     name = "Experience"
     url = "/experience/"
-    weight = 1
+    weight = 10
 
   [[menu.main]]
     name = "Projects"
     url = "/projects/"
-    weight = 3
+    weight = 20
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Kubernetes Stack"
+    url = "/projects/kubernetes-stack/"
+    weight = 21
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Touchscreen HUD"
+    url = "/projects/touchscreen-hud/"
+    weight = 22
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Minecraft"
+    url = "/projects/minecraft/"
+    weight = 23
 
   [[menu.main]]
     name = "Notes"
     url = "/public-notes/"
-    weight = 4
+    weight = 30
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Cloud Infrastructure"
+    url = "/public-notes/cloud-infrastructure/"
+    weight = 31
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0CI/CD"
+    url = "/public-notes/cicd/"
+    weight = 32
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Observability"
+    url = "/public-notes/observability/"
+    weight = 33
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Security"
+    url = "/public-notes/security/"
+    weight = 34
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Languages"
+    url = "/public-notes/languages/"
+    weight = 35
+
+  [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Frameworks & Tools"
+    url = "/public-notes/frameworks-tools/"
+    weight = 36
 
   [[menu.main]]
     name = "Homelab"
     url = "/homelab/"
-    weight = 5
+    weight = 40
 
   [[menu.main]]
     name = "Garage"
     url = "/garage/"
-    weight = 6
+    weight = 50
