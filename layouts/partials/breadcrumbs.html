@@ -1,0 +1,15 @@
+{{ $ancestors := .Ancestors }}
+{{ if gt (len $ancestors) 1 }}
+<nav class="breadcrumb" aria-label="breadcrumb">
+    {{ range seq (len $ancestors) }}
+        {{ $i := sub (len $ancestors) . }}
+        {{ with index $ancestors $i }}
+            {{ if not (eq .RelPermalink "/") }}
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                <span class="breadcrumb-sep">›</span>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    <span class="breadcrumb-current">{{ $.Title }}</span>
+</nav>
+{{ end }}
