@@ -73,7 +73,10 @@ The `content/public-notes/` section is live and growing.
 - Local dev: `make serve` (uses local Hugo extended)
 - `canonifyURLs = true` in config.toml
 - No pilotfish/pfn org references in any published content — use example-org/example.io
-- Breadcrumbs implemented via `layouts/partials/breadcrumbs.html` + `assets/scss/custom.scss`
+- Breadcrumbs implemented via `layouts/partials/breadcrumbs.html` + `assets/scss/custom.scss`; 2rem font, bold, border-bottom separator
+- Menu sub-nav in `config.toml`: child items use `".\u00a0\u00a0\u00a0\u00a0Name"` format (dot + 4 non-breaking spaces — regular spaces collapse in HTML)
+- Home page (`content/_index.md`) merged with about — title "B.E.S.T", `layout: single`, no separate about page
+- Projects (`content/projects/`) converted to page bundles: `kubernetes-stack/`, `touchscreen-hud/`, `minecraft/`
 
 **Style:**
 - Problem→solution narrative preferred: lead with the pain, then introduce the tool
