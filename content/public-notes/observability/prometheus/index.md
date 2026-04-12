@@ -27,9 +27,30 @@ http_request_duration_seconds{quantile="0.99"} 1.847
 
 Most infrastructure components (Kubernetes itself, NGINX, Postgres, Redis, JVM) either expose Prometheus metrics natively or have an exporter that does it for them.
 
-## In Kubernetes — the Prometheus Operator
+## In Kubernetes — kube-prometheus-stack
 
-Running Prometheus in Kubernetes manually is fiddly. The **Prometheus Operator** (part of the `kube-prometheus-stack` Helm chart) manages it via CRDs. The key one is `ServiceMonitor` — it tells Prometheus which services to scrape without editing Prometheus config directly:
+Running Prometheus in Kubernetes manually is fiddly. The fastest path to a working Prometheus + Grafana + Alertmanager stack is the `kube-prometheus-stack` Helm chart — it installs the Prometheus Operator, Grafana, Alertmanager, node exporters, and a set of default dashboards and alert rules in one go. Add [Loki](../loki/) on top for logs.
+
+### CRD workaround
+
+`kube-prometheus-stack` ships with a large set of CRDs. When managed through ArgoCD, applying CRDs and the chart in the same sync can cause ordering failures. The standard workaround is `skipCrds: true` in the ArgoCD Application, with CRDs applied via a separate kustomize source in the same Application:
+
+```yaml
+- repoURL: "oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack"
+  chart: kube-prometheus-stack
+  targetRevision: 82.14.1
+  helm:
+    releaseName: kube-prometheus-stack
+    valueFiles:
+      - $values/cluster/development/overlay/monitoring/helm/kube-prometheus-stack.yaml
+    skipCrds: true
+```
+
+This keeps the CRDs in Git and lets ArgoCD manage them, while avoiding the race condition on first install.
+
+### ServiceMonitor
+
+The **Prometheus Operator** (installed by the stack) manages scrape config via CRDs. The key one is `ServiceMonitor` — it tells Prometheus which services to scrape without editing Prometheus config directly:
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1
@@ -82,6 +103,39 @@ Prometheus evaluates alert rules continuously and fires them to Alertmanager, wh
 ```
 
 `for: 5m` means the condition must hold for 5 minutes before firing — avoids noisy alerts on brief spikes.
+
+## Metrics Server
+
+Metrics Server is a separate, lightweight component that provides the real-time resource metrics (`kubectl top pods`, `kubectl top nodes`) that HPA uses to make scaling decisions. It is not Prometheus — it does not store history and is not queryable. It exists purely to feed the Kubernetes control plane.
+
+Install via ArgoCD:
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: "https://kubernetes-sigs.github.io/metrics-server"
+      chart: metrics-server
+      targetRevision: 3.13.0
+      helm:
+        releaseName: metrics-server
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+```
+
+Install this early — HPA does nothing without it, and `kubectl top` is the first thing you reach for when something looks wrong.
 
 ## What Prometheus is not
 
