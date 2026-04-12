@@ -8,6 +8,8 @@ layout: single
 
 Something is wrong. Pods are restarting, latency is climbing, and a request that usually takes 50ms is now taking 2 seconds. You know something happened — users are complaining — but you have no numbers, no history, and no way to know when it started or which service caused it.
 
+The instinct is to grep the logs. And with one service on one server, that works. But once you have 20 services running across 40 pods, grepping logs to understand system behaviour does not scale. You are looking at individual events trying to infer aggregate trends — the wrong tool for the question. Logs tell you what happened in one place at one moment. Metrics tell you how the system is behaving across all of it, over time.
+
 So you use Prometheus. It scrapes metrics from every pod, node, and cluster component on a regular interval and stores them as time series. Now you have the spike, the exact minute it started, and a number attached to every symptom.
 
 ## How it works
