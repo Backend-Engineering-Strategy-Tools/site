@@ -70,9 +70,9 @@ These were enterprise-grade rack servers, popular in the late 2000s, powered by 
 The C7000 is a substantial 10U blade enclosure designed to host up to 16 server blades, along with storage blades and integrated networking/management modules. It provides a consolidated infrastructure for power, cooling, and network connectivity, significantly simplifying cable management and enabling high-density computing environments. These systems were foundational for many enterprise virtualization platforms.
 
 ### Sun Fire X4150 (SYS-009, LOKI)
-*1U · dual Xeon (Harpertown) · 16 DIMM slots · running OPNsense*
+*1U · dual Xeon (Harpertown) · 16 DIMM slots · 4 network interface*
 
-A 1U rackmount server from Sun Microsystems, the Sun Fire X4150 typically featured Intel Xeon processors. Sun's x86 server line was recognized for its build quality and integration, often running Solaris or Linux. Given its "OPENSENSE" designation, this unit is likely configured as a dedicated firewall or network appliance, utilizing its robust hardware for network security and routing tasks.
+A 1U rackmount server from Sun Microsystems, the Sun Fire X4150 typically featured Intel Xeon processors. Sun's x86 server line was recognized for its build quality and integration, often running Solaris or Linux. I use it as a dedicated firewall / network appliance (OpenSense), utilizing its robust hardware for network security and routing tasks.
 
 ### Dell PowerVault MD1200 (SYS-004, MIMIR) — [specs](https://www.dell.com/support/kbdoc/en-us/000124452/dell-powervault-md1200-md1220-direct-attached-storage)
 *2U DAS · 12× LFF (3.5") hot-swap SAS/SATA bays · 6Gb/s SAS · up to 24TB raw*
@@ -82,4 +82,4 @@ The PowerVault MD1200 is a direct-attached storage (DAS) enclosure, designed to 
 ### ZyXEL ZyWALL 110 (SYS-011, GUNGNIR)
 *2× GbE WAN · 4× GbE LAN · VPN gateway · IPS/IDS*
 
-The ZyWALL 110 is a professional-grade security gateway and VPN firewall. It delivers comprehensive network security features, including intrusion prevention, content filtering, and strong VPN capabilities. This appliance is well-suited for establishing a secure perimeter for a homelab network or segmenting different network environments for enhanced control and protection.
+The ZyWALL 110 is a professional-grade security gateway and VPN firewall. It delivers comprehensive network security features, including intrusion prevention, content filtering, and strong VPN capabilities. This appliance is well-suited for establishing a secure perimeter for a homelab network or segmenting different network environments for enhanced control and protection. However since I don't have any license for it is currently not used.
