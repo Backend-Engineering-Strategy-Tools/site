@@ -8,50 +8,51 @@ layout: single
 
 # Systems
 
-| Asset ID | Hostname    | Manufacturer | Model                  | Form Factor | Notes                          |
-|----------|-------------|--------------|------------------------|-------------|--------------------------------|
-| SYS-001  | FREJA       | IBM          | System x3550 Type 7978 | 1U          | Rack server (S/N: KDHPPNN)     |
-| SYS-002  | TYR         | IBM          | System x3650 Type 7979 | 2U          | Rack server                    |
-| SYS-003  | TOR         | IBM          | System x3650 Type 7979 | 2U          | Rack server                    |
-| SYS-004  | MIMIR       | Dell         | PowerVault MD1200      | 2U          | Disk shelf                     |
-| SYS-005  | ODEN        | IBM          | System x3650 Type 7979 | 2U          | Rack server                    |
-| SYS-006  | HEIMDAL     | IBM          | System x3650 Type 7979 | 2U          | Rack server                    |
-| SYS-007  | ASGARD      | HP           | BladeSystem C7000      | 10U         | Blade enclosure (Hosts 1-16)   |
-| SYS-008  | BALDER      | HP           | ProLiant DL320 G5p     | 1U          | Dual 250GB SATA                |
-| SYS-009  | LOKI        | Sun          | Sun Fire X4150         | 1U          | Labeled: OPENSENSE             |
-| SYS-010  | LOKE        | IBM          | System x3550 M2        | 1U          | Newer gen IBM                  |
-| SYS-011  | GUNGNIR     | ZyXEL        | ZyWALL 110             | 1U          | Security Gateway / Firewall    |
-| SYS-012  | BIFROST-01  | Edge-Core    | ECS4510-28F            | 1U          | 28-Port SFP Fiber Switch       |
-| SYS-013  | BIFROST-02  | Edge-Core    | ECS4510-28F            | 1U          | 28-Port SFP Fiber Switch       |
-| SYS-014  | MODI        | HP           | V1910-24G-PoE          | 1U          | 365W PoE Switch (JE007A)       |
-| SYS-015  | MAGNI       | Cisco        | Catalyst 2960G         | 1U          | 24-Port Managed Gig Switch     |
-| SYS-016  | HOENIR      | HP           | ProCurve 1800-24G      | 1U          | Fanless/Silent Switch (J9028A) |
-| SYS-017  | HUGINN      | Avocent      | KVM Switch             | 1U          | Rackmount KVM                  |
-| SYS-018  | SURTR-01    | APC          | Back-UPS CS 650        | Desktop     | UPS Unit 1                     |
-| SYS-019  | SURTR-02    | APC          | Back-UPS CS 650        | Desktop     | UPS Unit 2                     |
+| Asset ID | Hostname   | Manufacturer | Model                     | Form Factor | Notes                                                      |
+|----------|------------|--------------|---------------------------|-------------|------------------------------------------------------------|
+| SYS-001  | FREJA      | IBM          | System x3550 M1 Type 7978 | 1U          | Rack server (S/N: KDHPPNN); 1/2 CPU slots populated        |
+| SYS-002  | TYR        | IBM          | System x3650 M1 Type 7979 | 2U          | Rack server                                                |
+| SYS-003  | TOR        | IBM          | System x3650 M1 Type 7979 | 2U          | Rack server                                                |
+| SYS-004  | MIMIR      | Dell         | PowerVault MD1200         | 2U          | Disk shelf                                                 |
+| SYS-005  | ODEN       | IBM          | System x3550 M3           | 1U          | Mixed DDR3 1333+1600 ECC Reg; PCIe x16 riser (FRU 43V7066) |
+| SYS-006  | LOKE       | IBM          | System x3550 M3           | 1U          | M3 board in M2 chassis; no RAM; CPU unknown                |
+| SYS-007  | ASGARD     | HP           | BladeSystem C7000         | 10U         | Blade enclosure (Hosts 1-16)                               |
+| SYS-008  | BALDER     | HP           | ProLiant DL320 G5p        | 1U          | Dual 250GB SATA                                            |
+| SYS-009  | HEIMDAL    | Sun          | Sun Fire X4150            | 1U          | 2× Xeon E5430 (8c/8t); 4× onboard GbE; OPNsense            |
+| SYS-010  | VIDAR      | HP           | ProCurve 1800-24G         | 1U          | Fanless/Silent Switch (J9028A)                             |
+| SYS-011  | GUNGNIR    | ZyXEL        | ZyWALL 110                | 1U          | Security Gateway / Firewall                                |
+| SYS-012  | BIFROST-01 | Edge-Core    | ECS4510-28F               | 1U          | 28-Port SFP Fiber Switch                                   |
+| SYS-013  | BIFROST-02 | Edge-Core    | ECS4510-28F               | 1U          | 28-Port SFP Fiber Switch                                   |
+| SYS-014  | MODI       | HP           | V1910-24G-PoE             | 1U          | 365W PoE Switch (JE007A)                                   |
+| SYS-015  | MAGNI      | Cisco        | Catalyst 2960G            | 1U          | 24-Port Managed Gig Switch                                 |
+| SYS-016  | VALI       | HP           | ProCurve 1800-24G         | 1U          | Fanless/Silent Switch (J9028A)                             |
+| SYS-017  | RATATOSK   | Avocent      | KVM Switch                | 1U          | Rackmount KVM                                              |
+| SYS-018  | SURTR-01   | APC          | Back-UPS CS 650           | Desktop     | UPS Unit 1                                                 |
+| SYS-019  | SURTR-02   | APC          | Back-UPS CS 650           | Desktop     | UPS Unit 2                                                 |
+| SYS-020  | MUNINN     | Cisco        | Catalyst 2960 WS-C2960-24TC-L | 1U      | 24× 10/100 + 4× uplink                                    |
 
 ---
 
 # Blade Nodes (Inside ASGARD)
 
-| Asset ID | Hostname     | Manufacturer | Model         | Slot | Notes |
-|----------|--------------|--------------|---------------|------|-------|
-| BLD-001  | BLADE-01     | HP           | BL460c Gen8   | 1    |       |
-| BLD-002  | BLADE-02     | HP           | BL460c Gen8   | 2    |       |
-| BLD-003  | BLADE-03     | HP           | BL460c Gen8   | 3    |       |
-| BLD-004  | BLADE-04     | HP           | BL460c Gen8   | 4    |       |
-| BLD-005  | BLADE-05     | HP           | BL460c Gen8   | 5    |       |
-| BLD-006  | BLADE-06     | HP           | BL460c Gen8   | 6    |       |
-| BLD-007  | BLADE-07     | HP           | BL460c Gen8   | 7    |       |
-| BLD-008  | BLADE-08     | HP           | BL460c Gen8   | 8    |       |
-| BLD-009  | BLADE-09     | HP           | BL460c Gen8   | 9    |       |
-| BLD-010  | BLADE-10     | HP           | BL460c Gen8   | 10   |       |
-| BLD-011  | BLADE-11     | HP           | BL460c Gen8   | 11   |       |
-| BLD-012  | BLADE-12     | HP           | BL460c Gen8   | 12   |       |
-| BLD-013  | BLADE-13     | HP           | BL460c Gen8   | 13   |       |
-| BLD-014  | BLADE-14     | HP           | BL460c Gen8   | 14   |       |
-| BLD-015  | BLADE-15     | HP           | BL460c Gen8   | 15   |       |
-| BLD-016  | BLADE-16     | HP           | BL460c Gen8   | 16   |       |
+| Asset ID | Hostname | Manufacturer | Model       | Slot |
+|----------|----------|--------------|-------------|------|
+| BLD-001  | BLADE-01 | HP           | BL460c Gen8 | 1    |
+| BLD-002  | BLADE-02 | HP           | BL460c Gen8 | 2    |
+| BLD-003  | BLADE-03 | HP           | BL460c Gen8 | 3    |
+| BLD-004  | BLADE-04 | HP           | BL460c Gen8 | 4    |
+| BLD-005  | BLADE-05 | HP           | BL460c Gen8 | 5    |
+| BLD-006  | BLADE-06 | HP           | BL460c Gen8 | 6    |
+| BLD-007  | BLADE-07 | HP           | BL460c Gen8 | 7    |
+| BLD-008  | BLADE-08 | HP           | BL460c Gen8 | 8    |
+| BLD-009  | BLADE-09 | HP           | BL460c Gen8 | 9    |
+| BLD-010  | BLADE-10 | HP           | BL460c Gen8 | 10   |
+| BLD-011  | BLADE-11 | HP           | BL460c Gen8 | 11   |
+| BLD-012  | BLADE-12 | HP           | BL460c Gen8 | 12   |
+| BLD-013  | BLADE-13 | HP           | BL460c Gen8 | 13   |
+| BLD-014  | BLADE-14 | HP           | BL460c Gen8 | 14   |
+| BLD-015  | BLADE-15 | HP           | BL460c Gen8 | 15   |
+| BLD-016  | BLADE-16 | HP           | BL460c Gen8 | 16   |
 
 ---
 

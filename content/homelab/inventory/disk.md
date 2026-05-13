@@ -8,23 +8,48 @@ layout: single
 
 # Storage Media
 
-| Component ID | Manufacturer | Model                           | Capacity | RPM      | Interface | Quantity | Notes |
-|--------------|--------------|---------------------------------|----------|----------|-----------|----------|-------|
-| HDD-001      | Unknown      | Enterprise SAS HDD              | 73GB     | 7200 RPM | SAS 3Gbps | 6        | (?)   |
-| HDD-002      | Unknown      | Enterprise SAS HDD              | 146GB    | 7200 RPM | SAS 3Gbps | 22       | (?)   |
-| HDD-003      | Seagate      | Constellation ES.3 ST1000NM0043 | 1TB      | 7200 RPM | SAS 6Gbps | 20       | (?)   |
-| HDD-004      | Unknown      | Enterprise SSD                  | 120GB    | —        | SATA/SAS  | 6        | (?)   |
+| Component ID | Manufacturer    | Model                                                | Capacity | RPM      | Interface            | Quantity | Notes                                   |
+|--------------|-----------------|------------------------------------------------------|----------|----------|----------------------|----------|-----------------------------------------|
+| HDD-001      | IBM / Fujitsu   | MBB2073RC                                            | 73.4GB   | 10K RPM  | SAS 3Gbps            | 6        | 2.5" SFF; enterprise                    |
+| HDD-002      | IBM / Seagate   | ST9146802SS (FRU 43X0825)                            | 146.8GB  | 10K RPM  | SAS 6Gbps            | 22       | 2.5" SFF hot-swap; IBM P/N 42D0248      |
+| HDD-003      | Seagate         | Constellation ES.3 ST1000NM0043                      | 1TB      | 7200 RPM | SAS 6Gbps            | 20       |                                         |
+| HDD-004      | Kingston        | SSDNow V300 SV300S37A/120G                           | 120GB    | —        | SATA                 | 7        | Consumer SSD; used as boot drives       |
+| HDD-005      | Samsung         | 970 EVO                                              | 500GB    | —        | NVMe M.2 PCIe 3.0 x4 | 1        | In PCIe x16 riser (FRU 43V7066) in ODEN |
+| HDD-006      | Western Digital | WD Blue WD10EZEX                                     | 1TB      | 7200 RPM | SATA 64MB cache      | 4        | Consumer-grade; mfg. 2015-11            |
+| HDD-007      | Seagate         | ST500LM000                                           | 500GB    | 5400 RPM | SATA                 | 1        | SSHD; 8GB NAND cache; laptop-grade      |
+| HDD-008      | Hitachi         | HTS542525K9SA00                                      | 250GB    | 5400 RPM | SATA                 | 1        | Laptop-grade                            |
+| HDD-009      | Samsung         | HD300LD                                              | 300GB    | 7200 RPM | PATA (IDE)           | 1        | Desktop; 8MB cache; legacy interface    |
+| HDD-010      | Seagate         | Barracuda 7200.7 ST380013AS                          | 80GB     | 7200 RPM | SATA                 | 1        | Desktop; legacy                         |
+| HDD-011      | HP / Seagate    | EH0146FARWD (518216-002 / GPN 652599-002)            | 146GB    | 15K RPM  | SAS 6Gbps            | 3        | 2.5" SFF; enterprise; BL460c Gen8 pulls |
+| HDD-012      | HP              | EG0300FBVFL (641552-001 / GPN 652566-001)            | 300GB    | 10K RPM  | SAS 6Gbps            | 15       | 2.5" SFF; enterprise; BL460c Gen8 pulls |
+| HDD-013      | HGST            | Ultrastar C10K900 HUC109090CSS600 (EMC 118033034-02) | 900GB    | 10K RPM  | SAS 6Gbps            | 1        | 2.5" SFF; enterprise                    |
+| HDD-014      | Toshiba         | AL13SEB900 (HDEBC00NAA51)                            | 900GB    | 10K RPM  | SAS 6Gbps            | 1        | 2.5" SFF; enterprise                    |
 
 ---
 
 # Storage Assignments
 
-| System ID | Hostname | Component ID | Quantity | Total Installed Storage | Notes        |
-|-----------|----------|--------------|----------|-------------------------|--------------|
-| SYS-001   | FREJA    | HDD-004      | 1        |                         | single drive |
-| SYS-002   | TYR      | HDD-002      | 8        |                         | raid 10      |
-| SYS-003   | TOR      | HDD-002      | 8        |                         | HBA          |
-| SYS-004   | MD1200   | HDD-003      | 15       | 15 TB                   |              |
+| System ID | Hostname | Component ID | Quantity | Total Installed Storage | Notes         |
+|-----------|----------|--------------|----------|-------------------------|---------------|
+| SYS-001   | FREJA    | HDD-004      | 1        |                         | single drive  |
+| SYS-002   | TYR      | HDD-002      | 8        |                         | raid 10       |
+| SYS-003   | TOR      | HDD-002      | 8        |                         | HBA           |
+| SYS-004   | MD1200   | HDD-003      | 15       | 15 TB                   |               |
+| SYS-005   | ODEN     | HDD-004      | 4        | 480GB                   |               |
+| SYS-005   | ODEN     | HDD-005      | 1        | 500GB                   | M.2 via riser |
+| SYS-009   | HEIMDAL  | HDD-001      | 3        | 219GB                   |               |
+| BLD-001   | BLADE-01 | HDD-011      | 2        | 292GB                   |               |
+| BLD-003   | BLADE-03 | HDD-012      | 2        | 600GB                   |               |
+| BLD-005   | BLADE-05 | HDD-011      | 1        | 146GB                   | mixed config  |
+| BLD-005   | BLADE-05 | HDD-012      | 1        | 300GB                   | mixed config  |
+| BLD-006   | BLADE-06 | HDD-012      | 2        | 600GB                   |               |
+| BLD-007   | BLADE-07 | HDD-013      | 1        | 900GB                   | mixed config  |
+| BLD-007   | BLADE-07 | HDD-014      | 1        | 900GB                   | mixed config  |
+| BLD-008   | BLADE-08 | HDD-012      | 2        | 600GB                   |               |
+| BLD-010   | BLADE-10 | HDD-012      | 2        | 600GB                   |               |
+| BLD-011   | BLADE-11 | HDD-012      | 2        | 600GB                   |               |
+| BLD-012   | BLADE-12 | HDD-012      | 2        | 600GB                   |               |
+| BLD-015   | BLADE-15 | HDD-012      | 2        | 600GB                   |               |
 
 ---
 
