@@ -8,10 +8,10 @@ layout: single
 
 # GPU Catalog
 
-| Component ID | Manufacturer | Model      | Quantity | VRAM | Interface | Notes                      |
-|--------------|--------------|------------|----------|------|-----------|----------------------------|
-| GPU-001      | NVIDIA/Dell  | Quadro 600 | 3        | 1 GB | PCIe      | Identified via DP/N 0R784K |
-| GPU-002      | EVGA         | GTX 770    | 1        | 2 GB | PCIe      | Requires 6+8 pin power     |
+| Component ID | Manufacturer | Model      | Quantity | VRAM | Interface | Notes                  |
+|--------------|--------------|------------|----------|------|-----------|------------------------|
+| GPU-001      | NVIDIA/Dell  | Quadro 600 | 3        | 1 GB | PCIe      |                        |
+| GPU-002      | EVGA         | GTX 770    | 1        | 2 GB | PCIe      | Requires 6+8 pin power |
 
 ---
 

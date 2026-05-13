@@ -14,7 +14,7 @@ layout: single
 | CTRL-002     | LSI          | 9211-8i          | RAID | PCIe      | Hardware RAID         |
 | CTRL-003     | LSI          | 9211-8i          | HBA  | PCIe      | IT mode (passthrough) |
 | CTRL-004     | Dell         | PERC H710        | RAID | PCIe      | Hardware RAID         |
-| CTRL-005     | HP           | Smart Array P410 | RAID | PCIe      | Legacy controller     |
+| CTRL-005     | HP           | Smart Array P410 | RAID | PCIe      | Hardware RAID         |
 
 ---
 
@@ -46,4 +46,4 @@ The Dell PERC H710 is an enterprise-grade RAID controller commonly found in Dell
 ### HP Smart Array P410 (e.g., CTRL-005)
 *8-port SAS · 3Gb/s · PCIe · RAID 0/1/5/10*
 
-The HP Smart Array P410 is a legacy RAID controller designed for older generations of HP ProLiant servers. It offered hardware RAID capabilities, supporting RAID levels 0, 1, 5, and 10. Although still functional, its performance and feature set are considered dated compared to contemporary controllers, making it suitable for less intensive storage tasks or environments requiring compatibility with older hardware.
+The HP Smart Array P410 is a legacy RAID controller designed for older generations of HPE ProLiant servers. It offered hardware RAID capabilities, supporting RAID levels 0, 1, 5, and 10. Although still functional, its performance and feature set are considered dated compared to contemporary controllers, making it suitable for less intensive storage tasks or environments requiring compatibility with older hardware.
