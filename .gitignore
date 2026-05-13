@@ -3,3 +3,7 @@ resources/*
 
 .idea/*
 .DS_Store
+
+input/*
+research/*
+
