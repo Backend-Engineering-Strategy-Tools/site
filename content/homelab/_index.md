@@ -22,4 +22,14 @@ The principles transfer setting up Kubernetes on a ten-year-old blade is the sam
 
 ### [Hardware Inventory](/homelab/inventory/)
 
-*More details and setup notes to follow.*
+### [Talos Linux in the homelab PXE boot via Omni](/homelab/talos-omni/)
+
+### [Proxmox Cluster in the homelab](/homelab/proxmox-cluster/)
+
+*Rook + Ceph — coming soon*
+
+*VyOS + BGP — coming soon*
+
+*LLM Training on Bare Metal — coming soon*
+
+*LLM Inference on Bare Metal — coming soon*
