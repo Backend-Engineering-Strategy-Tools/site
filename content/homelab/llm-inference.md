@@ -9,6 +9,8 @@ tags: ["llm", "talos", "kubernetes", "vllm", "ollama", "bare-metal", "gpu", "inf
 
 Serving LLM inference from the lab — an OpenAI-compatible API endpoint running on owned hardware. [ODEN](/homelab/inventory/systems/) is the candidate node: it has a PCIe x16 riser and will take the [GTX 770](/homelab/inventory/gpu/).
 
+This builds on the [ODEN Talos cluster](/homelab/talos-omni/); ODEN already has Kubernetes running.
+
 ---
 
 ## Goal

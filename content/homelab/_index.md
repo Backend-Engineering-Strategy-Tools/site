@@ -23,16 +23,23 @@ The principles transfer setting up Kubernetes on a ten-year-old blade is the sam
 
 ### [Hardware Inventory](/homelab/inventory/)
 
-### [Talos Linux in the homelab PXE boot via Omni](/homelab/talos-omni/)
+---
 
-### [Proxmox Cluster in the homelab](/homelab/proxmox-cluster/)
+**Kubernetes / Talos**
 
-### [Rook + Ceph in the homelab](/homelab/rook-ceph/)
+- [Talos Linux: PXE boot via Omni](/homelab/talos-omni/)
+- [Rook + Ceph storage](/homelab/rook-ceph/)
+- *LLM Inference on Bare Metal — coming soon*
 
-### [OPNsense — ~~lab~~ production](/homelab/opnsense/)
+**Virtualization**
 
-*VyOS + BGP — coming soon*
+- [Proxmox Cluster](/homelab/proxmox-cluster/)
 
-*LLM Training on Bare Metal — coming soon*
+**Network**
 
-*LLM Inference on Bare Metal — coming soon*
+- [OPNsense — ~~lab~~ production](/homelab/opnsense/)
+- *VyOS + BGP — coming soon*
+
+**Compute cluster**
+
+- *LLM Training on Bare Metal — coming soon*
