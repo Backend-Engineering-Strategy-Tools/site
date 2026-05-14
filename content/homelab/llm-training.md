@@ -17,6 +17,8 @@ Run reproducible fine-tuning and training jobs on the [blade nodes](/homelab/inv
 
 The models will be small. The point is the infrastructure, not the output.
 
+The specific motivation here is to run all three systems together: OpenStack, Slurm, and a Kubernetes cluster (Talos on [ODEN](/homelab/inventory/systems/)). Each of these is interesting on its own; getting them to coexist and hand off work to each other is the experiment. A simpler approach — just `sbatch` directly on bare metal — would produce a trained model faster, but that's not the question being asked.
+
 ---
 
 ## Stack
