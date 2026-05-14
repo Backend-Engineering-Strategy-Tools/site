@@ -1,10 +1,11 @@
 ---
 title: "OPNsense in the homelab"
+description: "OPNsense on the Sun Fire X4150 — perimeter gateway for both the homelab and the house. Running, not clean, redo on the todo list."
 date: 2026-05-14
 draft: false
 showReadingTime: false
 layout: single
-tags: ["opnsense", "firewall", "networking", "homelab"]
+tags: ["opnsense", "firewall", "networking"]
 ---
 
 [OPNsense](/public-notes/cloud-infrastructure/opnsense/) running on the Sun Fire X4150 — perimeter gateway for both the homelab and the home network.

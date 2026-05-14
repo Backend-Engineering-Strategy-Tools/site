@@ -1,5 +1,6 @@
 ---
 title: "Slurm"
+description: "Slurm reference — workload manager and job scheduler for HPC and ML training, optimising for maximum GPU utilisation over uptime."
 date: 2026-05-14
 draft: false
 tags: ["slurm", "hpc", "scheduler", "bare-metal", "ml", "training"]

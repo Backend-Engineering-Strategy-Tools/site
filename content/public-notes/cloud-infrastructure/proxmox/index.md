@@ -1,8 +1,9 @@
 ---
 title: "Proxmox VE"
+description: "Proxmox VE reference — open-source hypervisor combining KVM and LXC with a web UI. The practical VMware replacement."
 date: 2026-05-14
 draft: false
-tags: ["proxmox", "virtualization", "kvm", "lxc", "bare-metal"]
+tags: ["proxmox", "virtualization", "kvm", "lxc", "bare-metal", "hypervisor", "clustering"]
 showReadingTime: false
 layout: single
 ---
@@ -40,8 +41,11 @@ Proxmox is the practical choice when you want VMware-style management without th
 
 ---
 
-## Relevant links
+## Related
 
 - [Proxmox VE documentation](https://pve.proxmox.com/pve-docs/)
 - [Proxmox community forum](https://forum.proxmox.com/)
 - [Corosync documentation](https://corosync.github.io/corosync/)
+- [Ceph](/public-notes/cloud-infrastructure/ceph/) — distributed storage backend for Proxmox clusters
+- [OpenStack](/public-notes/cloud-infrastructure/openstack/) — the next tier up the scale spectrum
+- [Proxmox cluster in the homelab](/homelab/proxmox-cluster/)

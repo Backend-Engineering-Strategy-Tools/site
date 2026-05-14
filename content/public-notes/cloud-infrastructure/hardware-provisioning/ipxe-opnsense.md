@@ -1,5 +1,6 @@
 ---
 title: "PXE Booting with OPNSense + iPXE"
+description: "How to configure OPNsense as a PXE boot server — DHCP network boot options, TFTP setup, and an iPXE boot menu for Talos and other targets."
 date: 2026-05-14
 draft: false
 tags: ["pxe", "ipxe", "opnsense", "tftp", "talos", "bare-metal"]

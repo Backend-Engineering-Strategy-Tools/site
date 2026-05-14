@@ -1,5 +1,6 @@
 ---
 title: "Proxmox Cluster in the homelab"
+description: "Building a three-node Proxmox VE cluster on IBM rack servers — a shared virtualization platform for running VMs and LXC containers."
 date: 2026-05-14
 draft: false
 showReadingTime: false

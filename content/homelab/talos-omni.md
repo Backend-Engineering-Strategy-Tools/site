@@ -1,5 +1,6 @@
 ---
 title: "Talos Linux in the homelab via Omni"
+description: "Getting Talos Linux running via PXE boot and Omni on an IBM x3550 M3 — what actually happened, in order."
 date: 2026-05-14
 draft: false
 showReadingTime: false

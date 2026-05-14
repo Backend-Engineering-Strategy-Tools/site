@@ -1,5 +1,6 @@
 ---
 title: "vLLM"
+description: "vLLM reference — high-throughput LLM inference engine using PagedAttention for maximum GPU utilisation under concurrent load."
 date: 2026-05-14
 draft: false
 tags: ["vllm", "llm", "inference", "gpu", "serving"]

@@ -1,8 +1,9 @@
 ---
 title: "Ceph"
+description: "Ceph reference — distributed storage providing block, object, and file storage across multiple nodes with no single point of failure."
 date: 2026-05-14
 draft: false
-tags: ["ceph", "storage", "distributed", "kubernetes"]
+tags: ["ceph", "storage", "distributed", "kubernetes", "block-storage", "object-storage"]
 showReadingTime: false
 layout: single
 ---
@@ -45,4 +46,7 @@ A single-node Ceph cluster can be made to run (`allowMultiplePerNode: true` in R
 
 ## Related
 
+- [Ceph documentation](https://docs.ceph.com/)
 - [Rook](/public-notes/cloud-infrastructure/rook/) — Kubernetes operator that manages Ceph clusters inside K8s
+- [Proxmox](/public-notes/cloud-infrastructure/proxmox/) — Ceph is a native storage backend in Proxmox clusters
+- [Rook + Ceph in the homelab](/homelab/rook-ceph/)

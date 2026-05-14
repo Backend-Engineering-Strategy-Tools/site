@@ -1,5 +1,6 @@
 ---
 title: "Hardware Provisioning: PXE Booting and Tooling"
+description: "Overview of bare-metal provisioning tooling — from Cobbler and Foreman to Tinkerbell and Matchbox, and where each fits in the landscape."
 date: 2026-05-12
 draft: false
 tags: ["pxe", "bare-metal", "provisioning", "cobbler", "foreman", "ironic", "rebar"]

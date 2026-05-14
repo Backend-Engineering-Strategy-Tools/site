@@ -2,6 +2,7 @@
 title: "Git"
 draft: false
 date: 2024-01-01
+tags: ["git", "version-control", "workflow", "branching"]
 showReadingTime: false
 layout: single
 ---

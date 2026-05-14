@@ -1,5 +1,6 @@
 ---
 title: "BGP"
+description: "BGP reference — path-vector routing, eBGP vs iBGP, private ASNs, and why it matters for Kubernetes LoadBalancer services on bare metal."
 date: 2026-05-14
 draft: false
 tags: ["bgp", "networking", "routing", "metallb", "kubernetes"]

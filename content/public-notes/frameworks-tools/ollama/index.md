@@ -1,5 +1,6 @@
 ---
 title: "Ollama"
+description: "Ollama reference — local LLM runner with a model library and REST API. The fastest path to running models on your own hardware."
 date: 2026-05-14
 draft: false
 tags: ["ollama", "llm", "inference", "local", "serving"]

@@ -1,5 +1,6 @@
 ---
 title: "OPNsense"
+description: "OPNsense reference — open-source FreeBSD-based firewall and routing platform covering the full gateway function."
 date: 2026-05-14
 draft: false
 tags: ["opnsense", "firewall", "router", "networking", "freebsd"]

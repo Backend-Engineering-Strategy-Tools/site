@@ -1,8 +1,9 @@
 ---
 title: "Rook"
+description: "Rook reference — Kubernetes operator that deploys and manages Ceph as native Kubernetes resources via CRDs."
 date: 2026-05-14
 draft: false
-tags: ["rook", "ceph", "storage", "kubernetes", "operator"]
+tags: ["rook", "ceph", "storage", "kubernetes", "operator", "csi", "storage-class"]
 showReadingTime: false
 layout: single
 ---
@@ -49,4 +50,6 @@ A single-node setup requires `allowMultiplePerNode: true` in the `CephCluster` s
 
 ## Related
 
+- [Rook documentation](https://rook.io/docs/rook/latest/)
 - [Ceph](/public-notes/cloud-infrastructure/ceph/) — the underlying storage system
+- [Rook + Ceph in the homelab](/homelab/rook-ceph/)

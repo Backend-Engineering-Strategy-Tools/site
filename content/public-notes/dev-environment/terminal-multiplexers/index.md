@@ -1,5 +1,6 @@
 ---
 title: "Terminal Multiplexers"
+description: "tmux vs Zellij comparison — and why plain terminal tabs are still the right call for now."
 date: 2026-05-12
 draft: false
 tags: ["terminal", "multiplexer", "cli", "tools", "tmux", "zellij"]

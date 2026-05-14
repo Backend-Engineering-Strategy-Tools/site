@@ -1,5 +1,6 @@
 ---
 title: "Talos Linux + Omni"
+description: "Talos Linux reference — immutable, API-managed OS for Kubernetes, with notes on Omni cluster management and the Image Factory."
 date: 2026-05-14
 draft: false
 tags: ["talos", "omni", "kubernetes", "immutable", "bare-metal"]

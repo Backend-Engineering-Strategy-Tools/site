@@ -1,5 +1,6 @@
 ---
 title: "VyOS"
+description: "VyOS reference — open-source network OS with commit/rollback CLI, native BGP via FRRouting, and Ansible/Terraform automation support."
 date: 2026-05-14
 draft: false
 tags: ["vyos", "networking", "bgp", "router", "vm"]

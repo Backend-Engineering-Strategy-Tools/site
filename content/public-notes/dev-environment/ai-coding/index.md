@@ -1,5 +1,6 @@
 ---
 title: "AI Coding Assistants"
+description: "Comparison of CLI AI coding assistants — Claude Code, Aider, Pi, and Google AI Studio, with honest assessments of each."
 date: 2026-05-14
 draft: false
 tags: ["ai", "llm", "claude-code", "aider", "pi", "coding"]

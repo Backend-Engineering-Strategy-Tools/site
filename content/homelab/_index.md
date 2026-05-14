@@ -2,6 +2,7 @@
 title: "Homelab"
 date: 2026-04-12
 draft: false
+description: "A garage lab running real infrastructure on old enterprise hardware. Kubernetes on bare metal, networking experiments, and things that would be irresponsible to try on a work cluster."
 layout: single
 showReadingTime: false
 ---
@@ -27,6 +28,8 @@ The principles transfer setting up Kubernetes on a ten-year-old blade is the sam
 ### [Proxmox Cluster in the homelab](/homelab/proxmox-cluster/)
 
 ### [Rook + Ceph in the homelab](/homelab/rook-ceph/)
+
+### [OPNsense — ~~lab~~ production](/homelab/opnsense/)
 
 *VyOS + BGP — coming soon*
 

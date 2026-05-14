@@ -1,5 +1,6 @@
 ---
 title: "Rook + Ceph on ODEN"
+description: "Deploying Rook + Ceph on a single-node Talos cluster — persistent block storage for Kubernetes workloads in the homelab."
 date: 2026-05-14
 draft: false
 showReadingTime: false

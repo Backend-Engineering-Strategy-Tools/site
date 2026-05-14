@@ -1,5 +1,6 @@
 ---
 title: "OpenStack"
+description: "OpenStack reference — open-source IaaS for building private clouds, with notes on scale fit and running OpenStack on Kubernetes."
 date: 2026-05-14
 draft: false
 tags: ["openstack", "iaas", "cloud", "bare-metal", "virtualization"]
