@@ -34,7 +34,7 @@ layout: single
 | SYS-001   | FREJA    | HDD-004      | 1        |                         | single drive  |
 | SYS-002   | TYR      | HDD-002      | 8        |                         | raid 10       |
 | SYS-003   | TOR      | HDD-002      | 8        |                         | HBA           |
-| SYS-004   | MD1200   | HDD-003      | 15       | 15 TB                   |               |
+| SYS-004   | MD1200   | HDD-003      | 15       | 15 TB                   | SAS HBA not installed; shelf unconnected |
 | SYS-005   | ODEN     | HDD-004      | 4        | 480GB                   |               |
 | SYS-005   | ODEN     | HDD-005      | 1        | 500GB                   | M.2 via riser |
 | SYS-009   | HEIMDAL  | HDD-001      | 3        | 219GB                   |               |

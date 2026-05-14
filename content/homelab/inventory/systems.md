@@ -70,6 +70,8 @@ These were enterprise-grade rack servers, popular in the late 2000s, powered by 
 
 The C7000 is a substantial 10U blade enclosure designed to host up to 16 server blades, along with storage blades and integrated networking/management modules. It provides a consolidated infrastructure for power, cooling, and network connectivity, significantly simplifying cable management and enabling high-density computing environments. These systems were foundational for many enterprise virtualization platforms.
 
+The BL460c Gen8 blades have onboard LOM providing 1GbE connectivity. No mezzanine cards are currently installed — 10GbE requires FlexibleLOM adapters.
+
 ### Sun Fire X4150 
 *1U · dual Xeon (Harpertown) · 16 DIMM slots · 4 network interface*
 
