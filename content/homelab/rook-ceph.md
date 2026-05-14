@@ -1,7 +1,7 @@
 ---
 title: "Rook + Ceph on ODEN"
 date: 2026-05-14
-draft: true
+draft: false
 showReadingTime: false
 layout: single
 tags: ["rook", "ceph", "storage", "kubernetes", "bare-metal"]
@@ -15,13 +15,13 @@ Attempting to add persistent block storage to the [ODEN](/homelab/inventory/syst
 
 ODEN has five storage devices:
 
-| Device | Type | Size | Role |
-|---|---|---|---|
-| `/dev/sdb` | Kingston SA400S3 SSD (SATA) | 120 GB | Boot disk — leave alone |
-| `/dev/nvme0n1` | Samsung 970 EVO NVMe | 500 GB | OSD |
-| `/dev/sdc` | Kingston SA400S3 SSD (SATA) | 120 GB | OSD |
-| `/dev/sdd` | Kingston SA400S3 SSD (SATA) | 120 GB | OSD |
-| `/dev/sde` | Kingston SA400S3 SSD (SATA) | 120 GB | OSD |
+| Device         | Type                        | Size   | Role                    |
+|----------------|-----------------------------|--------|-------------------------|
+| `/dev/sdb`     | Kingston SA400S3 SSD (SATA) | 120 GB | Boot disk — leave alone |
+| `/dev/nvme0n1` | Samsung 970 EVO NVMe        | 500 GB | OSD                     |
+| `/dev/sdc`     | Kingston SA400S3 SSD (SATA) | 120 GB | OSD                     |
+| `/dev/sdd`     | Kingston SA400S3 SSD (SATA) | 120 GB | OSD                     |
+| `/dev/sde`     | Kingston SA400S3 SSD (SATA) | 120 GB | OSD                     |
 
 Do not add `/dev/sdb` to Ceph. It is the boot disk.
 

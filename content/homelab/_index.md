@@ -26,7 +26,7 @@ The principles transfer setting up Kubernetes on a ten-year-old blade is the sam
 
 ### [Proxmox Cluster in the homelab](/homelab/proxmox-cluster/)
 
-*Rook + Ceph — coming soon*
+### [Rook + Ceph in the homelab](/homelab/rook-ceph/)
 
 *VyOS + BGP — coming soon*
 
