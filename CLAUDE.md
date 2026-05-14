@@ -17,13 +17,27 @@ make clean
 
 The Makefile uses Docker (`ghcr.io/gohugoio/hugo:v0.157.0`) for both serving and building, ensuring a consistent environment. Hugo is not required locally.
 
+## Git
+
+The user handles all git operations (staging, committing, pushing) themselves. Do not run git add, commit, or push unless explicitly asked.
+
 ## Architecture
 
 This is a **Hugo static site** using the [Hugo Stack theme](https://github.com/CaiJimmy/hugo-theme-stack) (v4, via Go modules). It serves as a professional portfolio for "Backend Engineering Strategy Tools" and is deployed to GitHub Pages.
 
 ### Content model
 
-All pages live in `content/` as Markdown with YAML front matter. The site has three pages: home (`_index.md`), about, and projects. All use `layout: single` for full-width rendering and have `showReadingTime: false`.
+All pages live in `content/` as Markdown with YAML front matter. All use `layout: single` for full-width rendering and `showReadingTime: false`.
+
+### Sections
+
+**`homelab/`** — Narrative, first-person posts about building things in the homelab. Covers what actually happened: the sequence, the dead ends, the workarounds. Tone is conversational and direct.
+
+**`public-notes/`** — Reference material. Factual, structured, distilled. The "how it works" without the personal journey. Tone is neutral and informational.
+
+### Local scratch files
+
+`research/` and `input/` contain uncommitted Markdown files used as raw material when building new sections — notes, data dumps, references. These are never published.
 
 ### External PDF assets
 

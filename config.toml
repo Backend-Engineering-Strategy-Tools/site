@@ -73,6 +73,11 @@ canonifyURLs = true
     weight = 36
 
   [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Dev Environment"
+    url = "/public-notes/dev-environment/"
+    weight = 37
+
+  [[menu.main]]
     name = "Homelab"
     url = "/homelab/"
     weight = 40
