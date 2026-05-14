@@ -73,6 +73,16 @@ Two ways to integrate branches:
 | Web application | GitHub Flow — continuously delivered, no need for release branches |
 | Client / installable app | Git Flow — users run specific versions you need to patch and maintain |
 
+## Advanced Features
+
+### Git Worktree
+
+`git worktree` allows you to check out multiple branches of the same repository into separate directories simultaneously. This is particularly useful for: 
+- Working on multiple features or bug fixes in parallel without stashing changes.
+- Quickly switching contexts for code reviews or testing different versions of your code.
+
+All worktrees share the same Git objects, minimizing disk space usage.
+
 ## Resources
 
 - [git-scm.com](https://git-scm.com/docs)
