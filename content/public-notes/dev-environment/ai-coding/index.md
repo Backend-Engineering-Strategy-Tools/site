@@ -91,6 +91,16 @@ pi
 | `~/.pi/agent/models.json`      | Global            | Add custom providers and models                               |
 | `~/.pi/agent/keybindings.json` | Global            | Keyboard shortcut overrides                                   |
 
+**Backends and context windows**:
+
+A real upside of Pi's model flexibility: use your existing Claude Pro/Max subscription as a backend via `/login` (no extra API cost), then toggle to [Gemini 2.5 Flash](https://ai.google.dev/gemini-api/docs/models) when you need a bigger context window. Switch mid-session with `/model`.
+
+| Backend | Context window | Notes |
+|---------|---------------|-------|
+| Claude Sonnet/Opus (Pro) | 200K | 1M available via `/extra-usage` opt-in |
+| Claude Sonnet/Opus (Max/Enterprise) | 1M | Automatic since March 2026 |
+| Gemini 2.5 Flash | ~1M (1,048,576) | Fast and cheap — good default for large context tasks |
+
 **Honest assessment**:
 Genuinely interesting tool and the minimal harness is appealing in principle — but that minimalism is also the cost. There is no opinionated workflow handed to you. You end up building your own: install, auth, Docker isolation if you want it, project context files, model configuration. You are essentially assembling the harness yourself from first principles. It works, and the result is tailored, but the setup investment is real — noticeably more than Claude Code.
 
