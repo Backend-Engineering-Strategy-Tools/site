@@ -2,7 +2,7 @@
 title: "Redfish"
 description: "Redfish — the DMTF standard RESTful API for out-of-band server management. JSON over HTTPS, replacing IPMI for modern hardware."
 date: 2026-05-22
-draft: true
+draft: false
 showReadingTime: false
 layout: single
 tags: ["redfish", "bmc", "out-of-band", "api", "bare-metal", "hardware"]
@@ -14,15 +14,15 @@ Redfish is a DMTF standard that defines a RESTful API for out-of-band server man
 
 ## Why Redfish over IPMI
 
-| | IPMI | Redfish |
-|---|---|---|
-| Protocol | Binary, UDP 623 | HTTPS (REST/JSON) |
-| Auth | RAKP (has CVEs) | HTTP Basic / Session tokens |
-| Encryption | Optional (IPMI 2.0) | Always (TLS) |
-| Discoverability | No | Yes (hypermedia) |
-| Scripting | ipmitool flags | curl, Python, any HTTP client |
-| Extensibility | Vendor OEM extensions | Structured OEM namespaces |
-| Maturity | Established, aging | Modern, actively developed |
+|                 | IPMI                  | Redfish                       |
+|-----------------|-----------------------|-------------------------------|
+| Protocol        | Binary, UDP 623       | HTTPS (REST/JSON)             |
+| Auth            | RAKP (has CVEs)       | HTTP Basic / Session tokens   |
+| Encryption      | Optional (IPMI 2.0)   | Always (TLS)                  |
+| Discoverability | No                    | Yes (hypermedia)              |
+| Scripting       | ipmitool flags        | curl, Python, any HTTP client |
+| Extensibility   | Vendor OEM extensions | Structured OEM namespaces     |
+| Maturity        | Established, aging    | Modern, actively developed    |
 
 Redfish is not universally available — older hardware (pre-2015 roughly) has IPMI only. Both coexist on many current systems; IPMI is still useful for compatibility. See [IPMI](ipmi/).
 
@@ -30,15 +30,15 @@ Redfish is not universally available — older hardware (pre-2015 roughly) has I
 
 ## Vendor implementations
 
-| Vendor | BMC | Redfish support |
-|--------|-----|-----------------|
-| Dell | iDRAC 8+ | Full, v1.0+ |
-| HPE | iLO 4+ | Full (iLO 5 most complete) |
-| Supermicro | BMC (X11+) | Full |
-| Lenovo | XClarity | Full |
-| Intel | BMC on server boards | Partial |
-| OpenBMC | Open-source BMC firmware | Full (used by Facebook, Google infra) |
-| AMI MegaRAC | OEM BMC firmware | Full |
+| Vendor      | BMC                      | Redfish support                       |
+|-------------|--------------------------|---------------------------------------|
+| Dell        | iDRAC 8+                 | Full, v1.0+                           |
+| HPE         | iLO 4+                   | Full (iLO 5 most complete)            |
+| Supermicro  | BMC (X11+)               | Full                                  |
+| Lenovo      | XClarity                 | Full                                  |
+| Intel       | BMC on server boards     | Partial                               |
+| OpenBMC     | Open-source BMC firmware | Full (used by Facebook, Google infra) |
+| AMI MegaRAC | OEM BMC firmware         | Full                                  |
 
 ---
 

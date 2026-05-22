@@ -2,7 +2,7 @@
 title: "IPMI"
 description: "IPMI (Intelligent Platform Management Interface) — out-of-band server management via the BMC. Power control, sensors, serial console, and ipmitool usage."
 date: 2026-05-22
-draft: true
+draft: false
 showReadingTime: false
 layout: single
 tags: ["ipmi", "bmc", "out-of-band", "bare-metal", "homelab", "hardware"]
@@ -18,14 +18,14 @@ Current version is IPMI 2.0, which added encryption and stronger authentication 
 
 IPMI is the standard; each vendor ships their own BMC firmware on top of it:
 
-| Vendor | BMC / OOB product | Notes |
-|--------|-------------------|-------|
-| Dell | iDRAC (Integrated Dell Remote Access Controller) | iDRAC 6/7/8/9; newer versions add Redfish |
-| HP / HPE | iLO (Integrated Lights-Out) | iLO 2/3/4/5; iLO 4+ adds Redfish |
-| Sun / Oracle | ILOM (Integrated Lights-Out Manager) | Sun Fire series (X4150, X4450, etc.) |
-| Supermicro | IPMI / BMC | Web UI + IPMI; newer boards also Redfish |
-| Lenovo / IBM | XClarity / IMM | IMM2 on older systems |
-| HP BladeSystem | Onboard Administrator (OA) | Enclosure-level management (C7000, C3000) — separate from individual blade iLO |
+| Vendor         | BMC / OOB product                                | Notes                                                                          |
+|----------------|--------------------------------------------------|--------------------------------------------------------------------------------|
+| Dell           | iDRAC (Integrated Dell Remote Access Controller) | iDRAC 6/7/8/9; newer versions add Redfish                                      |
+| HP / HPE       | iLO (Integrated Lights-Out)                      | iLO 2/3/4/5; iLO 4+ adds Redfish                                               |
+| Sun / Oracle   | ILOM (Integrated Lights-Out Manager)             | Sun Fire series (X4150, X4450, etc.)                                           |
+| Supermicro     | IPMI / BMC                                       | Web UI + IPMI; newer boards also Redfish                                       |
+| Lenovo / IBM   | XClarity / IMM                                   | IMM2 on older systems                                                          |
+| HP BladeSystem | Onboard Administrator (OA)                       | Enclosure-level management (C7000, C3000) — separate from individual blade iLO |
 
 Most also expose a web UI and some form of virtual KVM (keyboard/video/mouse over network) in addition to IPMI over LAN.
 

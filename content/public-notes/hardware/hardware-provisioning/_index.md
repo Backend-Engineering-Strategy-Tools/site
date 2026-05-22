@@ -14,12 +14,12 @@ When moving beyond manual installs, managing hardware lifecycle through PXE (Pre
 
 ## Common starting points
 
-| Tool | Focus | Complexity | Best for |
-|---|---|---|---|
-| [Cobbler](https://cobbler.github.io/) | PXE/repo server | Low–Medium | Stable, static environments needing reliable kickstart or seed installs |
-| [Foreman](https://theforeman.org/) | Full lifecycle mgmt | High | Single pane of glass for provisioning + ongoing config management (Puppet/Ansible) |
-| [Digital Rebar](https://rebar.digital/) | Infrastructure-as-Code | Medium | Modern DevOps teams wanting cloud-like speed on physical gear; evolved from Crowbar |
-| [Ironic](https://wiki.openstack.org/wiki/Ironic) / [Bifrost](https://docs.openstack.org/bifrost/latest/) | BMaaS / scale | High | Bare Metal as a Service at scale; Bifrost runs Ironic standalone without full OpenStack |
+| Tool                                                                                                     | Focus                  | Complexity | Best for                                                                                |
+|----------------------------------------------------------------------------------------------------------|------------------------|------------|-----------------------------------------------------------------------------------------|
+| [Cobbler](https://cobbler.github.io/)                                                                    | PXE/repo server        | Low–Medium | Stable, static environments needing reliable kickstart or seed installs                 |
+| [Foreman](https://theforeman.org/)                                                                       | Full lifecycle mgmt    | High       | Single pane of glass for provisioning + ongoing config management (Puppet/Ansible)      |
+| [Digital Rebar](https://rebar.digital/)                                                                  | Infrastructure-as-Code | Medium     | Modern DevOps teams wanting cloud-like speed on physical gear; evolved from Crowbar     |
+| [Ironic](https://wiki.openstack.org/wiki/Ironic) / [Bifrost](https://docs.openstack.org/bifrost/latest/) | BMaaS / scale          | High       | Bare Metal as a Service at scale; Bifrost runs Ironic standalone without full OpenStack |
 
 ---
 

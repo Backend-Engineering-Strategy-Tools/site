@@ -2,7 +2,7 @@
 title: "Out-of-Band Management"
 description: "Out-of-band server management — accessing and controlling hardware independently of the host OS, via the BMC. Covers IPMI, Redfish, and vendor implementations."
 date: 2026-05-22
-draft: true
+draft: false
 showReadingTime: false
 layout: single
 tags: ["ipmi", "redfish", "bmc", "out-of-band", "hardware", "homelab"]
@@ -18,13 +18,13 @@ Used for: bare-metal provisioning, remote recovery, hardware monitoring, firmwar
 
 Two main protocols, one old and one new:
 
-| | IPMI | Redfish |
-|---|---|---|
-| Protocol | Binary, UDP 623 | HTTPS / JSON (REST) |
-| Era | 1998– | 2015– |
-| Scripting | ipmitool | curl, Python, any HTTP client |
-| Security | Weak (known CVEs) | TLS + token auth |
-| Availability | Universal | Modern hardware (roughly post-2015) |
+|              | IPMI              | Redfish                             |
+|--------------|-------------------|-------------------------------------|
+| Protocol     | Binary, UDP 623   | HTTPS / JSON (REST)                 |
+| Era          | 1998–             | 2015–                               |
+| Scripting    | ipmitool          | curl, Python, any HTTP client       |
+| Security     | Weak (known CVEs) | TLS + token auth                    |
+| Availability | Universal         | Modern hardware (roughly post-2015) |
 
 - [IPMI](ipmi/) — the established standard; ipmitool, SoL, sensor readings, security considerations
 - [Redfish](redfish/) — the modern replacement; REST API, curl and Python examples, firmware updates
@@ -35,13 +35,13 @@ Two main protocols, one old and one new:
 
 Most vendors ship their own BMC firmware on top of these standards:
 
-| Vendor | Product | Supports |
-|--------|---------|---------|
-| Dell | iDRAC | IPMI + Redfish (iDRAC 8+) |
-| HP / HPE | iLO | IPMI + Redfish (iLO 4+) |
-| Sun / Oracle | ILOM | IPMI 2.0, web UI |
-| Supermicro | BMC | IPMI + Redfish (X11+) |
-| Lenovo | XClarity / IMM | IPMI + Redfish |
+| Vendor         | Product               | Supports                                   |
+|----------------|-----------------------|--------------------------------------------|
+| Dell           | iDRAC                 | IPMI + Redfish (iDRAC 8+)                  |
+| HP / HPE       | iLO                   | IPMI + Redfish (iLO 4+)                    |
+| Sun / Oracle   | ILOM                  | IPMI 2.0, web UI                           |
+| Supermicro     | BMC                   | IPMI + Redfish (X11+)                      |
+| Lenovo         | XClarity / IMM        | IPMI + Redfish                             |
 | HP BladeSystem | Onboard Administrator | Enclosure-level; individual blades use iLO |
 
 ---
