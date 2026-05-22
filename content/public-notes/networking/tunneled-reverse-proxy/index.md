@@ -146,5 +146,5 @@ Less common than frp or Pangolin, but polished for a self-hosted tool.
 
 ## Related
 
-- For network-level access (not service URLs) → [Tunnels](/public-notes/security/tunnels/)
-- For SSH entry points → [Bastion / jump server](/public-notes/security/bastion/)
+- For network-level access (not service URLs) → [Tunnels](/public-notes/networking/tunnels/)
+- For SSH entry points → [Bastion / jump server](/public-notes/networking/bastion/)

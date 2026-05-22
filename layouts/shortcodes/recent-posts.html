@@ -1,0 +1,7 @@
+{{ $pages := where .Site.RegularPages "Draft" false }}
+{{ $pages = $pages | first 3 }}
+<ul>
+{{ range $pages }}
+<li><a href="{{ .RelPermalink }}">{{ .Title }}</a> — {{ .Section | title }}, {{ .Date.Format "Jan 2006" }}</li>
+{{ end }}
+</ul>

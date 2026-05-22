@@ -10,7 +10,7 @@ layout: single
 
 VyOS is an open-source network operating system built on Debian Linux. It runs on bare metal or as a VM, and is configured via a CLI with a commit/rollback model similar to Juniper JunOS. Configuration changes are staged and only take effect when you explicitly `commit` — there is no live-editing a running config and hoping nothing breaks.
 
-It ships FRRouting (FRR) as the routing engine, giving it native support for BGP, OSPF, IS-IS, and other protocols. This is its main distinction from [OPNsense](/public-notes/cloud-infrastructure/opnsense/) for homelab use: OPNsense is a firewall appliance that can do some routing; VyOS is a routing OS that can also do firewall.
+It ships FRRouting (FRR) as the routing engine, giving it native support for BGP, OSPF, IS-IS, and other protocols. This is its main distinction from [OPNsense](/public-notes/networking/opnsense/) for homelab use: OPNsense is a firewall appliance that can do some routing; VyOS is a routing OS that can also do firewall.
 
 ---
 
@@ -68,6 +68,6 @@ VyOS is designed to be automated — the commit/rollback model maps cleanly onto
 - [VyOS REST API](https://docs.vyos.io/en/latest/automation/vyos-api.html)
 - [VyOS Ansible collection](https://docs.ansible.com/ansible/latest/collections/vyos/vyos/index.html)
 - [VyOS rolling release downloads](https://vyos.net/get/)
-- [BGP](/public-notes/cloud-infrastructure/bgp/) — protocol background
-- [OPNsense](/public-notes/cloud-infrastructure/opnsense/) — the complementary edge gateway
+- [BGP](/public-notes/networking/bgp/) — protocol background
+- [OPNsense](/public-notes/networking/opnsense/) — the complementary edge gateway
 - [VyOS + BGP in the homelab](/homelab/vyos-bgp/) — the actual setup

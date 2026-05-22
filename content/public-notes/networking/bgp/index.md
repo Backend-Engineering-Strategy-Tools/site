@@ -56,5 +56,5 @@ The tradeoff is that BGP mode requires a BGP-capable router in the path, which i
 
 ## Related
 
-- [VyOS](/public-notes/cloud-infrastructure/vyos/) — the BGP peer router
+- [VyOS](/public-notes/networking/vyos/) — the BGP peer router
 - [VyOS + BGP experiment](/homelab/vyos-bgp/) — the actual setup in this homelab

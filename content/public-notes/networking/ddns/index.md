@@ -10,7 +10,7 @@ tags: ["networking", "ddns", "dns", "opnsense", "homelab"]
 
 Most home internet connections have a dynamic IP — the ISP can reassign it at any time. Dynamic DNS (DDNS) keeps a DNS hostname pointed at whatever IP you currently have, by running a small client that detects changes and updates the DNS record automatically.
 
-Relevant when using [port forwarding or WireGuard](/public-notes/security/tunnels/) to reach a private network from outside — you need a stable hostname to connect to.
+Relevant when using [port forwarding or WireGuard](/public-notes/networking/tunnels/) to reach a private network from outside — you need a stable hostname to connect to.
 
 ---
 
@@ -92,6 +92,6 @@ provider cloudflare.com {
 
 ## Limitations
 
-DDNS does not help if your ISP uses CGNAT — if your router's WAN IP is a private address (10.x, 100.64.x, 192.168.x), port forwarding and DDNS will not work. See [Tunnels](/public-notes/security/tunnels/) for options that work without a public IP.
+DDNS does not help if your ISP uses CGNAT — if your router's WAN IP is a private address (10.x, 100.64.x, 192.168.x), port forwarding and DDNS will not work. See [Tunnels](/public-notes/networking/tunnels/) for options that work without a public IP.
 
 DNS propagation delay means there's a brief window after an IP change where connections will fail. Keep TTL at 60–300s to minimise this.

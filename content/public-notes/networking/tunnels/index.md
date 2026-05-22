@@ -158,5 +158,5 @@ Use **port forwarding** only if you already have DDNS working and want no new so
 
 ## Related
 
-- For a hardened SSH entry point → [Bastion / jump server](/public-notes/security/bastion/)
-- For exposing internal web services via public URLs → [Tunneled reverse proxy platforms](/public-notes/security/tunneled-reverse-proxy/)
+- For a hardened SSH entry point → [Bastion / jump server](/public-notes/networking/bastion/)
+- For exposing internal web services via public URLs → [Tunneled reverse proxy platforms](/public-notes/networking/tunneled-reverse-proxy/)

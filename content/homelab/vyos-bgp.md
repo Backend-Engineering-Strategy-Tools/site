@@ -7,7 +7,7 @@ layout: single
 tags: ["vyos", "bgp", "proxmox", "metallb", "networking"]
 ---
 
-Running [VyOS](/public-notes/cloud-infrastructure/vyos/) as a VM on the [Proxmox cluster](/homelab/proxmox-cluster/) and establishing a [BGP](/public-notes/cloud-infrastructure/bgp/) session with [OPNsense](/public-notes/cloud-infrastructure/opnsense/). The end goal is MetalLB on the [ODEN Talos cluster](/homelab/talos-omni/) announcing Kubernetes LoadBalancer service IPs through VyOS to OPNsense.
+Running [VyOS](/public-notes/networking/vyos/) as a VM on the [Proxmox cluster](/homelab/proxmox-cluster/) and establishing a [BGP](/public-notes/networking/bgp/) session with [OPNsense](/public-notes/networking/opnsense/). The end goal is MetalLB on the [ODEN Talos cluster](/homelab/talos-omni/) announcing Kubernetes LoadBalancer service IPs through VyOS to OPNsense.
 
 This page is a stub — the Proxmox cluster is not yet set up.
 

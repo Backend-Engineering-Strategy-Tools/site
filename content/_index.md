@@ -20,6 +20,12 @@ And ofc a few [projects](/projects/) worth sharing !
 
 ---
 
+**Recent**
+
+{{< recent-posts >}}
+
+---
+
 - [LinkedIn](https://www.linkedin.com/in/manfred-nilsson-461a893/)
 - [GitHub Org](https://github.com/Backend-Engineering-Strategy-Tools)
 - [CV PDF](/cv.pdf)

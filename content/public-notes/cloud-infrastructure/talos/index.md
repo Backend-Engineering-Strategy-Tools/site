@@ -49,7 +49,7 @@ Nodes register via a join token embedded in the kernel command line at PXE boot 
 - `siderolabs/intel-ucode` — Intel microcode updates
 - `siderolabs/nvidia-*` — NVIDIA GPU support
 
-The factory produces both ISO and PXE artifacts (kernel + initramfs). See the [OPNSense + iPXE reference](/public-notes/cloud-infrastructure/hardware-provisioning/ipxe-opnsense/) for how to serve these over TFTP.
+The factory produces both ISO and PXE artifacts (kernel + initramfs). See the [OPNSense + iPXE reference](/public-notes/hardware/hardware-provisioning/ipxe-opnsense/) for how to serve these over TFTP.
 
 ---
 

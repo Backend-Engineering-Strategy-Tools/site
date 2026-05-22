@@ -41,7 +41,7 @@ It covers the full gateway function: stateful firewall, NAT, DHCP, DNS, TFTP, VP
 | BGP | Via FRRouting plugin | Via FRRouting plugin | Native (FRRouting built-in) |
 | Typical use | Edge gateway, firewall | Edge gateway, firewall | Router, BGP peer, lab router VM |
 
-OPNsense and pfSense are both appliance-style: you configure them through a UI and they manage all the underlying services for you. [VyOS](/public-notes/cloud-infrastructure/vyos/) is a network OS in the Juniper/Cisco tradition — CLI-first, commit/rollback, intended for use as a router or BGP peer rather than a full gateway appliance.
+OPNsense and pfSense are both appliance-style: you configure them through a UI and they manage all the underlying services for you. [VyOS](/public-notes/networking/vyos/) is a network OS in the Juniper/Cisco tradition — CLI-first, commit/rollback, intended for use as a router or BGP peer rather than a full gateway appliance.
 
 ---
 
@@ -49,5 +49,5 @@ OPNsense and pfSense are both appliance-style: you configure them through a UI a
 
 - [OPNsense documentation](https://docs.opnsense.org/)
 - [OPNsense plugins](https://github.com/opnsense/plugins)
-- [iPXE + OPNsense](/public-notes/cloud-infrastructure/hardware-provisioning/ipxe-opnsense/) — PXE boot configuration via OPNsense DHCP and TFTP
+- [iPXE + OPNsense](/public-notes/hardware/hardware-provisioning/ipxe-opnsense/) — PXE boot configuration via OPNsense DHCP and TFTP
 - [OPNsense in the homelab](/homelab/opnsense/) — current setup and planned redo

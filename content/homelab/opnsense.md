@@ -8,7 +8,7 @@ layout: single
 tags: ["opnsense", "firewall", "networking"]
 ---
 
-[OPNsense](/public-notes/cloud-infrastructure/opnsense/) running on the Sun Fire X4150 — perimeter gateway for both the homelab and the home network.
+[OPNsense](/public-notes/networking/opnsense/) running on the Sun Fire X4150 — perimeter gateway for both the homelab and the home network.
 
 Current state: inherited setup, not clean, not properly documented. It works, but it was not built with intention. A redo is on the todo list.
 

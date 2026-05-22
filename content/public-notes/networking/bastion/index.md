@@ -98,5 +98,5 @@ Or use `AllowTcpForwarding yes` with `ForceCommand /usr/sbin/nologin` — though
 
 ## Related
 
-- For making the bastion reachable from outside without a public IP → [Tunnels](/public-notes/security/tunnels/)
-- For exposing internal web services via public URLs → [Tunneled reverse proxy platforms](/public-notes/security/tunneled-reverse-proxy/)
+- For making the bastion reachable from outside without a public IP → [Tunnels](/public-notes/networking/tunnels/)
+- For exposing internal web services via public URLs → [Tunneled reverse proxy platforms](/public-notes/networking/tunneled-reverse-proxy/)

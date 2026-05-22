@@ -8,7 +8,7 @@ layout: single
 tags: ["talos", "omni", "pxe", "kubernetes", "bare-metal"]
 ---
 
-Getting [Talos Linux](/public-notes/cloud-infrastructure/talos/) running in the homelab via PXE boot and [Omni](https://omni.siderolabs.com) — starting with [ODEN (SYS-005)](/homelab/inventory/systems/), an IBM System x3550 M3. The full OPNSense + iPXE configuration lives in the [reference note](/public-notes/cloud-infrastructure/hardware-provisioning/ipxe-opnsense/); this covers what actually happened, in order.
+Getting [Talos Linux](/public-notes/cloud-infrastructure/talos/) running in the homelab via PXE boot and [Omni](https://omni.siderolabs.com) — starting with [ODEN (SYS-005)](/homelab/inventory/systems/), an IBM System x3550 M3. The full OPNSense + iPXE configuration lives in the [reference note](/public-notes/hardware/hardware-provisioning/ipxe-opnsense/); this covers what actually happened, in order.
 
 ---
 
@@ -22,7 +22,7 @@ Getting [Talos Linux](/public-notes/cloud-infrastructure/talos/) running in the 
 
 ## Step 1 — OPNSense DHCP and TFTP
 
-Enable network booting on the LAN DHCP server and download the iPXE binaries to the TFTP root. Full field values in the [iPXE reference note](/public-notes/cloud-infrastructure/hardware-provisioning/ipxe-opnsense/).
+Enable network booting on the LAN DHCP server and download the iPXE binaries to the TFTP root. Full field values in the [iPXE reference note](/public-notes/hardware/hardware-provisioning/ipxe-opnsense/).
 
 One thing to check first: if you previously set DHCP options 66 and 67 as raw additional options, remove them. OPNSense's built-in network boot fields do the same job and having both causes conflicts.
 
@@ -30,7 +30,7 @@ One thing to check first: if you previously set DHCP options 66 and 67 as raw ad
 
 ## Step 2 — iPXE boot script
 
-Write `default.ipxe` to `/usr/local/tftp/`. Include a boot menu with at minimum a Talos option and a shell fallback — the shell is genuinely useful when something fails and you need to debug from the boot prompt. Full script in the [reference note](/public-notes/cloud-infrastructure/hardware-provisioning/ipxe-opnsense/).
+Write `default.ipxe` to `/usr/local/tftp/`. Include a boot menu with at minimum a Talos option and a shell fallback — the shell is genuinely useful when something fails and you need to debug from the boot prompt. Full script in the [reference note](/public-notes/hardware/hardware-provisioning/ipxe-opnsense/).
 
 The Talos entry in the menu needs the Omni join token from your Omni console. Generate a join link in Omni; it provides the API endpoint, token, and SideroLink addresses.
 
@@ -40,7 +40,7 @@ The Talos entry in the menu needs the Omni join token from your Omni console. Ge
 
 The standard Talos release binaries do not include BNX2 firmware. Since around Talos 1.6 those drivers are available as extensions but not in the mainline image. Without them, the node boots, fails to initialise the NIC, and produces `can't load firmware bnx2` errors — everything else looks fine until you notice the node never gets an IP and never appears in Omni.
 
-Fix: generate a custom image at [factory.talos.dev](https://factory.talos.dev) with the `siderolabs/bnx2` extension included, then download the PXE kernel and initramfs from the factory URL. Commands in the [reference note](/public-notes/cloud-infrastructure/hardware-provisioning/ipxe-opnsense/).
+Fix: generate a custom image at [factory.talos.dev](https://factory.talos.dev) with the `siderolabs/bnx2` extension included, then download the PXE kernel and initramfs from the factory URL. Commands in the [reference note](/public-notes/hardware/hardware-provisioning/ipxe-opnsense/).
 
 ---
 

@@ -32,7 +32,7 @@ Full gateway function: stateful firewall, NAT, DHCP, DNS (Unbound), TFTP/PXE, VP
 
 BGP is available via the FRRouting plugin but is not a first-class feature — VyOS is better suited for BGP-heavy setups.
 
-→ [OPNsense reference](/public-notes/cloud-infrastructure/opnsense/)
+→ [OPNsense reference](/public-notes/networking/opnsense/)
 
 **Best for**: homelab perimeter gateway, home network, small office. The current actively-maintained community fork of the pfSense lineage.
 
@@ -58,7 +58,7 @@ Configuration is declarative and version-controlled — the entire running confi
 
 The rolling release is free; LTS releases require a subscription.
 
-→ [VyOS reference](/public-notes/cloud-infrastructure/vyos/)
+→ [VyOS reference](/public-notes/networking/vyos/)
 
 **Best for**: BGP peering, complex routing topologies, automation-driven network config, VM-based routing inside a cluster.
 
