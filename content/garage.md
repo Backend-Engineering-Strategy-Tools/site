@@ -13,7 +13,17 @@ Not professional work — just the kind of tinkering that tends to happen when y
 
 ## 3D Printing
 
-*Notes on machines, materials, and setups to follow.*
+### Rack Parts
+
+Printing accessories to fill gaps in the rack build — ears, blanks, and a modular tray system.
+
+| Model                                                                                                                | What it is                                   | Status  |
+|----------------------------------------------------------------------------------------------------------------------|----------------------------------------------|---------|
+| [1U Universal Rack Ears](https://www.printables.com/model/1335735-1u-universal-rack-ears)                            | Rack ears for gear that ships without them   | Printed |
+| [1U–4U Spacer / Blank Panel](https://www.printables.com/model/1374690-standard-rack-1u-2u-3u-4u-spacer-dxf-template) | Blank panels to fill empty rack units        | Printed |
+| [RackMod 1U Slide-A](https://makerworld.com/en/models/1040867-rackmod-1u-slide-a-modular-server-rack-system)         | Modular 1U tray system with slide-in modules | Testing |
+
+*Print settings, filament choices, and fitment notes to follow.*
 
 ---
 
