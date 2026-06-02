@@ -23,6 +23,10 @@ The principles transfer setting up Kubernetes on a ten-year-old blade is the sam
 
 ### [Hardware Inventory](/homelab/inventory/)
 
+### [3D Printed Rack Parts](/homelab/rack-3d-prints/)
+
+- [Rack Support Brace](/homelab/rack-support-brace/) — parametric support plate, Blender Python
+
 ---
 
 **Kubernetes / Talos**
