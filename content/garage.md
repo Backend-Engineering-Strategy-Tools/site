@@ -36,7 +36,7 @@ The immediate need was a support brace for the rack — a 220×150×8mm plate wi
 
 The script runs in Blender's Script Editor — open it, press Alt+P, it builds the plate and exports the STL.
 
-- [Rack Support Brace](/homelab/rack-support-brace/) — 220×150mm plate, 10×4 hole grid, engraved text, automated renders | [script](/code/procedural-mesh/rack_support_brace.py)
+- [Rack Support Brace](/homelab/rack-support-brace/) — 220×150mm plate, 10×4 hole grid, engraved text, automated renders | [script](/code/procedural-mesh/rack_support_brace/rack_support_brace.py)
 
 More on the approach: [Blender Python for 3D printing](/public-notes/frameworks-tools/blender-python/)
 

@@ -18,8 +18,8 @@ The same script that builds the geometry now also sets up cameras, runs EEVEE re
 
 ## Downloads
 
-{{< download href="/code/procedural-mesh/rack_support_brace.py" label="rack_support_brace.py" >}}
-{{< download href="/code/procedural-mesh/rack_support_brace_220x150.stl" label="rack_support_brace_220x150.stl" >}}
+{{< download href="/code/procedural-mesh/rack_support_brace/rack_support_brace.py" label="rack_support_brace.py" >}}
+{{< download href="/code/procedural-mesh/rack_support_brace/rack_support_brace_220x150.stl" label="rack_support_brace_220x150.stl" >}}
 
 ---
 
