@@ -1,0 +1,9 @@
+<a href="{{ .Get "href" }}" download class="dl-link">
+  <span class="dl-icon">↓</span>{{ .Get "label" }}
+</a>
+
+<style>
+.dl-link{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .75rem;border:1px solid currentColor;border-radius:4px;font-family:monospace;font-size:.875rem;text-decoration:none;opacity:.85;transition:opacity .15s}
+.dl-link:hover{opacity:1;text-decoration:none}
+.dl-icon{font-size:1rem;line-height:1}
+</style>

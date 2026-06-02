@@ -8,6 +8,7 @@ import bpy
 import bmesh
 import math
 import os
+import mathutils
 
 # ----------------------------
 # CONFIG
@@ -35,8 +36,11 @@ TEXT_SIZE2    =  4.5    # mm — glyph height line 2
 TEXT_LINE_GAP =  8.0    # mm — centre-to-centre between lines
 TEXT_Y        = -10.0   # mm — vertical centre of block (sits in the wide row gap)
 
-EXPORT_STL    = True
-EXPORT_DIR    = "/Users/mannil/Documents/STL_HOLEBOX"
+EXPORT_STL    = False
+EXPORT_RENDER = True
+EXPORT_DIR    = "//stl_output"   # // = relative to .blend file; or use an absolute path
+RENDER_RES_X  = 1920
+RENDER_RES_Y  = 1080
 
 # ----------------------------
 # UTILITIES
@@ -181,6 +185,68 @@ def engrave_text(plate):
     print(f"  engraved: '{TEXT_LINE1}' / '{TEXT_LINE2}' ({ENGRAVE_DEPTH}mm deep)")
 
 # ----------------------------
+# RENDER
+# ----------------------------
+def setup_lighting():
+    bpy.ops.object.light_add(type='SUN', location=(200, -200, 400))
+    sun = bpy.context.active_object
+    sun.name = "render_sun"
+    sun.data.energy = 3.0
+    sun.rotation_euler = (math.radians(50), 0, math.radians(30))
+
+def setup_material(obj):
+    mat = bpy.data.materials.new("render_mat")
+    mat.use_nodes = True
+    bsdf = mat.node_tree.nodes["Principled BSDF"]
+    bsdf.inputs["Base Color"].default_value = (0.65, 0.65, 0.70, 1.0)
+    bsdf.inputs["Roughness"].default_value = 0.5
+    bsdf.inputs["Metallic"].default_value = 0.1
+    obj.data.materials.clear()
+    obj.data.materials.append(mat)
+
+def make_camera(name, location, target):
+    bpy.ops.object.camera_add(location=location)
+    cam = bpy.context.active_object
+    cam.name = name
+    direction = mathutils.Vector(target) - mathutils.Vector(location)
+    cam.rotation_euler = direction.to_track_quat('-Z', 'Y').to_euler()
+    return cam
+
+def render_views(obj, export_dir):
+    scene = bpy.context.scene
+    scene.render.engine = 'BLENDER_EEVEE'
+    scene.render.resolution_x = RENDER_RES_X
+    scene.render.resolution_y = RENDER_RES_Y
+    scene.render.image_settings.file_format = 'PNG'
+
+    setup_lighting()
+    setup_material(obj)
+
+    cx, cy, cz = 0.0, 0.0, PLATE_Z / 2        # aim at plate centre
+    D = max(PLATE_X, PLATE_Y) * 2.8            # camera distance
+
+    views = [
+        ("top",   ( 0,    0,    D        )),
+        ("front", ( 0,   -D,    cz       )),
+        ("side",  (-D,    0,    cz       )),
+        ("iso",   (-D*.6, -D*.6, D * .5  )),
+    ]
+
+    render_dir = os.path.join(export_dir, "renders")
+    os.makedirs(render_dir, exist_ok=True)
+
+    for label, loc in views:
+        cam = make_camera(f"cam_{label}", loc, (cx, cy, cz))
+        scene.camera = cam
+        out = os.path.join(render_dir, f"{obj.name}_{label}.png")
+        scene.render.filepath = out
+        bpy.ops.render.render(write_still=True)
+        bpy.data.objects.remove(cam, do_unlink=True)
+        print(f"  rendered {label} → {out}")
+
+    print(f"  renders → {render_dir}/")
+
+# ----------------------------
 # EXPORT
 # ----------------------------
 def export_stl(obj):
@@ -208,9 +274,14 @@ cutter = make_cutter(positions)
 cut_holes(plate, cutter)
 engrave_text(plate)
 
-plate.name = f"holebox_{int(PLATE_X)}x{int(PLATE_Y)}"
+plate.name = f"rack_support_brace_{int(PLATE_X)}x{int(PLATE_Y)}"
+
+out_dir = bpy.path.abspath(EXPORT_DIR)
 
 if EXPORT_STL:
     export_stl(plate)
+
+if EXPORT_RENDER:
+    render_views(plate, out_dir)
 
 print("Done.")

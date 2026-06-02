@@ -234,3 +234,4 @@ The workflow is: run → look at viewport → describe the problem → apply upd
 ## Related
 
 - [Garage — Scripted Parts](/garage/) — hole box and other physical builds using this approach
+- [Rack Support Brace](/homelab/rack-support-brace/) — step-by-step: script → renders → headless → CI/CD

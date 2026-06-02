@@ -1,0 +1,59 @@
+{{ $images := .Page.Resources.Match (.Get "images") }}
+{{ $interval := or (.Get "interval") "3000" }}
+{{ $id := printf "carousel-%d" .Ordinal }}
+
+<div class="sc-carousel" id="{{ $id }}">
+  <div class="sc-track">
+    {{ range $i, $img := $images }}
+    <div class="sc-slide">
+      <img src="{{ $img.RelPermalink }}" loading="{{ if eq $i 0 }}eager{{ else }}lazy{{ end }}" alt="{{ $img.Name }}">
+    </div>
+    {{ end }}
+  </div>
+  {{ if gt (len $images) 1 }}
+  <button class="sc-btn sc-prev" aria-label="Previous">&#8249;</button>
+  <button class="sc-btn sc-next" aria-label="Next">&#8250;</button>
+  <div class="sc-dots">
+    {{ range $i, $_ := $images }}
+    <span class="sc-dot{{ if eq $i 0 }} active{{ end }}"></span>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+
+<style>
+.sc-carousel{position:relative;overflow:hidden;background:#0d0d0d;border-radius:8px;margin:1.5rem 0;user-select:none}
+.sc-track{display:flex;transition:transform .4s ease}
+.sc-slide{min-width:100%;display:flex;align-items:center;justify-content:center}
+.sc-slide img{max-width:100%;max-height:560px;object-fit:contain}
+.sc-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);color:#fff;border:none;font-size:2.4rem;line-height:1;padding:.05rem .65rem .15rem;cursor:pointer;border-radius:4px;z-index:10;transition:background .2s}
+.sc-btn:hover{background:rgba(0,0,0,.85)}
+.sc-prev{left:.5rem}.sc-next{right:.5rem}
+.sc-dots{position:absolute;bottom:.65rem;left:0;right:0;display:flex;justify-content:center;gap:6px}
+.sc-dot{width:8px;height:8px;background:rgba(255,255,255,.35);border-radius:50%;cursor:pointer;transition:background .2s}
+.sc-dot.active{background:#fff}
+</style>
+
+<script>
+(function(){
+  var root=document.getElementById('{{ $id }}');
+  if(!root)return;
+  var track=root.querySelector('.sc-track');
+  var slides=root.querySelectorAll('.sc-slide');
+  var dots=root.querySelectorAll('.sc-dot');
+  var cur=0,timer;
+  function go(n){
+    if(dots[cur])dots[cur].classList.remove('active');
+    cur=((n%slides.length)+slides.length)%slides.length;
+    if(dots[cur])dots[cur].classList.add('active');
+    track.style.transform='translateX(-'+cur*100+'%)';
+  }
+  var prev=root.querySelector('.sc-prev');
+  var next=root.querySelector('.sc-next');
+  if(prev)prev.addEventListener('click',function(){clearInterval(timer);go(cur-1);start()});
+  if(next)next.addEventListener('click',function(){clearInterval(timer);go(cur+1);start()});
+  dots.forEach(function(d,i){d.addEventListener('click',function(){clearInterval(timer);go(i);start()})});
+  function start(){timer=setInterval(function(){go(cur+1)},{{ $interval }});}
+  start();
+})();
+</script>
