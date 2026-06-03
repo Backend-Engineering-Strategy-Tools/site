@@ -9,15 +9,15 @@ Started with tin — a small camping burner and a steel ladle was enough. Then t
 
 Aluminium needs higher temperatures than tin, and the gap matters:
 
-| Metal | Melting point |
-|-------|--------------|
-| Tin | 232°C |
-| Zinc | 420°C |
-| Aluminium | 660°C |
-| Brass | ~900°C |
-| Copper | 1085°C |
-| Cast iron | ~1200°C |
-| Steel | ~1370°C |
+| Metal     | Melting point |
+|-----------|---------------|
+| Tin       | 232°C         |
+| Zinc      | 420°C         |
+| Aluminium | 660°C         |
+| Brass     | ~900°C        |
+| Copper    | 1085°C        |
+| Cast iron | ~1200°C       |
+| Steel     | ~1370°C       |
 
 We looked at buying a small foundry online, decided it would be more fun to build one. My son and I built it.
 
@@ -27,9 +27,9 @@ We looked at buying a small foundry online, decided it would be more fun to buil
 
 Sand and gypsum cast inside a metal rubbish bin, steel mesh for reinforcement. Used an old fire extinguisher as the form for the central cavity. Added a pipe for the air inlet and a hair dryer to force air through — charcoal from the grill as fuel.
 
-The hair dryer died on the first serious session. First upgrade: a proper fan from Biltema.
+{{< figure src="/images/foundery.png" caption="The foundry." >}}
 
-*Photos to follow.*
+The hair dryer died on the first serious session. First upgrade: a proper fan from Biltema.
 
 ---
 
@@ -37,23 +37,21 @@ The hair dryer died on the first serious session. First upgrade: a proper fan fr
 
 Once the foundry was running we tried everything we could get hold of. Also picked up some wax for eventual lost-wax casting experiments.
 
-| Material | Source |
-|----------|--------|
-| Tin | Second-hand shop finds |
-| Aluminium | Cans + scrap |
-| Brass | Scrap |
-| Copper | Scrap |
-| Wax | Candles |
+| Material  | Source                 |
+|-----------|------------------------|
+| Tin       | Second-hand shop finds |
+| Aluminium | Cans + scrap           |
+| Brass     | Scrap                  |
+| Copper    | Scrap                  |
+| Wax       | Candles                |
 
 *Photos to follow.*
 
 ---
 
-We bought online some tooling ...
+We bought some tooling online — tongs, crucible, mould for casting bars.
 
-* tongs
-* crucible
-* mould for casting bars
+{{< figure src="/images/tools.jpeg" caption="Tongs, crucible, and bar moulds." >}}
 
 And ofc safety kit on every session: heat-resistant gloves, safety glasses, face mask (steam explosions from moisture in moulds are real), fire extinguisher within reach, and distance from anything hot.
 
@@ -61,16 +59,17 @@ And ofc safety kit on every session: heat-resistant gloves, safety glasses, face
 
 ## Stock — Bars Cast
 
-Melted-down material poured into bar moulds for later use. 
+Melted-down material poured into bar moulds for later use.
 
-*Photo to follow.*
+| Material  | Stock |
+|-----------|-------|
+| Tin       | 1047g |
+| Aluminium | 1398g |
+| Brass     | 200g  |
+| Copper    | 2310g |
+| Wax       | 1730g |
 
-| Material  | Stock (kg) |
-|-----------|------------|
-| Tin       |            |
-| Aluminium |            |
-| Brass     |            |
-| Copper    |            |
+{{< figure src="/images/bars.jpeg" caption="Cast bars ready for future use." >}}
 
 ---
 

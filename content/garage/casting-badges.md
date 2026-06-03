@@ -28,7 +28,7 @@ Modelled in Blender, printed in resin as the master for the silicon mould.
 
 Silicon moulds made by my fellow scout leader from the resin master.
 
-*Photos to follow.*
+{{< figure src="/images/silicon_mould.jpeg" caption="Silicon moulds made from the resin master." >}}
 
 ---
 
@@ -42,7 +42,7 @@ Done in small groups: two leaders, two kids at a time. Went smoothly.
 
 ## Result
 
-*Photos to follow.*
+{{< figure src="/images/scout_emblem.jpeg" caption="Finished tin scout badges." >}}
 
 ---
 
