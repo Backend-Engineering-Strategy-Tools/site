@@ -53,6 +53,4 @@ Pipeline next steps (headless render, CI/CD, AI feedback loop) are tracked in th
 
 ## The Printed Part
 
-The through-holes give it the look of perforated rack blanking — functional and fits the aesthetic of the rest of the rack.
-
 {{< figure src="/images/rack-brace.jpeg" caption="Finished rack support brace installed in the rack." >}}
