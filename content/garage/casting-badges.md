@@ -1,31 +1,48 @@
 ---
 title: "Casting Part 1 — Scout Badges"
 date: 2026-06-02
-draft: true
+draft: false
 showReadingTime: false
 ---
 
-*Draft — content to follow.*
+When I was a kid and scout we cast the scout emblem in tin — naturally we had to do this again with my own troop.
 
-First real casting project: scout badges. The goal was to produce physical badges for the troop — something you could actually hand out. Silicon moulds, tin poured in, demoulded and finished.
+I'm lucky to have a fellow scout leader who does casting professionally. I modelled the master in resin and he made the silicon moulds from it.
+
+For the tin, I went to second-hand shops and gathered everything tin I could find to melt down. Ordered crucibles and pliers online. We melted the tin by putting the crucible in the fire, then the kids could do the pour into the mould, demould, and finish.
+
+First real casting project — a success.
+
+---
+
+## Master
+
+Modelled in Blender, printed in resin as the master for the silicon mould.
+
+{{< download href="/code/mesh/scout_emblem/scout_emblem.blend" label="scout_emblem.blend" >}}
+{{< download href="/code/mesh/scout_emblem/scout_emblem.stl" label="scout_emblem.stl" >}}
 
 ---
 
 ## Moulds
 
-*Notes to follow — how the silicon moulds were made, what the master was.*
+Silicon moulds made by my fellow scout leader from the resin master.
+
+*Photos to follow.*
 
 ---
 
 ## The Pour
 
-*Notes to follow — tin, temperatures, what worked and what didn't.*
+We set up a practice station first — gloves, face masks, and pouring water into a PET bottle before anyone touched real tin. Once they had the motion down, they moved to the actual pour.
+
+Done in small groups: two leaders, two kids at a time. Went smoothly.
 
 ---
 
 ## Result
 
-*Notes and photos to follow.*
+*Photos to follow.*
 
 ---
 
