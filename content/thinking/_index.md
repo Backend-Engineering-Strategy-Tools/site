@@ -10,3 +10,7 @@ showReadingTime: false
 Observations and takes from building infrastructure. Not tutorials, not case studies. Just: here's what I noticed, here's the trade-off, here's what I'd do.
 
 ---
+
+- [Shared Tooling Images — One Image, Three Contexts](/thinking/shared-tooling-images/)
+
+---
