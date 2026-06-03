@@ -82,9 +82,9 @@ The signal that logic is leaking into the wrong place: when a tool's config form
 Gradle compiles, tests, and packages. Deployment logic, Docker builds, release steps → scripts. `make build` calls Gradle. `make docker` calls a script. `make deploy` calls Helm. See [Build Systems](/public-notes/cicd/build-systems/) for the full pattern.
 
 **Infrastructure**
-- **Terraform** — `terraform apply` does the infra. Environment selection, var file injection, state backend config, plan review → scripts. `make plan`, `make apply`.
-- **Helm** — Helm packages and deploys. Cluster selection, secret fetching, values overrides → scripts. `make deploy`.
-- **Ansible** — Ansible provisions. Inventory management, vault decryption, pre-flight checks → scripts. `make provision`.
+- **Terraform**: `terraform apply` does the infra. Environment selection, var file injection, state backend config, plan review → scripts. `make plan`, `make apply`.
+- **Helm**: Helm packages and deploys. Cluster selection, secret fetching, values overrides → scripts. `make deploy`.
+- **Ansible**: Ansible provisions. Inventory management, vault decryption, pre-flight checks → scripts. `make provision`.
 
 **Testing**
 Test runners run tests. Environment setup, test data seeding, coverage reporting → scripts. `make test` is the entry point regardless of whether it is pytest, jest, or go test underneath.

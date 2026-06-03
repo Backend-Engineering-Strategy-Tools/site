@@ -7,7 +7,7 @@ showReadingTime: false
 
 SLSA (pronounced "salsa") is a framework for securing the software supply chain. Developed by Google, now under the OpenSSF. The core question it answers: how do you know the artifact you are deploying is actually what was built from the source you think it was?
 
-The answer is **provenance** — cryptographically signed metadata that records what built an artifact, from what source, when, and under what conditions. SLSA defines levels of increasing rigour around how that provenance is generated and verified.
+The answer is **provenance**: cryptographically signed metadata that records what built an artifact, from what source, when, and under what conditions. SLSA defines levels of increasing rigour around how that provenance is generated and verified.
 
 ---
 
@@ -49,13 +49,13 @@ It is signed using [Sigstore](https://www.sigstore.dev/) / cosign, which provide
 
 ## Tooling
 
-**SLSA GitHub Generator** — reusable GitHub Actions workflows that generate SLSA L3 provenance for common artifact types (Go binaries, container images, Maven/Gradle packages). The easiest path to L3 on GitHub Actions.
+**SLSA GitHub Generator**: reusable GitHub Actions workflows that generate SLSA L3 provenance for common artifact types (Go binaries, container images, Maven/Gradle packages). The easiest path to L3 on GitHub Actions.
 
-**cosign** — signs and verifies container images and provenance attestations. Part of the Sigstore project.
+**cosign**: signs and verifies container images and provenance attestations. Part of the Sigstore project.
 
-**slsa-verifier** — CLI tool to verify SLSA provenance against an artifact. Used by consumers to check that an artifact meets a required SLSA level.
+**slsa-verifier**: CLI tool to verify SLSA provenance against an artifact. Used by consumers to check that an artifact meets a required SLSA level.
 
-**Dependency Track / Grype / Trivy** — SBOM and vulnerability scanning tools that complement SLSA (SLSA is about build integrity, SBOM is about knowing what is in the artifact — related but distinct).
+**Dependency Track / Grype / Trivy**: SBOM and vulnerability scanning tools that complement SLSA (SLSA is about build integrity, SBOM is about knowing what is in the artifact — related but distinct).
 
 ---
 
@@ -93,5 +93,5 @@ Which points to what SLSA actually is: a name and a framework for practices that
 
 ## Related
 
-- [Shared Tooling Images](/thinking/shared-tooling-images/) — SLSA provenance applies directly to published tooling images
-- [GitHub Actions](/public-notes/cicd/github/) — where SLSA GitHub Generator workflows run
+- [Shared Tooling Images](/thinking/shared-tooling-images/): SLSA provenance applies directly to published tooling images
+- [GitHub Actions](/public-notes/cicd/github/): where SLSA GitHub Generator workflows run

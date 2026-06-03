@@ -27,11 +27,11 @@ Used it. It was what it was — at least you always knew exactly what the build 
 
 Convention over configuration. If your project follows the standard layout (`src/main/java`, `src/test/java`, etc.) most of the build is declared, not scripted. Dependency management built in via the POM and central repository.
 
-**Maven 1** — the original. Repository model and POM concept introduced. Plugin system was limited and the build lifecycle was rigid.
+**Maven 1**: the original. Repository model and POM concept introduced. Plugin system was limited and the build lifecycle was rigid.
 
-**Maven 2** — major redesign. The lifecycle phases (validate → compile → test → package → install → deploy) that most people know. Dependency resolution significantly improved. This is the version that won widespread adoption.
+**Maven 2**: major redesign. The lifecycle phases (validate → compile → test → package → install → deploy) that most people know. Dependency resolution significantly improved. This is the version that won widespread adoption.
 
-**Maven 3** — incremental improvements over Maven 2. Better performance, improved parallel builds, polyglot POM support. Most Maven projects today run on 3.x.
+**Maven 3**: incremental improvements over Maven 2. Better performance, improved parallel builds, polyglot POM support. Most Maven projects today run on 3.x.
 
 **Strengths**: standardised project layout means any Maven project is immediately navigable; dependency management and central repository model that the whole ecosystem built on.
 

@@ -10,7 +10,7 @@ Bash is unavoidable in DevOps work — CI/CD pipelines, container entrypoints, s
 
 ## Tooling
 
-**Linting:** [ShellCheck](https://www.shellcheck.net/) — catches common mistakes and anti-patterns. Run it in CI, or install the IDE plugin. Most of what it flags is genuinely wrong.
+**Linting:** [ShellCheck](https://www.shellcheck.net/): catches common mistakes and anti-patterns. Run it in CI, or install the IDE plugin. Most of what it flags is genuinely wrong.
 
 **IDE:** Any editor works. ShellCheck integrations exist for VS Code, IntelliJ, Vim, and most others.
 
@@ -25,7 +25,7 @@ set -euo pipefail
 
 - `-e` — exit on error
 - `-u` — error on unset variables
-- `-o pipefail` — catch errors in pipes, not just the last command
+- `-o pipefail`: catch errors in pipes, not just the last command
 
 Use `shellcheck` before committing. Most Bash bugs it catches are subtle and only surface under specific conditions in production.
 

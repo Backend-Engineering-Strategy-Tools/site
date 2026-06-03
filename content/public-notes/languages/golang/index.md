@@ -10,11 +10,11 @@ Go is my go-to language for backend services, CLI tools, and DevOps tooling. The
 
 ## Tooling
 
-**IDE:** [GoLand](https://www.jetbrains.com/go/) — JetBrains' Go-specific IDE. Solid refactoring, built-in debugger, good test runner integration.
+**IDE:** [GoLand](https://www.jetbrains.com/go/): JetBrains' Go-specific IDE. Solid refactoring, built-in debugger, good test runner integration.
 
-**Formatting:** `gofmt` / `goimports` — no debates about style, just run it.
+**Formatting:** `gofmt` / `goimports`: no debates about style, just run it.
 
-**Linting:** [golangci-lint](https://golangci-lint.run/) — meta-linter that runs a configurable set of linters in one pass. Worth wiring into CI.
+**Linting:** [golangci-lint](https://golangci-lint.run/): meta-linter that runs a configurable set of linters in one pass. Worth wiring into CI.
 
 ## Testing
 

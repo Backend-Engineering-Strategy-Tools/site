@@ -12,13 +12,13 @@ Python is my scripting and automation language of choice. I reach for it when Ba
 
 ## Tooling
 
-**IDE:** [PyCharm](https://www.jetbrains.com/pycharm/) — JetBrains' Python IDE. Good for larger projects. For scripts and smaller work, IntelliJ IDEA with the Python plugin does the job.
+**IDE:** [PyCharm](https://www.jetbrains.com/pycharm/): JetBrains' Python IDE. Good for larger projects. For scripts and smaller work, IntelliJ IDEA with the Python plugin does the job.
 
-**Formatting:** [Black](https://black.readthedocs.io/) — opinionated formatter, no configuration needed.
+**Formatting:** [Black](https://black.readthedocs.io/): opinionated formatter, no configuration needed.
 
-**Linting:** [Ruff](https://docs.astral.sh/ruff/) — extremely fast linter and formatter, replacing Flake8 + isort in most setups.
+**Linting:** [Ruff](https://docs.astral.sh/ruff/): extremely fast linter and formatter, replacing Flake8 + isort in most setups.
 
-**Dependency management:** [uv](https://docs.astral.sh/uv/) — modern, fast package manager replacing pip/virtualenv for most workflows.
+**Dependency management:** [uv](https://docs.astral.sh/uv/): modern, fast package manager replacing pip/virtualenv for most workflows.
 
 ## Where I use it
 

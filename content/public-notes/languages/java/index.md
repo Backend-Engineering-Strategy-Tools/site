@@ -12,7 +12,7 @@ Java is my primary language for backend services. Mature ecosystem, strong tooli
 
 **IDE:** [IntelliJ IDEA](https://www.jetbrains.com/idea/) — the standard for Java development. Excellent refactoring, code analysis, and framework support (Spring, Quarkus, Jakarta EE). The free Community edition covers most needs; Ultimate adds Spring-specific tooling and database tools.
 
-**Build:** [Gradle](https://gradle.org/) or [Maven](https://maven.apache.org/) — Gradle for flexibility and performance, Maven for convention-heavy projects where everyone knows where everything lives.
+**Build:** [Gradle](https://gradle.org/) or [Maven](https://maven.apache.org/) — Gradle is the least bad option; keep the build file focused on compile, test, and package only. See [Build Systems](/public-notes/cicd/build-systems/) for the full take.
 
 ## Frameworks
 
