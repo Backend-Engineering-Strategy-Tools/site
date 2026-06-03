@@ -2,6 +2,7 @@
 title: "Garage"
 date: 2026-04-12
 draft: false
+layout: single
 showReadingTime: false
 ---
 
