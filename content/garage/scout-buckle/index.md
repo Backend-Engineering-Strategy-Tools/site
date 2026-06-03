@@ -2,7 +2,7 @@
 title: "Scout Buckle Clone — Parametric for Casting"
 description: "Reverse-engineering a Scout buckle in Blender Python for resin or metal casting. An iterative project that resists one-shotting — geometry with compound curves and tight tolerances."
 date: 2026-06-02
-draft: true
+draft: false
 layout: single
 showReadingTime: false
 tags: ["blender", "python", "3d-printing", "parametric", "casting"]
