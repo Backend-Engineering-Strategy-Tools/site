@@ -239,6 +239,18 @@ For end-to-end validation against real AWS resources, [Terratest](https://terrat
 
 OPA/Rego, Conftest, or HashiCorp Sentinel can enforce policies at plan time — before anything is deployed. Useful for ensuring security groups are not wide open, IAM roles follow least privilege, tags are present on all resources.
 
+## Beyond infrastructure
+
+The industry standard, and the scope is wider than cloud resources. The provider model means anything with an API can be managed as Terraform code:
+
+- **Database schemas and users** — PostgreSQL, MySQL, MongoDB providers manage schemas, roles, and users as code. Database configuration follows the same plan/apply workflow as the VPC it runs in.
+- **DNS** — Route53, Cloudflare, and others are first-class providers. DNS changes go through version control and code review.
+- **GitHub** — repositories, teams, branch protection, secrets. Useful for managing org configuration at scale.
+- **Kubernetes** — namespaces, RBAC, CRDs. Useful for bootstrapping before other tooling runs.
+- **Secrets management** — Vault, AWS Secrets Manager, SSM Parameter Store all have providers.
+
+The implication: Terraform can be the single source of truth for everything from network topology to application database users. One workflow, one state. If there is a provider for it, Terraform is probably the right tool.
+
 ## Resources
 
 - [Terraform documentation](https://developer.hashicorp.com/terraform/docs)
