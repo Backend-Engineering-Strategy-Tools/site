@@ -1,30 +1,29 @@
 ---
 title: "Resin Badges — Packat & Klart"
 date: 2026-06-02
-draft: true
+draft: false
 showReadingTime: false
 ---
 
-*Draft — content to follow.*
+Resin-printed 'packat & klart' badges for the scouts heading out on their first overnight trip, i.e. 'Hajk'.
 
-Resin-printed 'packat & klart' badges for the scouts heading out on their first Hajk (overnight trip). Pre-dates the foundry work — this was the first time producing physical scout items rather than sourcing them.
+We had a meeting where we went through what one should bring, then ran a competition where the kids got points for guessing what was in the pack I brought along. They got a badge if they did well — they all passed. Success.
+
+First attempt at producing physical scout items rather than sourcing them.
 
 ---
 
 ## The Badge
 
-*Notes to follow — what 'packat & klart' means in scout context, what the badge looks like, design process.*
+Modelled in Blender, exported to STL, printed in resin.
+
+{{< download href="/code/mesh/packat_klart/packat_klart.blend" label="packat_klart.blend" >}}
+{{< download href="/code/mesh/packat_klart/packat_och_klart.stl" label="packat_och_klart.stl" >}}
 
 ---
 
 ## Print
 
-*Notes to follow — resin printing, supports, post-processing.*
-
----
-
-## The Hajk
-
-*Notes to follow — what the first night out looked like, how the badges landed.*
+Printed on the [Anycubic Photon Mono 2](/garage/3d-printing/) in Craftsman resin for the extra detail. In hindsight standard resin would have been fine at this size.
 
 ---
