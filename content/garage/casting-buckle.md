@@ -1,11 +1,9 @@
 ---
 title: "Casting Part 2 — Belt Buckle"
 date: 2026-06-02
-draft: true
+draft: false
 showReadingTime: false
 ---
-
-*Draft — content to follow.*
 
 Aluminium casting of a scout belt buckle. The buckle geometry was reverse-engineered and built parametrically in Blender Python — see [Scout Buckle — Parametric Design](/garage/scout-buckle/) for that side of the project. This page covers the casting execution.
 
@@ -25,7 +23,13 @@ Aluminium casting of a scout belt buckle. The buckle geometry was reverse-engine
 
 ## Status
 
-Work in progress. The parametric model is close; casting prep not started.
+Work in progress.
+
+The original — a scout belt buckle picked up at a visit to the [Scout Museum in Gothenburg](https://scoutmuseetgbg.scout.se/), the model we are reproducing.
+
+{{< figure src="/images/scout-buckle.jpeg" caption="Original scout belt buckle from the museum visit." >}}
+
+{{< figure src="/images/alu.jpeg" caption="A fellow scout leader kindly donated a few used fire extinguishers — more than enough aluminium for this project once melted down." >}}
 
 ---
 

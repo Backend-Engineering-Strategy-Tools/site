@@ -48,3 +48,11 @@ See [Blender Python for 3D Printing](/public-notes/frameworks-tools/blender-pyth
 Done. Script builds geometry → exports STL → places cameras at four angles (top, front, side, iso) → EEVEE renders → PNGs saved to `EXPORT_DIR/renders/`.
 
 Pipeline next steps (headless render, CI/CD, AI feedback loop) are tracked in the [Procedural Mesh project](/projects/procedural-mesh/).
+
+---
+
+## The Printed Part
+
+The through-holes give it the look of perforated rack blanking — functional and fits the aesthetic of the rest of the rack.
+
+{{< figure src="/images/rack-brace.jpeg" caption="Finished rack support brace installed in the rack." >}}
