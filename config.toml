@@ -23,21 +23,6 @@ canonifyURLs = true
     weight = 20
 
   [[menu.main]]
-    name = ".\u00a0\u00a0\u00a0\u00a0Kubernetes Stack"
-    url = "/projects/kubernetes-stack/"
-    weight = 21
-
-  [[menu.main]]
-    name = ".\u00a0\u00a0\u00a0\u00a0Touchscreen HUD"
-    url = "/projects/touchscreen-hud/"
-    weight = 22
-
-  [[menu.main]]
-    name = ".\u00a0\u00a0\u00a0\u00a0Minecraft"
-    url = "/projects/minecraft/"
-    weight = 23
-
-  [[menu.main]]
     name = "Notes"
     url = "/public-notes/"
     weight = 30

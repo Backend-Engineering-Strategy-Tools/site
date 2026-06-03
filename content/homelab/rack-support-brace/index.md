@@ -47,20 +47,4 @@ See [Blender Python for 3D Printing](/public-notes/frameworks-tools/blender-pyth
 
 Done. Script builds geometry → exports STL → places cameras at four angles (top, front, side, iso) → EEVEE renders → PNGs saved to `EXPORT_DIR/renders/`.
 
-## Step 2 — Headless render
-
-*Coming soon.* Run the full pipeline from a terminal, no GUI:
-
-```bash
-blender --background scene.blend --python rack_support_brace.py
-```
-
-EEVEE headless on Linux requires EGL — a few env vars and a GPU (or CPU fallback with Cycles). Notes to follow once tested.
-
-## Step 3 — CI/CD
-
-*Coming soon.* Commit a parameter change → pipeline runs headless render → PNGs stored as build artifacts → review diff in the PR. Goal: treat the `.py` file as the source of truth and the renders as its test output.
-
-## Step 4 — Feedback loop
-
-*Coming soon.* Parameter change → render → review → describe correction in plain language → updated script → repeat, without opening Blender at all.
+Pipeline next steps (headless render, CI/CD, AI feedback loop) are tracked in the [Procedural Mesh project](/projects/procedural-mesh/).

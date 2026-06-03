@@ -7,3 +7,8 @@ showReadingTime: false
 ---
 
 The [GitHub org](https://github.com/Backend-Engineering-Strategy-Tools) is a curated space — a cleaner surface over a longer personal GitHub history. Work in progress, professional tools, and side projects worth sharing.
+
+- [Kubernetes Across the Stack](/projects/kubernetes-stack/)
+- [Touchscreen HUD Build](/projects/touchscreen-hud/)
+- [Minecraft Server](/projects/minecraft/)
+- [Procedural Mesh — Blender Python & AI-Assisted Geometry](/projects/procedural-mesh/)

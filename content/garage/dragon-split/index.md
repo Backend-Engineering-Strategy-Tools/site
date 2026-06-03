@@ -39,4 +39,4 @@ The question is how much of the cut-plane placement can be scripted versus needi
 
 Not started. Notes to follow once the first cut attempt is done.
 
-See also: [Rack Support Brace](/homelab/rack-support-brace/) — parametric baseline, different problem class.
+See also: [Procedural Mesh project](/projects/procedural-mesh/) | [Rack Support Brace](/homelab/rack-support-brace/) — parametric baseline, different problem class.

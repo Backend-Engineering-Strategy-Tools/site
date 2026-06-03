@@ -29,6 +29,12 @@ Building a laser cutter from scratch — enclosure, motion system, and a touchsc
 - [Building the Foundry](/garage/foundry/) — furnace build, tin to aluminium, what it took to get there
 - [Casting Part 1 — Scout Badges](/garage/casting-badges/) — silicon moulds, tin poured, badges for the troop
 - [Casting Part 2 — Belt Buckle](/garage/casting-buckle/) — aluminium casting; model at [Scout Buckle — Parametric](/garage/scout-buckle/)
+
+---
+
+**Blender / Scripted**
+
+- [Dragon Split](/garage/dragon-split/) — slicing an articulated dragon STL into printable segments
 - [Scout Buckle — Parametric Design](/garage/scout-buckle/) — reverse-engineering a buckle in Blender Python for casting
 
 ---
