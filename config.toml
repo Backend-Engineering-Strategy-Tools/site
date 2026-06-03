@@ -20,7 +20,7 @@ canonifyURLs = true
   [[menu.main]]
     name = "Projects"
     url = "/projects/"
-    weight = 20
+    weight = 55
 
   [[menu.main]]
     name = "Notes"
@@ -95,7 +95,7 @@ canonifyURLs = true
   [[menu.main]]
     name = "Thinking"
     url = "/thinking/"
-    weight = 55
+    weight = 20
 
   [[menu.main]]
     name = "Garage"
