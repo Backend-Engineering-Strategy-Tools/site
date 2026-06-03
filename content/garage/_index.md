@@ -46,6 +46,12 @@ Building a laser cutter from scratch — enclosure, motion system, and a touchsc
 
 ---
 
+**Optics**
+
+- [Optics — Can We Print a Lens?](/garage/optics-lens/) — Fresnel lens attempt in clear PLA and clear resin
+
+---
+
 **Chemistry**
 
 - [Chemical Labels](/garage/chemistry-labels/) — building a proper label set for household and ordered chemicals
