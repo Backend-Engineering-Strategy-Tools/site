@@ -139,6 +139,18 @@ That said, not all infrastructure is cloud-native, and "replace everything" is r
 
 ---
 
+## Principles
+
+A few rules of thumb that hold regardless of which tool you use:
+
+**Only production requirements belong in production.** If a package, service, or configuration isn't needed by the workload, it shouldn't be there. Every additional component is a potential failure point and a maintenance burden. Configuration management makes it easy to declare everything — resist the temptation.
+
+**Separate CI from CD.** The pipeline that builds and tests your code is not the pipeline that applies configuration to servers. Keeping them separate means you can change one without touching the other, and failures in one don't cascade.
+
+**KISS — as few moving parts as possible.** Configuration management stacks can grow complex fast: roles, profiles, hieradata, environments, external node classifiers. Start with the simplest thing that enforces the state you need. Add complexity only when the simple version demonstrably can't handle the requirement.
+
+---
+
 ## See also
 
 - [Ansible](../ansible/) — the agentless alternative that won the mindshare battle

@@ -95,7 +95,7 @@ Using marketplace actions trades control for speed. For a POC or small project t
 
 GitHub-hosted runners (`ubuntu-latest`, `windows-latest`) cover most cases. Self-hosted runners make sense when you need access to an internal network, specific hardware (a GPU, specialised build machine), or want to avoid per-minute billing at scale.
 
-At that point you are closer to running a full CI platform, which is where tools like [Tekton](/public-notes/cicd/tekton/) or [Argo Workflows](https://argoproj.github.io/argo-workflows/) become relevant — they give you the same kind of pipeline orchestration but running entirely on your own infrastructure.
+At that point you are closer to running a full CI platform, which is where tools like [Tekton](/public-notes/cicd/platforms/) or [Argo Workflows](https://argoproj.github.io/argo-workflows/) become relevant — they give you the same kind of pipeline orchestration but running entirely on your own infrastructure.
 
 ## Resources
 
