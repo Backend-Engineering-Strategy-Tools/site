@@ -4,6 +4,9 @@ layout: single
 showReadingTime: false
 date: 2026-03-16
 draft: false
+outputs:
+  - HTML
+  - JSON
 ---
 
 Started as a backend developer in 2007 — Java, enterprise systems — and spent the last decade moving deeper into Kubernetes, cloud infrastructure, and platform engineering.

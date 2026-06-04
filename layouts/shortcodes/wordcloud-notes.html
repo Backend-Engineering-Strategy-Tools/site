@@ -1,5 +1,5 @@
 <div id="wordcloud-wrap">
-  <div id="wordcloud-info">Words sized by number of pages. Click a word to search for it.</div>
+  <div id="wordcloud-info">Words sized by number of pages. Click a word to navigate to the best match.</div>
   <canvas id="wordcloud-canvas"></canvas>
 </div>
 
@@ -14,6 +14,7 @@
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
 <script>
 (function(){
   var COLORS = {
@@ -26,11 +27,15 @@
   fetch('/public-notes/index.json')
     .then(function(r){ return r.json(); })
     .then(function(data){
-      // Count sections and tags
+      var fuse = new Fuse(data, {
+        keys: [{ name:'title', weight:3 }, { name:'tags', weight:2 }, { name:'subsection', weight:2 }],
+        threshold: 0.35, includeScore: true
+      });
+
       var counts = {}, sectionOf = {};
       data.forEach(function(p){
         var sub = p.subsection || p.section;
-        counts[sub] = (counts[sub] || 0) + 3; // sections count more
+        counts[sub] = (counts[sub] || 0) + 3;
         sectionOf[sub] = sub;
         (p.tags || []).forEach(function(tag){
           counts[tag] = (counts[tag] || 0) + 1;
@@ -57,14 +62,10 @@
         backgroundColor: 'transparent',
         click: function(item){
           var word = item[0];
-          var search = document.getElementById('notes-search-input');
-          if (search) {
-            search.value = word;
-            search.dispatchEvent(new Event('input'));
-            search.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            window.location.href = '/public-notes/search/?q=' + encodeURIComponent(word);
-          }
+          var hits = fuse.search(word);
+          window.location.href = hits.length
+            ? hits[0].item.url
+            : '/public-notes/search/?q=' + encodeURIComponent(word);
         },
         hover: function(item, dim, e){ canvas.title = item ? item[0] + ' (' + item[1] + ')' : ''; }
       });

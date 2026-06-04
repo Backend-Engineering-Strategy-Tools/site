@@ -1,0 +1,129 @@
+<section class="widget notes-search-widget">
+  <div class="ns-modes">
+    <button class="ns-mode active" data-mode="notes">Notes</button>
+    <button class="ns-mode" data-mode="all">All</button>
+  </div>
+  <div class="ns-input-wrap">
+    <input id="ns-input" type="search" placeholder="Search…" autocomplete="off" spellcheck="false">
+  </div>
+  <ul id="ns-results" hidden></ul>
+</section>
+
+<style>
+.notes-search-widget { gap: 0; }
+.ns-modes { display: flex; gap: 4px; margin-bottom: 6px; }
+.ns-mode {
+  flex: 1; padding: 3px 0; font-size: .75rem; cursor: pointer;
+  border: 1px solid rgba(128,128,128,.35); border-radius: 3px;
+  background: transparent; color: inherit; font-family: inherit;
+}
+.ns-mode.active { background: rgba(128,128,128,.18); font-weight: 600; }
+.ns-input-wrap { position: relative; }
+#ns-input {
+  width: 100%; padding: .45rem .65rem; font-size: .875rem;
+  border: 1px solid rgba(128,128,128,.35); border-radius: 4px;
+  background: transparent; color: inherit; font-family: inherit;
+  box-sizing: border-box;
+}
+#ns-input:focus { outline: 2px solid currentColor; outline-offset: 1px; }
+#ns-results {
+  list-style: none; margin: 4px 0 0; padding: 0;
+  border: 1px solid rgba(128,128,128,.25); border-radius: 4px;
+  overflow: hidden;
+}
+#ns-results li a {
+  display: block; padding: .45rem .65rem; font-size: .8rem;
+  text-decoration: none; color: inherit; border-bottom: 1px solid rgba(128,128,128,.15);
+}
+#ns-results li:last-child a { border-bottom: none; }
+#ns-results li a:hover, #ns-results li.ns-active a { background: rgba(128,128,128,.15); }
+.ns-empty { padding: .45rem .65rem; font-size: .8rem; opacity: .55; font-style: italic; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+(function(){
+  var INDEXES = { notes: '/public-notes/index.json', all: '/index.json' };
+  var cache = {}, fuses = {}, mode = 'notes';
+  var input  = document.getElementById('ns-input');
+  var list   = document.getElementById('ns-results');
+  var modes  = document.querySelectorAll('.ns-mode');
+
+  function fuseFor(m, cb) {
+    if (fuses[m]) { cb(fuses[m]); return; }
+    if (cache[m]) { fuses[m] = makeFuse(cache[m]); cb(fuses[m]); return; }
+    fetch(INDEXES[m]).then(function(r){ return r.json(); }).then(function(d){
+      cache[m] = d;
+      fuses[m] = makeFuse(d);
+      cb(fuses[m]);
+    });
+  }
+
+  function makeFuse(data) {
+    return new Fuse(data, {
+      keys: [{ name:'title', weight:3 }, { name:'tags', weight:2 }, { name:'subsection', weight:1.5 }, { name:'summary', weight:1 }],
+      threshold: 0.35, includeScore: true
+    });
+  }
+
+  function render(hits) {
+    if (!hits.length) {
+      list.hidden = false;
+      list.innerHTML = '<li class="ns-empty">No results</li>';
+      return;
+    }
+    list.hidden = false;
+    list.innerHTML = hits.slice(0, 5).map(function(h){
+      var p = h.item;
+      return '<li><a href="' + p.url + '">' + p.title + '</a></li>';
+    }).join('');
+  }
+
+  function search(q) {
+    if (!q) { list.hidden = true; list.innerHTML = ''; return; }
+    fuseFor(mode, function(f){ render(f.search(q)); });
+  }
+
+  input.addEventListener('input', function(){ search(this.value.trim()); });
+
+  input.addEventListener('keydown', function(e){
+    var items = list.querySelectorAll('li:not(.ns-empty)');
+    var cur = list.querySelector('li.ns-active');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      var next = cur ? (cur.nextElementSibling || items[0]) : items[0];
+      if (cur) cur.classList.remove('ns-active');
+      if (next) next.classList.add('ns-active');
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      var prev = cur ? (cur.previousElementSibling || items[items.length-1]) : items[items.length-1];
+      if (cur) cur.classList.remove('ns-active');
+      if (prev) prev.classList.add('ns-active');
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      var active = list.querySelector('li.ns-active a') || list.querySelector('li a');
+      if (active) window.location.href = active.href;
+    } else if (e.key === 'Escape') {
+      list.hidden = true; list.innerHTML = '';
+    }
+  });
+
+  modes.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      modes.forEach(function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      mode = this.dataset.mode;
+      search(input.value.trim());
+    });
+  });
+
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('.notes-search-widget')) {
+      list.hidden = true; list.innerHTML = '';
+    }
+  });
+
+  // Pre-warm notes index
+  fuseFor('notes', function(){});
+})();
+</script>
