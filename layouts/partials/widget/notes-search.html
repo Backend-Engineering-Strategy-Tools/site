@@ -43,7 +43,7 @@
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
 <script>
 (function(){
-  var INDEXES = { notes: '/public-notes/index.json', all: '/index.json' };
+  var INDEXES = { notes: '{{ "public-notes/index.json" | absURL }}', all: '{{ "index.json" | absURL }}' };
   var cache = {}, fuses = {}, mode = 'notes';
   var input  = document.getElementById('ns-input');
   var list   = document.getElementById('ns-results');

@@ -24,7 +24,7 @@
     'docs-as-code':'#E91E63','ai':'#673AB7','hardware':'#8BC34A','default':'#999'
   };
 
-  fetch('/public-notes/index.json')
+  fetch('{{ "public-notes/index.json" | absURL }}')
     .then(function(r){ return r.json(); })
     .then(function(data){
       var fuse = new Fuse(data, {
@@ -65,7 +65,7 @@
           var hits = fuse.search(word);
           window.location.href = hits.length
             ? hits[0].item.url
-            : '/public-notes/search/?q=' + encodeURIComponent(word);
+            : '{{ "public-notes/search/" | absURL }}?q=' + encodeURIComponent(word);
         },
         hover: function(item, dim, e){ canvas.title = item ? item[0] + ' (' + item[1] + ')' : ''; }
       });

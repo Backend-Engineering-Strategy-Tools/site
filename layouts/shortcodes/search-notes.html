@@ -30,7 +30,7 @@
   var results = document.getElementById('notes-search-results');
   var fuse, data;
 
-  fetch('/public-notes/index.json')
+  fetch('{{ "public-notes/index.json" | absURL }}')
     .then(function(r){ return r.json(); })
     .then(function(d){
       data = d;
