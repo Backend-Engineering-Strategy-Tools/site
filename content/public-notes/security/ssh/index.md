@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["ssh", "security", "remote-access", "tunneling", "authentication"]
 ---
 
 SSH (Secure Shell) is the standard protocol for encrypted remote access to Linux and Unix systems. It replaced telnet and rsh by wrapping the session in a cryptographic tunnel — authentication, commands, and data transfer all protected against interception and tampering.

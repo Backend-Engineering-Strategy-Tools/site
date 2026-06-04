@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["nginx", "reverse-proxy", "web-server", "load-balancer", "networking"]
 ---
 
 ![NGINX](NGINX.svg)

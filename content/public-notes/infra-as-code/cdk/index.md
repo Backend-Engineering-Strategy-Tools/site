@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["aws", "cdk", "iac", "cloudformation", "java"]
 ---
 
 AWS CDK (Cloud Development Kit) lets you define infrastructure using real programming languages — Java, TypeScript, Python — rather than a DSL. You write code, CDK synthesizes it into a CloudFormation template, and CloudFormation deploys it to AWS.

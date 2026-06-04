@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["loki", "logging", "observability", "kubernetes", "grafana"]
 ---
 
 [Prometheus](../prometheus/) tells you *that* something is wrong and *when* it started. Loki tells you *what* happened — it is the log aggregation layer of the observability stack. Logs from every pod across every node are collected, indexed, and made searchable in one place. Grafana is the front end for both.

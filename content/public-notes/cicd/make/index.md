@@ -3,6 +3,7 @@ title: "Make — Task Runner Pattern"
 date: 2026-06-03
 draft: false
 showReadingTime: false
+tags: ["make", "build", "automation", "task-runner", "cicd"]
 ---
 
 Make predates most of the tooling in this notes collection by decades. Originally built to manage C compilation — track which source files changed, recompile only what's needed. The dependency graph and incremental execution model are genuinely elegant.

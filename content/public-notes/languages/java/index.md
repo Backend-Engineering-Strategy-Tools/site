@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["java", "jvm", "backend", "spring-boot", "microservices"]
 ---
 
 Java is my primary language for backend services. Mature ecosystem, strong tooling, and frameworks like Spring Boot and Quarkus make it productive for building production-grade APIs and microservices.

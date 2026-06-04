@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["k9s", "kubernetes", "cli", "terminal", "devops"]
 ---
 
 You run everything with `kubectl`. Get pods, describe, logs, exec, delete, apply — fifty times a day across five namespaces. It works, but every command is a context switch: type, wait, read, type again. `-n namespace` on every single invocation.

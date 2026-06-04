@@ -4,6 +4,7 @@ date: 2026-03-16
 draft: false
 showReadingTime: false
 layout: single
+tags: ["minecraft", "homelab", "kubernetes", "gaming"]
 ---
 
 Building and running a Minecraft server with the kids — hosted in the [homelab](/homelab/) on bare metal rather than paying for a managed service. Part infrastructure project, part excuse to learn together.

@@ -3,6 +3,7 @@ title: "SLSA — Supply-chain Levels for Software Artifacts"
 date: 2026-06-03
 draft: false
 showReadingTime: false
+tags: ["slsa", "supply-chain", "security", "provenance", "cicd"]
 ---
 
 SLSA (pronounced "salsa") is a framework for securing the software supply chain. Developed by Google, now under the OpenSSF. The core question it answers: how do you know the artifact you are deploying is actually what was built from the source you think it was?

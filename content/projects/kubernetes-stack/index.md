@@ -4,6 +4,7 @@ date: 2026-03-16
 draft: false
 showReadingTime: false
 layout: single
+tags: ["kubernetes", "talos", "homelab", "cloud", "bare-metal"]
 ---
 
 A documented comparison of running Kubernetes across every major hosting model — cloud managed, self-managed on cloud, private cloud, and bare metal at home. The goal is a honest, practical reference for each environment: what it costs you in time and money, where the rough edges are, and how the networking story differs between them.

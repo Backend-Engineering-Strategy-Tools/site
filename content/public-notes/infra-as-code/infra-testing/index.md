@@ -4,6 +4,7 @@ date: 2026-06-03
 draft: false
 showReadingTime: false
 layout: single
+tags: ["testing", "ansible", "molecule", "inspec", "iac"]
 ---
 
 Infrastructure code needs testing like application code does. The tools here cover different layers: role testing, integration testing, compliance checking, and Kubernetes end-to-end testing.

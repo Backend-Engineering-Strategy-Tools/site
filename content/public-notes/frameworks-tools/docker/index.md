@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["docker", "containers", "oci", "kubernetes", "devops"]
 ---
 
 Docker packages applications and their dependencies into portable, reproducible units called containers. Unlike virtual machines, containers share the host kernel — they're isolated processes, not emulated hardware. This makes them fast to start, light on resources, and consistent across environments: the same image runs on a developer's laptop, in CI, and in production.

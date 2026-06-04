@@ -4,6 +4,7 @@ date: 2026-06-03
 draft: false
 showReadingTime: false
 layout: single
+tags: ["pulumi", "iac", "typescript", "go", "multi-cloud"]
 ---
 
 Pulumi takes the same approach as [AWS CDK](../cdk/) — use a real programming language to define infrastructure — but without the CloudFormation layer underneath. Pulumi talks directly to cloud APIs, maintains its own state, and supports multiple clouds from a single codebase.

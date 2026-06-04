@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["python", "scripting", "automation", "cli"]
 ---
 
 Python is my scripting and automation language of choice. I reach for it when Bash starts getting unwieldy — data processing, API interactions, infrastructure automation scripts, and one-off tooling.

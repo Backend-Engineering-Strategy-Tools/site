@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["argocd", "gitops", "kubernetes", "cicd", "deployment"]
 ---
 
 ![ArgoCD](argo.png)

@@ -3,6 +3,7 @@ title: "Build Systems — Ant, Maven, Gradle, Bazel"
 date: 2026-06-03
 draft: false
 showReadingTime: false
+tags: ["build-systems", "maven", "gradle", "ant", "bazel"]
 ---
 
 The Java ecosystem has cycled through several generations of build tooling. Each generation solved real problems with the previous one and introduced new ones of its own.

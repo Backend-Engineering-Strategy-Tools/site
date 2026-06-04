@@ -3,6 +3,7 @@ title: "3D Printing"
 date: 2026-04-12
 draft: false
 showReadingTime: false
+tags: ["3d-printing", "fdm", "resin", "hardware"]
 ---
 
 Two printers: an FDM machine for structural and functional parts, a resin printer for detail work. Different tools for different jobs — the resin produces sharper geometry at the cost of more process overhead.

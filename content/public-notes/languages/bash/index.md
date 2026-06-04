@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["bash", "shell", "scripting", "automation", "cli"]
 ---
 
 Bash is unavoidable in DevOps work — CI/CD pipelines, container entrypoints, system init scripts, and quick automation all end up as shell scripts eventually. Knowing how to write it well saves a lot of pain.

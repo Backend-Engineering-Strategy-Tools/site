@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["terraform", "iac", "hcl", "aws", "state-management"]
 ---
 
 Terraform is HashiCorp's infrastructure-as-code tool: you declare what infrastructure you want in HCL (HashiCorp Configuration Language), and Terraform figures out how to create, update, or destroy resources to match that declaration. It works across providers — AWS, GCP, Azure, Kubernetes, GitHub, and hundreds more — through a plugin architecture.

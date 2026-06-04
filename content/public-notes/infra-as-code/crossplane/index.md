@@ -4,6 +4,7 @@ date: 2026-06-03
 draft: false
 showReadingMode: false
 layout: single
+tags: ["crossplane", "kubernetes", "iac", "cloud-native", "operator"]
 ---
 
 Crossplane is Kubernetes-native infrastructure management. Where Terraform runs as a CLI tool that applies changes and exits, Crossplane runs as a controller inside a Kubernetes cluster and continuously reconciles infrastructure — the same control loop model as Kubernetes itself.

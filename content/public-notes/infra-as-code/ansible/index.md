@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["ansible", "configuration-management", "automation", "iac", "agentless"]
 ---
 
 Ansible is an open-source automation tool for configuration management, application deployment, and orchestration. The key selling point: it's agentless — you push from a control machine over SSH, no daemon running on managed hosts.

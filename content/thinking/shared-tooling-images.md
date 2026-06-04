@@ -3,6 +3,7 @@ title: "Shared Tooling Images — One Image, Three Contexts"
 date: 2026-06-02
 draft: false
 showReadingTime: false
+tags: ["docker", "cicd", "tooling", "devops", "containers"]
 ---
 
 The problem with per-context tooling: CI uses one version of a linter, a developer's machine has another, a colleague has a third. Someone upgrades locally, the pipeline fails. Someone pins the pipeline, local runs drift. The maintenance surface is the number of places you install tools multiplied by the number of people on the team.

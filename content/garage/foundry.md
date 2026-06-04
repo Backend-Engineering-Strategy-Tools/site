@@ -3,6 +3,7 @@ title: "Building the Foundry"
 date: 2026-06-02
 draft: false
 showReadingTime: false
+tags: ["casting", "metalwork", "aluminium", "foundry"]
 ---
 
 Started with tin — a small camping burner and a steel ladle was enough. Then the obvious question came up: could we melt the aluminium cans now?

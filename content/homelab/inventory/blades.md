@@ -4,6 +4,7 @@ date: 2026-05-14
 draft: false
 showReadingTime: false
 layout: single
+tags: ["homelab", "inventory", "hardware", "blades", "hpc"]
 ---
 
 # Blade Configurations (ASGARD — HP C7000)

@@ -4,6 +4,7 @@ date: 2026-03-16
 draft: false
 showReadingTime: false
 layout: single
+tags: ["hardware", "embedded", "debian", "touchscreen"]
 ---
 
 A small batch of fanless Atom-based machines with touchscreens — picked up as a hardware experiment, now being packaged up to hand out to colleagues at nerd night.

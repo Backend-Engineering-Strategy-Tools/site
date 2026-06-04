@@ -4,6 +4,7 @@ date: 2026-05-13
 draft: false
 showReadingTime: false
 layout: single
+tags: ["homelab", "inventory", "hardware", "gpu", "ml"]
 ---
 
 # GPU Catalog

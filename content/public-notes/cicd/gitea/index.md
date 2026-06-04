@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["gitea", "forgejo", "git", "self-hosted", "version-control"]
 ---
 
 **[Gogs](https://gogs.io/)** came first — a self-hosted Git service, lightweight, single binary, runs anywhere. Think GitHub but on your own infrastructure. Simple to deploy, easy to understand, and that was the point.

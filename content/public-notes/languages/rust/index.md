@@ -4,6 +4,7 @@ date: 2026-06-03
 draft: false
 showReadingTime: false
 layout: single
+tags: ["rust", "systems-programming", "cli", "wasm", "performance"]
 ---
 
 Systems language with memory safety guarantees without a garbage collector. The ownership and borrow checker model enforces at compile time what other languages leave to the runtime or the programmer.

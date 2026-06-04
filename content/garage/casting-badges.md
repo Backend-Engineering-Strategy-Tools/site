@@ -3,6 +3,7 @@ title: "Casting Part 1 — Scout Badges"
 date: 2026-06-02
 draft: false
 showReadingTime: false
+tags: ["casting", "scouts", "metalwork", "resin"]
 ---
 
 When I was a kid and scout we cast the scout emblem in tin — naturally we had to do this again with my own troop.

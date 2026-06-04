@@ -4,6 +4,7 @@ date: 2026-06-03
 draft: false
 showReadingTime: false
 layout: single
+tags: ["configuration-management", "puppet", "chef", "salt", "iac"]
 ---
 
 Before Terraform, before Kubernetes, before immutable infrastructure — configuration management tools were how you kept servers in a known state. Puppet, Chef, and Salt are the main players. All three solve the same core problem: a fleet of servers that should all look a certain way, continuously enforced.

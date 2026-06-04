@@ -3,6 +3,7 @@ title: "Optics — Can We Print a Lens?"
 date: 2026-06-03
 draft: false
 showReadingTime: false
+tags: ["3d-printing", "optics", "hardware", "parametric"]
 ---
 
 The question: can a 3D printed part function as a lens? Not a perfect optical instrument — but something that focuses or diffuses light usefully.

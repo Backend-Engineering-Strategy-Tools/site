@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["kubernetes", "containers", "orchestration", "cloud-native", "devops"]
 ---
 
 Kubernetes (K8s) is the de facto standard for container orchestration and the second largest open source project after the Linux kernel. It has well and truly reached the plateau of productivity — the ecosystem is mature and it genuinely delivers.

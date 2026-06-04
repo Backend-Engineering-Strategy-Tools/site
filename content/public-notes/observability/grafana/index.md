@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["grafana", "observability", "dashboards", "metrics", "prometheus"]
 ---
 
 Prometheus shows you the spike. It tells you memory climbed at 14:32, error rate crossed 5% at 14:35, and latency hit 2 seconds at 14:37. But raw PromQL results are numbers in a table. You cannot see the shape of an incident in a table. You cannot hand a table to a product manager and explain what happened.

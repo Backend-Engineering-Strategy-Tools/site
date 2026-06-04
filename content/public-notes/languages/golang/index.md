@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["go", "golang", "backend", "cli", "concurrency"]
 ---
 
 Go is my go-to language for backend services, CLI tools, and DevOps tooling. The standard library covers most of what you need, the compiler is fast, and the concurrency model (goroutines + channels) makes it well suited for infrastructure-adjacent work.

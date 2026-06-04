@@ -3,6 +3,7 @@ title: "Resin Badges — Packat & Klart"
 date: 2026-06-02
 draft: false
 showReadingTime: false
+tags: ["resin", "scouts", "3d-printing"]
 ---
 
 Resin-printed 'packat & klart' badges for the scouts heading out on their first overnight trip, i.e. 'Hajk'.

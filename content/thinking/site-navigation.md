@@ -3,6 +3,7 @@ title: "Site Navigation — Beyond the Menu"
 date: 2026-06-04
 draft: false
 showReadingTime: false
+tags: ["search", "navigation", "ux", "knowledge-base"]
 ---
 
 A menu works when the content is shallow and the audience knows what they want. It breaks down when the content grows into something more like a knowledge base — when you have 80 notes across 12 sections and the useful thing is not finding a specific page but discovering that two ideas are connected.

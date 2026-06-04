@@ -4,6 +4,7 @@ draft: false
 date: 2024-01-01
 showReadingTime: false
 layout: single
+tags: ["prometheus", "metrics", "monitoring", "alerting", "observability"]
 ---
 
 Something is wrong. Pods are restarting, latency is climbing, and a request that usually takes 50ms is now taking 2 seconds. You know something happened — users are complaining — but you have no numbers, no history, and no way to know when it started or which service caused it.

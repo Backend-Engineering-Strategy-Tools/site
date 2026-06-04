@@ -4,6 +4,7 @@ date: 2026-06-03
 draft: false
 showReadingTime: false
 layout: single
+tags: ["jvm", "java", "kotlin", "groovy", "scala"]
 ---
 
 JVM-hosted languages beyond Java. Each trades something to gain something, and each found a niche where the trade made sense.

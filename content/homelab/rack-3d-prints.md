@@ -3,6 +3,7 @@ title: "3D Printed Rack Parts"
 date: 2026-04-12
 draft: false
 showReadingTime: false
+tags: ["3d-printing", "homelab", "rack", "blender", "hardware"]
 ---
 
 Filling gaps in the rack build with printed parts — ears, blanks, and a modular tray system. Mix of sourced models from Printables and geometry scripted in Blender Python.
