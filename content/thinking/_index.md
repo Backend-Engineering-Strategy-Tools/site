@@ -11,6 +11,7 @@ Observations and takes from building infrastructure. Not tutorials, not case stu
 
 ---
 
+- [These Are Not the Pipelines You Are Looking For](/thinking/one-command-any-pipeline/)
 - [Shared Tooling Images — One Image, Three Contexts](/thinking/shared-tooling-images/)
 - [Site Navigation — Beyond the Menu](/thinking/site-navigation/)
 
