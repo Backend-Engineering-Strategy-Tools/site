@@ -25,7 +25,7 @@ A persistent inference endpoint on the lab network. Point a client at it and get
 |---|---|---|
 | Provisioning | PXE + iPXE | Boot ODEN from bare metal |
 | OS / Orchestration | [Talos](/public-notes/cloud-infrastructure/talos/) + Kubernetes | Immutable OS, container runtime |
-| Inference serving | [vLLM](/public-notes/frameworks-tools/vllm/) or [Ollama](/public-notes/frameworks-tools/ollama/) | Model serving, OpenAI-compatible API |
+| Inference serving | [vLLM](/public-notes/ai/vllm/) or [Ollama](/public-notes/ai/ollama/) | Model serving, OpenAI-compatible API |
 | GPU | NVIDIA GTX 770 (2GB VRAM) | Currently unplaced — target: ODEN |
 
 ---
@@ -50,7 +50,7 @@ The GTX 770 is a starting point. The value is in getting the infrastructure righ
 
 ## Tool Choice: vLLM vs Ollama
 
-|  | [vLLM](/public-notes/frameworks-tools/vllm/) | [Ollama](/public-notes/frameworks-tools/ollama/) |
+|  | [vLLM](/public-notes/ai/vllm/) | [Ollama](/public-notes/ai/ollama/) |
 |---|---|---|
 | Throughput | High (PagedAttention, continuous batching) | Lower |
 | Setup complexity | Moderate — Kubernetes deployment, GPU operator | Minimal — single binary |

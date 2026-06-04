@@ -61,12 +61,12 @@ For NVIDIA on Linux, the CUDA toolkit must be installed on the host (or availabl
 - Constrained GPU or CPU-only inference
 - Quick model experimentation before committing to a production stack
 
-For concurrent multi-user serving or production throughput, [vLLM](/public-notes/frameworks-tools/vllm/) is the better choice.
+For concurrent multi-user serving or production throughput, [vLLM](/public-notes/ai/vllm/) is the better choice.
 
 ---
 
 ## Related
 
 - [Ollama model library](https://ollama.com/library)
-- [vLLM](/public-notes/frameworks-tools/vllm/) — production serving alternative for concurrent workloads
+- [vLLM](/public-notes/ai/vllm/) — production serving alternative for concurrent workloads
 - [LLM inference in the homelab](/homelab/llm-inference/)

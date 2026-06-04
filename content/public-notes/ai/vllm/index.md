@@ -58,12 +58,12 @@ curl http://localhost:8000/v1/chat/completions \
 - You need tensor parallelism across multiple GPUs
 - You want quantised model support with a clean API
 
-For single-user or low-concurrency use with a constrained GPU, [Ollama](/public-notes/frameworks-tools/ollama/) may be simpler to operate. vLLM's advantage shows under concurrent load.
+For single-user or low-concurrency use with a constrained GPU, [Ollama](/public-notes/ai/ollama/) may be simpler to operate. vLLM's advantage shows under concurrent load.
 
 ---
 
 ## Related
 
 - [vLLM documentation](https://docs.vllm.ai/)
-- [Ollama](/public-notes/frameworks-tools/ollama/) — simpler alternative for single-user or low-concurrency use
+- [Ollama](/public-notes/ai/ollama/) — simpler alternative for single-user or low-concurrency use
 - [LLM inference in the homelab](/homelab/llm-inference/)
