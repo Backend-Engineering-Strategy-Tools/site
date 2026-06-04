@@ -11,11 +11,6 @@ canonifyURLs = true
   subtitle = "Backend Engineering Strategy Tools"
   description = "Specializing in backend systems, CI/CD, automation, and DevOps practices"
 
-[[params.widgets.homepage]]
-type = "notes-search"
-
-[[params.widgets.page]]
-type = "notes-search"
 
 [menu]
   [[menu.main]]

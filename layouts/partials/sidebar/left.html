@@ -1,0 +1,222 @@
+<aside class="sidebar left-sidebar sticky {{ if .Site.Params.sidebar.compact }}compact{{ end }}">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="{{ T `toggleMenu` }}">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        {{ with .Site.Params.sidebar.avatar }}
+            {{- $avatar := partial "helper/image" (dict "Image" . "Resources" resources "Context" $) -}}
+            <figure class="site-avatar">
+                <a href="{{ $.Site.Home.RelPermalink }}">
+                    <img src="{{ $avatar.Permalink }}"
+                        width="{{ $avatar.Width }}"
+                        height="{{ $avatar.Height }}"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                {{ with $.Site.Params.sidebar.emoji }}
+                    <span class="emoji">{{ . }}</span>
+                {{ end }}
+            </figure>
+        {{ end }}
+
+        <div class="site-meta">
+            <h1 class="site-name"><a href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a></h1>
+            <h2 class="site-description">{{ .Site.Params.sidebar.subtitle }}</h2>
+        </div>
+    </header>
+
+    {{- with .Site.Menus.social -}}
+        <ol class="menu-social">
+            {{ range . }}
+                <li>
+                    <a
+                        href='{{ .URL }}'
+                        {{ if .Params.newTab }}target="_blank"{{ end }}
+                        {{ with .Name }}title="{{ . }}"{{ end }}
+                        rel="me"
+                    >
+                        {{ $icon := default "link" .Params.Icon }}
+                        {{ with $icon }}
+                            {{ partial "helper/icon" . }}
+                        {{ end }}
+                    </a>
+                </li>
+            {{ end }}
+        </ol>
+    {{- end -}}
+
+    <div class="sidebar-search">
+        <div class="ss-row">
+            <input id="ss-input" type="search" placeholder="Search…" autocomplete="off" spellcheck="false">
+            <label class="ss-toggle" id="ss-toggle-label" title="Notes only — click to search all pages">
+                <input type="checkbox" id="ss-toggle-cb" autocomplete="off">
+                <span class="ss-track"><span class="ss-thumb"></span></span>
+            </label>
+        </div>
+        <ul id="ss-results" hidden></ul>
+    </div>
+
+    <ol class="menu" id="main-menu">
+        {{ $currentPage := . }}
+        {{ range .Site.Menus.main }}
+        {{ $active := or (eq $currentPage.RelPermalink .URL) (or ($currentPage.HasMenuCurrent "main" .) ($currentPage.IsMenuCurrent "main" .)) }}
+        <li {{ if $active }} class='current'{{ end }}>
+            <a href='{{ .URL }}' {{ if .Params.newTab }}target="_blank"{{ end }}>
+                {{ with .Params.Icon }}
+                    {{ partial "helper/icon" . }}
+                {{ end }}
+                <span>{{- .Name -}}</span>
+            </a>
+        </li>
+        {{ end }}
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                {{- $currentLanguageCode := .Language.Lang -}}
+                {{ if hugo.IsMultilingual }}
+                    <li id="i18n-switch">
+                        {{ partial "helper/icon" "language" }}
+                        <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                            {{ range .Site.Home.AllTranslations }}
+                                {{ $target := . }}
+                                {{ range $.AllTranslations }}
+                                    {{ if eq .Language.Lang $target.Language.Lang }}
+                                        {{ $target = . }}
+                                    {{ end }}
+                                {{ end }}
+                                <option value="{{ $target.RelPermalink }}" {{ if eq $target.Language.Lang $currentLanguageCode }}selected{{ end }}>{{ .Language.LanguageName }}</option>
+                            {{ end }}
+                        </select>
+                    </li>
+                {{ end }}
+
+                {{ if .Site.Params.colorScheme.toggle }}
+                    <li id="dark-mode-toggle">
+                        {{ partial "helper/icon" "toggle-left" }}
+                        {{ partial "helper/icon" "toggle-right" }}
+                        <span>{{ T "darkMode" }}</span>
+                    </li>
+                {{ end }}
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+<style>
+.sidebar-search { padding: 0 1.5rem 1rem; }
+.ss-row { display: flex; align-items: center; gap: 6px; }
+#ss-input {
+  flex: 1; min-width: 0; padding: .3rem .5rem; font-size: .8rem;
+  border: 1px solid rgba(128,128,128,.35); border-radius: 4px;
+  background: transparent; color: inherit; font-family: inherit;
+}
+#ss-input:focus { outline: 1px solid currentColor; outline-offset: 1px; }
+.ss-toggle { display: flex; align-items: center; flex-shrink: 0; cursor: pointer; }
+.ss-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+.ss-track {
+  width: 26px; height: 13px; border-radius: 7px;
+  background: rgba(128,128,128,.3); position: relative; transition: background .2s;
+}
+.ss-toggle input:checked ~ .ss-track { background: rgba(128,128,128,.5); }
+.ss-thumb {
+  position: absolute; top: 2px; left: 2px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: currentColor; transition: transform .2s; opacity: .7;
+}
+.ss-toggle input:checked ~ .ss-track .ss-thumb { transform: translateX(13px); }
+#ss-results {
+  list-style: none; margin: 3px 0 0; padding: 0;
+  border: 1px solid rgba(128,128,128,.25); border-radius: 4px;
+  overflow: hidden; background: var(--card-background, inherit);
+}
+#ss-results li a {
+  display: block; padding: .35rem .6rem; font-size: .78rem;
+  text-decoration: none; color: inherit;
+  border-bottom: 1px solid rgba(128,128,128,.12);
+}
+#ss-results li:last-child a { border-bottom: none; }
+#ss-results li a:hover, #ss-results li.ss-active a { background: rgba(128,128,128,.12); }
+.ss-empty { padding: .35rem .6rem; font-size: .78rem; opacity: .5; font-style: italic; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+(function(){
+  var INDEXES = { notes: '/public-notes/index.json', all: '/index.json' };
+  var cache = {}, fuses = {}, mode = 'notes';
+  var input  = document.getElementById('ss-input');
+  var list   = document.getElementById('ss-results');
+  var toggle = document.getElementById('ss-toggle-cb');
+  var label  = document.getElementById('ss-toggle-label');
+
+  function fuseFor(m, cb) {
+    if (fuses[m]) { cb(fuses[m]); return; }
+    if (cache[m]) { fuses[m] = makeFuse(cache[m]); cb(fuses[m]); return; }
+    fetch(INDEXES[m]).then(function(r){ return r.json(); }).then(function(d){
+      cache[m] = d; fuses[m] = makeFuse(d); cb(fuses[m]);
+    });
+  }
+
+  function makeFuse(data) {
+    return new Fuse(data, {
+      keys: [{ name:'title', weight:3 }, { name:'tags', weight:2 }, { name:'subsection', weight:1.5 }, { name:'summary', weight:1 }],
+      threshold: 0.35, includeScore: true
+    });
+  }
+
+  function render(hits) {
+    list.hidden = false;
+    if (!hits.length) { list.innerHTML = '<li class="ss-empty">No results</li>'; return; }
+    list.innerHTML = hits.slice(0, 6).map(function(h){
+      var p = h.item;
+      return '<li><a href="' + p.url + '">' + p.title + '</a></li>';
+    }).join('');
+  }
+
+  function search(q) {
+    if (!q) { list.hidden = true; list.innerHTML = ''; return; }
+    fuseFor(mode, function(f){ render(f.search(q)); });
+  }
+
+  input.addEventListener('input', function(){ search(this.value.trim()); });
+
+  input.addEventListener('keydown', function(e){
+    var items = list.querySelectorAll('li:not(.ss-empty)');
+    var cur = list.querySelector('li.ss-active');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      var next = cur ? (cur.nextElementSibling || items[0]) : items[0];
+      if (cur) cur.classList.remove('ss-active');
+      if (next) next.classList.add('ss-active');
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      var prev = cur ? (cur.previousElementSibling || items[items.length-1]) : items[items.length-1];
+      if (cur) cur.classList.remove('ss-active');
+      if (prev) prev.classList.add('ss-active');
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      var active = list.querySelector('li.ss-active a') || list.querySelector('li a');
+      if (active) window.location.href = active.href;
+    } else if (e.key === 'Escape') {
+      list.hidden = true; list.innerHTML = '';
+    }
+  });
+
+  toggle.addEventListener('change', function(){
+    mode = this.checked ? 'all' : 'notes';
+    label.title = this.checked
+      ? 'All pages — click to search notes only'
+      : 'Notes only — click to search all pages';
+    search(input.value.trim());
+  });
+
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('.sidebar-search')) { list.hidden = true; list.innerHTML = ''; }
+  });
+
+  fuseFor('notes', function(){});
+})();
+</script>
