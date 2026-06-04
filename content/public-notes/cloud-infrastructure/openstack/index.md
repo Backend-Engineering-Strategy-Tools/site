@@ -28,16 +28,16 @@ The rule of thumb: if the question is "how do I replace VMware?", the answer is 
 
 ## Core Components
 
-| Service | Code Name | What it does |
-|---|---|---|
-| Compute | Nova | Schedules and manages VM lifecycle |
-| Networking | Neutron | Virtual networks, routers, floating IPs, security groups |
-| Block Storage | Cinder | Persistent volumes attached to VMs |
-| Image Service | Glance | Stores and serves OS images |
-| Identity | Keystone | Auth, service catalog, RBAC |
-| Dashboard | Horizon | Web UI (optional) |
-| Object Storage | Swift | S3-like object storage (optional) |
-| Bare Metal | Ironic | Provisions physical machines instead of VMs |
+| Service        | Code Name | What it does                                             |
+|----------------|-----------|----------------------------------------------------------|
+| Compute        | Nova      | Schedules and manages VM lifecycle                       |
+| Networking     | Neutron   | Virtual networks, routers, floating IPs, security groups |
+| Block Storage  | Cinder    | Persistent volumes attached to VMs                       |
+| Image Service  | Glance    | Stores and serves OS images                              |
+| Identity       | Keystone  | Auth, service catalog, RBAC                              |
+| Dashboard      | Horizon   | Web UI (optional)                                        |
+| Object Storage | Swift     | S3-like object storage (optional)                        |
+| Bare Metal     | Ironic    | Provisions physical machines instead of VMs              |
 
 You do not need all of them. A minimal useful deployment is Nova + Neutron + Cinder + Glance + Keystone.
 

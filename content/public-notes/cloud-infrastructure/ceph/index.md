@@ -16,11 +16,11 @@ The core idea: data is not stored on specific disks on specific nodes. Instead, 
 
 ## Storage types
 
-| Type | Interface | Typical use |
-|---|---|---|
-| Block (RBD) | Kernel block device / iSCSI | Kubernetes PVCs, VM disks |
-| Object (RGW) | S3-compatible API | Backups, artifacts, media |
-| File (CephFS) | POSIX filesystem / NFS | Shared filesystems, home dirs |
+| Type          | Interface                   | Typical use                   |
+|---------------|-----------------------------|-------------------------------|
+| Block (RBD)   | Kernel block device / iSCSI | Kubernetes PVCs, VM disks     |
+| Object (RGW)  | S3-compatible API           | Backups, artifacts, media     |
+| File (CephFS) | POSIX filesystem / NFS      | Shared filesystems, home dirs |
 
 For Kubernetes workloads, RBD block storage via a StorageClass is the common path.
 

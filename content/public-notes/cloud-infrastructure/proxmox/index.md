@@ -14,12 +14,12 @@ Proxmox VE (Virtual Environment) is an open-source Type 1 hypervisor built on De
 
 ## Comparison
 
-| Platform | License | VMs (KVM) | Containers | Clustering | Web UI |
-|---|---|---|---|---|---|
-| Proxmox VE | Open-source (optional sub) | Yes | Yes (LXC) | Yes | Yes |
-| VMware ESXi | Commercial | Yes | No | Yes (vCenter) | Yes |
-| Standalone KVM | Open-source | Yes | No | Manual | No |
-| oVirt | Open-source | Yes | No | Yes | Yes |
+| Platform       | License                    | VMs (KVM) | Containers | Clustering    | Web UI |
+|----------------|----------------------------|-----------|------------|---------------|--------|
+| Proxmox VE     | Open-source (optional sub) | Yes       | Yes (LXC)  | Yes           | Yes    |
+| VMware ESXi    | Commercial                 | Yes       | No         | Yes (vCenter) | Yes    |
+| Standalone KVM | Open-source                | Yes       | No         | Manual        | No     |
+| oVirt          | Open-source                | Yes       | No         | Yes           | Yes    |
 
 Proxmox is the practical choice when you want VMware-style management without the licensing cost, or when you want to run both VMs and containers on the same node.
 

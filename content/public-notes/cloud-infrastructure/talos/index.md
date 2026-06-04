@@ -16,11 +16,11 @@ The tradeoff is rigidity for operational simplicity. You cannot log into a Talos
 
 ## Comparison to other installs
 
-| Method | OS | Config | Mutable |
-|---|---|---|---|
-| kubeadm | Ubuntu / RHEL / etc | Manual + scripts | Yes |
-| k3s | Any Linux | Minimal | Yes |
-| Talos | Talos Linux | Declarative API | No |
+| Method  | OS                  | Config           | Mutable |
+|---------|---------------------|------------------|---------|
+| kubeadm | Ubuntu / RHEL / etc | Manual + scripts | Yes     |
+| k3s     | Any Linux           | Minimal          | Yes     |
+| Talos   | Talos Linux         | Declarative API  | No      |
 
 k3s and kubeadm give you more flexibility and a familiar Linux environment. Talos is the right choice when you want the cluster nodes to behave like appliances — provisioned, never touched.
 
