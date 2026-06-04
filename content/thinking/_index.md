@@ -12,5 +12,6 @@ Observations and takes from building infrastructure. Not tutorials, not case stu
 ---
 
 - [Shared Tooling Images — One Image, Three Contexts](/thinking/shared-tooling-images/)
+- [Site Navigation — Beyond the Menu](/thinking/site-navigation/)
 
 ---

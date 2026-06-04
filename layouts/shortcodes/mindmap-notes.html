@@ -1,0 +1,108 @@
+<div id="mindmap-wrap">
+  <div id="mindmap-info">Click a node to highlight its connections. Nodes are coloured by section.</div>
+  <svg id="mindmap-svg"></svg>
+</div>
+
+<style>
+#mindmap-wrap { position: relative; margin: 1.5rem 0; }
+#mindmap-info { font-size: .8rem; opacity: .55; margin-bottom: .5rem; }
+#mindmap-svg { width: 100%; height: 640px; border: 1px solid rgba(128,128,128,.2); border-radius: 6px; cursor: grab; }
+#mindmap-svg:active { cursor: grabbing; }
+.mm-link { stroke: rgba(128,128,128,.25); stroke-width: 1; fill: none; }
+.mm-link.highlighted { stroke: rgba(128,128,128,.7); stroke-width: 2; }
+.mm-node circle { stroke: rgba(255,255,255,.3); stroke-width: 1; cursor: pointer; transition: r .15s; }
+.mm-node:hover circle, .mm-node.selected circle { stroke-width: 2; }
+.mm-node.faded { opacity: .15; }
+.mm-label { font-size: 9px; fill: currentColor; pointer-events: none; text-anchor: middle; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script>
+(function(){
+  var COLORS = {
+    'infra-as-code':'#4CAF50','cloud-infrastructure':'#2196F3','cicd':'#FF9800',
+    'languages':'#9C27B0','networking':'#00BCD4','security':'#F44336',
+    'observability':'#FF5722','frameworks-tools':'#795548','dev-environment':'#607D8B',
+    'docs-as-code':'#E91E63','ai':'#673AB7','hardware':'#8BC34A','default':'#999'
+  };
+  function color(section){ return COLORS[section] || COLORS.default; }
+
+  fetch('/public-notes/index.json')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var svg = d3.select('#mindmap-svg');
+      var rect = document.getElementById('mindmap-svg').getBoundingClientRect();
+      var W = rect.width || 800, H = 640;
+
+      var nodes = data.map(function(p){ return { id: p.url, title: p.title, section: p.subsection || p.section, tags: p.tags || [] }; });
+
+      // Build edges: shared tags (strong) or same subsection (weak)
+      var seen = {};
+      var links = [];
+      for (var i = 0; i < nodes.length; i++) {
+        for (var j = i+1; j < nodes.length; j++) {
+          var key = nodes[i].id + '|' + nodes[j].id;
+          if (seen[key]) continue;
+          seen[key] = true;
+          var sharedTags = nodes[i].tags.filter(function(t){ return nodes[j].tags.indexOf(t) > -1; });
+          if (sharedTags.length) {
+            links.push({ source: nodes[i].id, target: nodes[j].id, strength: 0.8, tag: true });
+          } else if (nodes[i].section === nodes[j].section) {
+            links.push({ source: nodes[i].id, target: nodes[j].id, strength: 0.15, tag: false });
+          }
+        }
+      }
+
+      var g = svg.append('g');
+      svg.call(d3.zoom().scaleExtent([0.3, 4]).on('zoom', function(e){ g.attr('transform', e.transform); }));
+
+      var linkSel = g.selectAll('.mm-link').data(links).enter().append('line').attr('class','mm-link');
+      var nodeSel = g.selectAll('.mm-node').data(nodes).enter().append('g')
+        .attr('class','mm-node')
+        .call(d3.drag()
+          .on('start', function(e,d){ if(!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+          .on('drag',  function(e,d){ d.fx=e.x; d.fy=e.y; })
+          .on('end',   function(e,d){ if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }));
+
+      nodeSel.append('circle')
+        .attr('r', 7)
+        .attr('fill', function(d){ return color(d.section); });
+
+      nodeSel.append('text').attr('class','mm-label').attr('dy', 18)
+        .text(function(d){ return d.title.length > 22 ? d.title.slice(0,20)+'…' : d.title; });
+
+      nodeSel.on('click', function(e, d){
+        e.stopPropagation();
+        var connected = {};
+        connected[d.id] = true;
+        links.forEach(function(l){
+          if (l.source.id === d.id) connected[l.target.id] = true;
+          if (l.target.id === d.id) connected[l.source.id] = true;
+        });
+        nodeSel.classed('selected', function(n){ return n.id === d.id; });
+        nodeSel.classed('faded', function(n){ return !connected[n.id]; });
+        linkSel.classed('highlighted', function(l){ return l.source.id === d.id || l.target.id === d.id; });
+        linkSel.style('display', function(l){ return (connected[l.source.id] && connected[l.target.id]) ? null : 'none'; });
+      });
+
+      svg.on('click', function(){
+        nodeSel.classed('selected faded', false);
+        linkSel.classed('highlighted', false).style('display', null);
+      });
+
+      // Tooltip on hover
+      nodeSel.append('title').text(function(d){ return d.title + '\n' + d.section; });
+
+      var sim = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links).id(function(d){ return d.id; }).strength(function(l){ return l.strength; }).distance(80))
+        .force('charge', d3.forceManyBody().strength(-120))
+        .force('center', d3.forceCenter(W/2, H/2))
+        .force('collision', d3.forceCollide().radius(18))
+        .on('tick', function(){
+          linkSel.attr('x1',function(l){ return l.source.x; }).attr('y1',function(l){ return l.source.y; })
+                 .attr('x2',function(l){ return l.target.x; }).attr('y2',function(l){ return l.target.y; });
+          nodeSel.attr('transform',function(d){ return 'translate('+d.x+','+d.y+')'; });
+        });
+    });
+})();
+</script>

@@ -1,0 +1,67 @@
+<div id="notes-search">
+  <input id="notes-search-input" type="search" placeholder="Search notes…" autocomplete="off" spellcheck="false">
+  <div id="notes-search-results"></div>
+</div>
+
+<style>
+#notes-search { max-width: 720px; margin: 1.5rem 0; }
+#notes-search-input {
+  width: 100%; padding: .6rem .9rem; font-size: 1rem;
+  border: 1px solid currentColor; border-radius: 4px;
+  background: transparent; color: inherit; font-family: inherit;
+  box-sizing: border-box;
+}
+#notes-search-input:focus { outline: 2px solid currentColor; outline-offset: 2px; }
+#notes-search-results { margin-top: 1rem; }
+.sr-item { padding: .75rem 0; border-bottom: 1px solid rgba(128,128,128,.2); }
+.sr-item:last-child { border-bottom: none; }
+.sr-title { font-weight: 600; font-size: 1rem; }
+.sr-title a { text-decoration: none; }
+.sr-title a:hover { text-decoration: underline; }
+.sr-meta { font-size: .8rem; opacity: .6; margin: .15rem 0 .3rem; }
+.sr-summary { font-size: .875rem; opacity: .8; }
+.sr-empty { opacity: .5; font-style: italic; margin-top: .5rem; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+(function(){
+  var input = document.getElementById('notes-search-input');
+  var results = document.getElementById('notes-search-results');
+  var fuse, data;
+
+  fetch('/public-notes/index.json')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      data = d;
+      fuse = new Fuse(d, {
+        keys: [
+          { name: 'title', weight: 3 },
+          { name: 'tags', weight: 2 },
+          { name: 'subsection', weight: 1.5 },
+          { name: 'summary', weight: 1 }
+        ],
+        threshold: 0.35,
+        includeScore: true
+      });
+    });
+
+  input.addEventListener('input', function(){
+    var q = this.value.trim();
+    if (!q || !fuse) { results.innerHTML = ''; return; }
+    var hits = fuse.search(q).slice(0, 12);
+    if (!hits.length) {
+      results.innerHTML = '<div class="sr-empty">No results for "' + q + '"</div>';
+      return;
+    }
+    results.innerHTML = hits.map(function(h){
+      var p = h.item;
+      return '<div class="sr-item">' +
+        '<div class="sr-title"><a href="' + p.url + '">' + p.title + '</a></div>' +
+        '<div class="sr-meta">' + p.subsection + '</div>' +
+        (p.summary ? '<div class="sr-summary">' + p.summary + '</div>' : '') +
+        '</div>';
+    }).join('');
+  });
+})();
+</script>
