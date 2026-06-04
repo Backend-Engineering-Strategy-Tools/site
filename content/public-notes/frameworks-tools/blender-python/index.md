@@ -14,14 +14,14 @@ This pattern is useful when you have a family of similar parts (different sizes,
 
 ## When to use this vs. alternatives
 
-| | Blender Python | OpenSCAD | CadQuery |
-|---|---|---|---|
-| Booleans, extrude, modifiers | ✓ built-in | ✓ CSG only | limited |
-| Sculpt / organic shapes | ✓ | ✗ | ✗ |
-| Parametric constraints | manual | manual | ✓ strong |
-| Python ecosystem | ✓ full stdlib | ✗ own language | ✓ |
-| Interactive viewport preview | ✓ | ✗ | ✗ |
-| Export to STL | ✓ one call | ✓ | ✓ |
+|                              | Blender Python | OpenSCAD       | CadQuery |
+|------------------------------|----------------|----------------|----------|
+| Booleans, extrude, modifiers | ✓ built-in     | ✓ CSG only     | limited  |
+| Sculpt / organic shapes      | ✓              | ✗              | ✗        |
+| Parametric constraints       | manual         | manual         | ✓ strong |
+| Python ecosystem             | ✓ full stdlib  | ✗ own language | ✓        |
+| Interactive viewport preview | ✓              | ✗              | ✗        |
+| Export to STL                | ✓ one call     | ✓              | ✓        |
 
 For repetitive mechanical geometry with booleans (holes, sockets, cutouts), Blender Python is the fastest path if you already know Python. The interactive viewport lets you catch geometry problems before exporting.
 

@@ -24,19 +24,19 @@ k9s -n monitoring            # start in a specific namespace
 
 ### Navigation
 
-| Key | Action |
-|-----|--------|
-| `:pod` | Jump to pods view |
-| `:deploy` | Deployments |
-| `:svc` | Services |
-| `:ns` | Switch namespace |
-| `/` | Filter/search |
-| `l` | Logs |
-| `e` | Edit resource YAML |
-| `d` | Describe |
-| `s` | Shell into pod |
-| `ctrl-d` | Delete |
-| `?` | Help / full keybinding list |
+| Key       | Action                      |
+|-----------|-----------------------------|
+| `:pod`    | Jump to pods view           |
+| `:deploy` | Deployments                 |
+| `:svc`    | Services                    |
+| `:ns`     | Switch namespace            |
+| `/`       | Filter/search               |
+| `l`       | Logs                        |
+| `e`       | Edit resource YAML          |
+| `d`       | Describe                    |
+| `s`       | Shell into pod              |
+| `ctrl-d`  | Delete                      |
+| `?`       | Help / full keybinding list |
 
 Most resource types are reachable by typing `:` followed by the resource name — `:configmap`, `:secret`, `:ingress`, `:pvc`, and so on.
 
