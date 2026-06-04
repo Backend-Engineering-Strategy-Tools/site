@@ -1,4 +1,8 @@
 <div id="wordcloud-wrap">
+  <div class="scope-toggle">
+    <button class="scope-btn active" data-scope="notes">Notes</button>
+    <button class="scope-btn" data-scope="site">Whole site</button>
+  </div>
   <div id="wordcloud-info">Words sized by number of pages. Click a word to navigate to the best match.</div>
   <canvas id="wordcloud-canvas"></canvas>
 </div>
@@ -11,6 +15,9 @@
   border: 1px solid rgba(128,128,128,.2); border-radius: 6px;
   cursor: pointer;
 }
+.scope-toggle { display:inline-flex; gap:0; margin-bottom:1rem; border:1px solid currentColor; border-radius:4px; overflow:hidden; }
+.scope-btn { padding:.35rem .85rem; font-size:.85rem; font-family:inherit; background:transparent; color:inherit; border:none; cursor:pointer; transition:background .15s,color .15s; }
+.scope-btn.active { background:currentColor; color:var(--card-background, #fff); }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js"></script>
@@ -21,54 +28,87 @@
     'infra-as-code':'#4CAF50','cloud-infrastructure':'#2196F3','cicd':'#FF9800',
     'languages':'#9C27B0','networking':'#00BCD4','security':'#F44336',
     'observability':'#FF5722','frameworks-tools':'#795548','dev-environment':'#607D8B',
-    'docs-as-code':'#E91E63','ai':'#673AB7','hardware':'#8BC34A','default':'#999'
+    'docs-as-code':'#E91E63','ai':'#673AB7','hardware':'#8BC34A',
+    'homelab':'#FF4081','garage':'#8BC34A','thinking':'#B0BEC5',
+    'projects':'#FFCC02','public-notes':'#9E9E9E','default':'#999'
   };
 
-  fetch('{{ "public-notes/index.json" | absURL }}')
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      var fuse = new Fuse(data, {
-        keys: [{ name:'title', weight:3 }, { name:'tags', weight:2 }, { name:'subsection', weight:2 }],
-        threshold: 0.35, includeScore: true
-      });
+  var NOTES_URL = '{{ "public-notes/index.json" | absURL }}';
+  var SITE_URL  = '{{ "index.json" | absURL }}';
+  var currentScope = 'notes';
+  var cache = {};
 
-      var counts = {}, sectionOf = {};
-      data.forEach(function(p){
-        var sub = p.subsection || p.section;
-        counts[sub] = (counts[sub] || 0) + 3;
-        sectionOf[sub] = sub;
-        (p.tags || []).forEach(function(tag){
-          counts[tag] = (counts[tag] || 0) + 1;
-          if (!sectionOf[tag]) sectionOf[tag] = sub;
-        });
-      });
+  function sectionKey(p, scope) {
+    if (scope === 'notes' || p.section === 'public-notes') return p.subsection || p.section;
+    return p.section;
+  }
 
-      var list = Object.keys(counts).map(function(w){ return [w, counts[w]]; })
-        .filter(function(x){ return x[1] > 0; })
-        .sort(function(a,b){ return b[1]-a[1]; });
+  function render(data, scope) {
+    var fuse = new Fuse(data, {
+      keys: [{ name:'title', weight:3 }, { name:'tags', weight:2 }, { name:'subsection', weight:2 }],
+      threshold: 0.35, includeScore: true
+    });
 
-      var canvas = document.getElementById('wordcloud-canvas');
-      canvas.width  = canvas.offsetWidth  || 800;
-      canvas.height = canvas.offsetHeight || 560;
-
-      WordCloud(canvas, {
-        list: list,
-        gridSize: Math.round(16 * canvas.width / 1024),
-        weightFactor: function(size){ return Math.max(12, size * (canvas.width / 80)); },
-        fontFamily: 'monospace, sans-serif',
-        color: function(word){ return COLORS[sectionOf[word]] || COLORS.default; },
-        rotateRatio: 0.2,
-        rotationSteps: 2,
-        backgroundColor: 'transparent',
-        click: function(item){
-          var word = item[0];
-          var hits = fuse.search(word);
-          window.location.href = hits.length
-            ? hits[0].item.url
-            : '{{ "public-notes/search/" | absURL }}?q=' + encodeURIComponent(word);
-        },
-        hover: function(item, dim, e){ canvas.title = item ? item[0] + ' (' + item[1] + ')' : ''; }
+    var counts = {}, sectionOf = {};
+    data.forEach(function(p){
+      var sub = sectionKey(p, scope);
+      counts[sub] = (counts[sub] || 0) + 3;
+      sectionOf[sub] = sub;
+      (p.tags || []).forEach(function(tag){
+        counts[tag] = (counts[tag] || 0) + 1;
+        if (!sectionOf[tag]) sectionOf[tag] = sub;
       });
     });
+
+    var list = Object.keys(counts).map(function(w){ return [w, counts[w]]; })
+      .filter(function(x){ return x[1] > 0; })
+      .sort(function(a,b){ return b[1]-a[1]; });
+
+    var canvas = document.getElementById('wordcloud-canvas');
+    canvas.width  = canvas.offsetWidth  || 800;
+    canvas.height = canvas.offsetHeight || 560;
+
+    WordCloud(canvas, {
+      list: list,
+      gridSize: Math.round(16 * canvas.width / 1024),
+      weightFactor: function(size){ return Math.max(12, size * (canvas.width / 80)); },
+      fontFamily: 'monospace, sans-serif',
+      color: function(word){ return COLORS[sectionOf[word]] || COLORS.default; },
+      rotateRatio: 0.2,
+      rotationSteps: 2,
+      backgroundColor: 'transparent',
+      click: function(item){
+        var word = item[0];
+        var hits = fuse.search(word);
+        window.location.href = hits.length
+          ? hits[0].item.url
+          : '{{ "public-notes/search/" | absURL }}?q=' + encodeURIComponent(word);
+      },
+      hover: function(item, dim, e){ canvas.title = item ? item[0] + ' (' + item[1] + ')' : ''; }
+    });
+  }
+
+  function load(scope) {
+    var url = scope === 'notes' ? NOTES_URL : SITE_URL;
+    if (cache[scope]) { render(cache[scope], scope); return; }
+    fetch(url).then(function(r){ return r.json(); }).then(function(data){
+      cache[scope] = data;
+      render(data, scope);
+    });
+  }
+
+  document.querySelectorAll('#wordcloud-wrap .scope-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var scope = this.dataset.scope;
+      if (scope === currentScope) return;
+      currentScope = scope;
+      document.querySelectorAll('#wordcloud-wrap .scope-btn').forEach(function(b){
+        b.classList.toggle('active', b.dataset.scope === scope);
+      });
+      load(scope);
+    });
+  });
+
+  load('notes');
 })();
 </script>

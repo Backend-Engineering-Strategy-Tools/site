@@ -1,4 +1,8 @@
 <div id="mindmap-wrap">
+  <div class="scope-toggle">
+    <button class="scope-btn active" data-scope="notes">Notes</button>
+    <button class="scope-btn" data-scope="site">Whole site</button>
+  </div>
   <div id="mindmap-info">Click a node to highlight its connections. Click a label to navigate. Nodes are coloured by section.</div>
   <svg id="mindmap-svg"></svg>
 </div>
@@ -15,6 +19,9 @@
 .mm-node.faded { opacity: .15; }
 .mm-label { font-size: 9px; fill: currentColor; text-anchor: middle; cursor: pointer; }
 .mm-label:hover { text-decoration: underline; }
+.scope-toggle { display:inline-flex; gap:0; margin-bottom:1rem; border:1px solid currentColor; border-radius:4px; overflow:hidden; }
+.scope-btn { padding:.35rem .85rem; font-size:.85rem; font-family:inherit; background:transparent; color:inherit; border:none; cursor:pointer; transition:background .15s,color .15s; }
+.scope-btn.active { background:currentColor; color:var(--card-background, #fff); }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
@@ -25,94 +32,129 @@
     'infra-as-code':'#4CAF50','cloud-infrastructure':'#2196F3','cicd':'#FF9800',
     'languages':'#9C27B0','networking':'#00BCD4','security':'#F44336',
     'observability':'#FF5722','frameworks-tools':'#795548','dev-environment':'#607D8B',
-    'docs-as-code':'#E91E63','ai':'#673AB7','hardware':'#8BC34A','default':'#999'
+    'docs-as-code':'#E91E63','ai':'#673AB7','hardware':'#8BC34A',
+    'homelab':'#FF4081','garage':'#8BC34A','thinking':'#B0BEC5',
+    'projects':'#FFCC02','public-notes':'#9E9E9E','default':'#999'
   };
   function color(section){ return COLORS[section] || COLORS.default; }
 
-  fetch('{{ "public-notes/index.json" | absURL }}')
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      var fuse = new Fuse(data, {
-        keys: [{ name:'title', weight:3 }, { name:'tags', weight:2 }],
-        threshold: 0.35, includeScore: true
-      });
+  var NOTES_URL = '{{ "public-notes/index.json" | absURL }}';
+  var SITE_URL  = '{{ "index.json" | absURL }}';
+  var currentScope = 'notes';
+  var cache = {};
+  var sim;
 
-      var svg = d3.select('#mindmap-svg');
-      var rect = document.getElementById('mindmap-svg').getBoundingClientRect();
-      var W = rect.width || 800, H = 640;
+  function sectionKey(p, scope) {
+    if (scope === 'notes' || p.section === 'public-notes') return p.subsection || p.section;
+    return p.section;
+  }
 
-      var nodes = data.map(function(p){ return { id: p.url, title: p.title, section: p.subsection || p.section, tags: p.tags || [] }; });
+  function render(data, scope) {
+    var fuse = new Fuse(data, {
+      keys: [{ name:'title', weight:3 }, { name:'tags', weight:2 }],
+      threshold: 0.35, includeScore: true
+    });
 
-      // Build edges: shared tags (strong) or same subsection (weak)
-      var seen = {};
-      var links = [];
-      for (var i = 0; i < nodes.length; i++) {
-        for (var j = i+1; j < nodes.length; j++) {
-          var key = nodes[i].id + '|' + nodes[j].id;
-          if (seen[key]) continue;
-          seen[key] = true;
-          var sharedTags = nodes[i].tags.filter(function(t){ return nodes[j].tags.indexOf(t) > -1; });
-          if (sharedTags.length) {
-            links.push({ source: nodes[i].id, target: nodes[j].id, strength: 0.8, tag: true });
-          } else if (nodes[i].section === nodes[j].section) {
-            links.push({ source: nodes[i].id, target: nodes[j].id, strength: 0.15, tag: false });
-          }
+    var svg = d3.select('#mindmap-svg');
+    svg.selectAll('*').remove();
+    if (sim) sim.stop();
+
+    var rect = document.getElementById('mindmap-svg').getBoundingClientRect();
+    var W = rect.width || 800, H = 640;
+
+    var nodes = data.map(function(p){
+      return { id: p.url, title: p.title, section: sectionKey(p, scope), tags: p.tags || [] };
+    });
+
+    var seen = {}, links = [];
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i+1; j < nodes.length; j++) {
+        var key = nodes[i].id + '|' + nodes[j].id;
+        if (seen[key]) continue;
+        seen[key] = true;
+        var sharedTags = nodes[i].tags.filter(function(t){ return nodes[j].tags.indexOf(t) > -1; });
+        if (sharedTags.length) {
+          links.push({ source: nodes[i].id, target: nodes[j].id, strength: 0.8, tag: true });
+        } else if (nodes[i].section === nodes[j].section) {
+          links.push({ source: nodes[i].id, target: nodes[j].id, strength: 0.15, tag: false });
         }
       }
+    }
 
-      var g = svg.append('g');
-      svg.call(d3.zoom().scaleExtent([0.3, 4]).on('zoom', function(e){ g.attr('transform', e.transform); }));
+    var g = svg.append('g');
+    svg.call(d3.zoom().scaleExtent([0.3, 4]).on('zoom', function(e){ g.attr('transform', e.transform); }));
 
-      var linkSel = g.selectAll('.mm-link').data(links).enter().append('line').attr('class','mm-link');
-      var nodeSel = g.selectAll('.mm-node').data(nodes).enter().append('g')
-        .attr('class','mm-node')
-        .call(d3.drag()
-          .on('start', function(e,d){ if(!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
-          .on('drag',  function(e,d){ d.fx=e.x; d.fy=e.y; })
-          .on('end',   function(e,d){ if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }));
+    var linkSel = g.selectAll('.mm-link').data(links).enter().append('line').attr('class','mm-link');
+    var nodeSel = g.selectAll('.mm-node').data(nodes).enter().append('g')
+      .attr('class','mm-node')
+      .call(d3.drag()
+        .on('start', function(e,d){ if(!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+        .on('drag',  function(e,d){ d.fx=e.x; d.fy=e.y; })
+        .on('end',   function(e,d){ if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }));
 
-      nodeSel.append('circle')
-        .attr('r', 7)
-        .attr('fill', function(d){ return color(d.section); })
-        .on('click', function(e, d){
-          e.stopPropagation();
-          var connected = {};
-          connected[d.id] = true;
-          links.forEach(function(l){
-            if (l.source.id === d.id) connected[l.target.id] = true;
-            if (l.target.id === d.id) connected[l.source.id] = true;
-          });
-          nodeSel.classed('selected', function(n){ return n.id === d.id; });
-          nodeSel.classed('faded', function(n){ return !connected[n.id]; });
-          linkSel.classed('highlighted', function(l){ return l.source.id === d.id || l.target.id === d.id; });
-          linkSel.style('display', function(l){ return (connected[l.source.id] && connected[l.target.id]) ? null : 'none'; });
+    nodeSel.append('circle')
+      .attr('r', 7)
+      .attr('fill', function(d){ return color(d.section); })
+      .on('click', function(e, d){
+        e.stopPropagation();
+        var connected = {};
+        connected[d.id] = true;
+        links.forEach(function(l){
+          if (l.source.id === d.id) connected[l.target.id] = true;
+          if (l.target.id === d.id) connected[l.source.id] = true;
         });
-
-      nodeSel.append('text').attr('class','mm-label').attr('dy', 18)
-        .text(function(d){ return d.title.length > 22 ? d.title.slice(0,20)+'…' : d.title; })
-        .on('click', function(e, d){
-          e.stopPropagation();
-          var hits = fuse.search(d.title);
-          window.location.href = hits.length ? hits[0].item.url : d.id;
-        });
-
-      svg.on('click', function(){
-        nodeSel.classed('selected faded', false);
-        linkSel.classed('highlighted', false).style('display', null);
+        nodeSel.classed('selected', function(n){ return n.id === d.id; });
+        nodeSel.classed('faded', function(n){ return !connected[n.id]; });
+        linkSel.classed('highlighted', function(l){ return l.source.id === d.id || l.target.id === d.id; });
+        linkSel.style('display', function(l){ return (connected[l.source.id] && connected[l.target.id]) ? null : 'none'; });
       });
 
-      nodeSel.append('title').text(function(d){ return d.title + '\n' + d.section; });
+    nodeSel.append('text').attr('class','mm-label').attr('dy', 18)
+      .text(function(d){ return d.title.length > 22 ? d.title.slice(0,20)+'…' : d.title; })
+      .on('click', function(e, d){
+        e.stopPropagation();
+        var hits = fuse.search(d.title);
+        window.location.href = hits.length ? hits[0].item.url : d.id;
+      });
 
-      var sim = d3.forceSimulation(nodes)
-        .force('link', d3.forceLink(links).id(function(d){ return d.id; }).strength(function(l){ return l.strength; }).distance(80))
-        .force('charge', d3.forceManyBody().strength(-120))
-        .force('center', d3.forceCenter(W/2, H/2))
-        .force('collision', d3.forceCollide().radius(18))
-        .on('tick', function(){
-          linkSel.attr('x1',function(l){ return l.source.x; }).attr('y1',function(l){ return l.source.y; })
-                 .attr('x2',function(l){ return l.target.x; }).attr('y2',function(l){ return l.target.y; });
-          nodeSel.attr('transform',function(d){ return 'translate('+d.x+','+d.y+')'; });
-        });
+    svg.on('click', function(){
+      nodeSel.classed('selected faded', false);
+      linkSel.classed('highlighted', false).style('display', null);
     });
+
+    nodeSel.append('title').text(function(d){ return d.title + '\n' + d.section; });
+
+    sim = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links).id(function(d){ return d.id; }).strength(function(l){ return l.strength; }).distance(80))
+      .force('charge', d3.forceManyBody().strength(-120))
+      .force('center', d3.forceCenter(W/2, H/2))
+      .force('collision', d3.forceCollide().radius(18))
+      .on('tick', function(){
+        linkSel.attr('x1',function(l){ return l.source.x; }).attr('y1',function(l){ return l.source.y; })
+               .attr('x2',function(l){ return l.target.x; }).attr('y2',function(l){ return l.target.y; });
+        nodeSel.attr('transform',function(d){ return 'translate('+d.x+','+d.y+')'; });
+      });
+  }
+
+  function load(scope) {
+    var url = scope === 'notes' ? NOTES_URL : SITE_URL;
+    if (cache[scope]) { render(cache[scope], scope); return; }
+    fetch(url).then(function(r){ return r.json(); }).then(function(data){
+      cache[scope] = data;
+      render(data, scope);
+    });
+  }
+
+  document.querySelectorAll('.scope-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var scope = this.dataset.scope;
+      if (scope === currentScope) return;
+      currentScope = scope;
+      document.querySelectorAll('.scope-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.scope === scope); });
+      load(scope);
+    });
+  });
+
+  load('notes');
 })();
 </script>

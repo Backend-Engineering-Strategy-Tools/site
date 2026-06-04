@@ -1,4 +1,8 @@
 <div id="notes-search">
+  <div class="scope-toggle">
+    <button class="scope-btn active" data-scope="notes">Notes</button>
+    <button class="scope-btn" data-scope="site">Whole site</button>
+  </div>
   <input id="notes-search-input" type="search" placeholder="Search notes…" autocomplete="off" spellcheck="false">
   <div id="notes-search-results"></div>
 </div>
@@ -21,6 +25,9 @@
 .sr-meta { font-size: .8rem; opacity: .6; margin: .15rem 0 .3rem; }
 .sr-summary { font-size: .875rem; opacity: .8; }
 .sr-empty { opacity: .5; font-style: italic; margin-top: .5rem; }
+.scope-toggle { display:inline-flex; gap:0; margin-bottom:1rem; border:1px solid currentColor; border-radius:4px; overflow:hidden; }
+.scope-btn { padding:.35rem .85rem; font-size:.85rem; font-family:inherit; background:transparent; color:inherit; border:none; cursor:pointer; transition:background .15s,color .15s; }
+.scope-btn.active { background:currentColor; color:var(--card-background, #fff); }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
@@ -28,23 +35,43 @@
 (function(){
   var input = document.getElementById('notes-search-input');
   var results = document.getElementById('notes-search-results');
-  var fuse, data;
+  var NOTES_URL = '{{ "public-notes/index.json" | absURL }}';
+  var SITE_URL  = '{{ "index.json" | absURL }}';
+  var currentScope = 'notes';
+  var fuse, cache = {};
 
-  fetch('{{ "public-notes/index.json" | absURL }}')
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      data = d;
-      fuse = new Fuse(d, {
-        keys: [
-          { name: 'title', weight: 3 },
-          { name: 'tags', weight: 2 },
-          { name: 'subsection', weight: 1.5 },
-          { name: 'summary', weight: 1 }
-        ],
-        threshold: 0.35,
-        includeScore: true
-      });
+  var fuseOpts = {
+    keys: [
+      { name: 'title', weight: 3 },
+      { name: 'tags', weight: 2 },
+      { name: 'subsection', weight: 1.5 },
+      { name: 'summary', weight: 1 }
+    ],
+    threshold: 0.35,
+    includeScore: true
+  };
+
+  function load(scope) {
+    var url = scope === 'notes' ? NOTES_URL : SITE_URL;
+    if (cache[scope]) { fuse = new Fuse(cache[scope], fuseOpts); return; }
+    fetch(url).then(function(r){ return r.json(); }).then(function(d){
+      cache[scope] = d;
+      fuse = new Fuse(d, fuseOpts);
     });
+  }
+
+  document.querySelectorAll('#notes-search .scope-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var scope = this.dataset.scope;
+      if (scope === currentScope) return;
+      currentScope = scope;
+      document.querySelectorAll('#notes-search .scope-btn').forEach(function(b){
+        b.classList.toggle('active', b.dataset.scope === scope);
+      });
+      results.innerHTML = '';
+      load(scope);
+    });
+  });
 
   input.addEventListener('input', function(){
     var q = this.value.trim();
@@ -58,10 +85,12 @@
       var p = h.item;
       return '<div class="sr-item">' +
         '<div class="sr-title"><a href="' + p.url + '">' + p.title + '</a></div>' +
-        '<div class="sr-meta">' + p.subsection + '</div>' +
+        '<div class="sr-meta">' + (p.section || '') + (p.subsection && p.subsection !== p.section ? ' / ' + p.subsection : '') + '</div>' +
         (p.summary ? '<div class="sr-summary">' + p.summary + '</div>' : '') +
         '</div>';
     }).join('');
   });
+
+  load('notes');
 })();
 </script>
