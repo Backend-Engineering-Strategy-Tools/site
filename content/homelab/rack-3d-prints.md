@@ -19,6 +19,7 @@ Filling gaps in the rack build with printed parts — ears, blanks, and a modula
 | [RackMod 1U Slide-A](https://makerworld.com/en/models/1040867-rackmod-1u-slide-a-modular-server-rack-system)         | Modular 1U tray system with slide-in modules | Testing |
 | [19" 1U/2U/3U Cover Plates](https://www.printables.com/model/1184008-19-1u-server-rack-cover-plates-update-2u-3u)    | Solid cover/blanking plates for 19" rack     | Queued  |
 | [1U Rack Cable Ears](https://www.printables.com/model/1350350-1u-rack-cable-ears)                                    | Rack ears with integrated cable management   | Queued  |
+| Raspberry Pi 1U rack mount                                                                                           | 1U mount for RPi in 19" rack (BIFROST)       | Printed |
 | [Zip Tie Clip 45mm T-Slot](https://www.printables.com/model/1300803-zip-tie-clip-45-mm-t-slot-extrusion)             | Cable management clips for 45mm extrusion    | Queued  |
 
 ---

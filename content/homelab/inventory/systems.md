@@ -9,28 +9,31 @@ tags: ["homelab", "inventory", "hardware", "hpc", "bare-metal"]
 
 # Systems
 
-| Asset ID | Hostname   | Manufacturer | Model                     | Form Factor | Notes                                                      |
-|----------|------------|--------------|---------------------------|-------------|------------------------------------------------------------|
-| SYS-001  | FREJA      | IBM          | System x3550 M1 Type 7978 | 1U          | Rack server (S/N: KDHPPNN); 1/2 CPU slots populated        |
-| SYS-002  | TYR        | IBM          | System x3650 M1 Type 7979 | 2U          | Rack server                                                |
-| SYS-003  | TOR        | IBM          | System x3650 M1 Type 7979 | 2U          | Rack server                                                |
-| SYS-004  | MIMIR      | Dell         | PowerVault MD1200         | 2U          | Disk shelf                                                 |
-| SYS-005  | ODEN       | IBM          | System x3550 M3           | 1U          | Mixed DDR3 1333+1600 ECC Reg; PCIe x16 riser (FRU 43V7066) |
-| SYS-006  | LOKE       | IBM          | System x3550 M3           | 1U          | M3 board in M2 chassis; no RAM; CPU unknown                |
-| SYS-007  | ASGARD     | HP           | BladeSystem C7000         | 10U         | Blade enclosure (Hosts 1-16)                               |
-| SYS-008  | BALDER     | HP           | ProLiant DL320 G5p        | 1U          | Dual 250GB SATA                                            |
-| SYS-009  | HEIMDAL    | Sun          | Sun Fire X4150            | 1U          | 2× Xeon E5430 (8c/8t); 4× onboard GbE; OPNsense            |
-| SYS-010  | VIDAR      | HP           | ProCurve 1800-24G         | 1U          | Fanless/Silent Switch (J9028A)                             |
-| SYS-011  | GUNGNIR    | ZyXEL        | ZyWALL 110                | 1U          | Security Gateway / Firewall                                |
-| SYS-012  | BIFROST-01 | Edge-Core    | ECS4510-28F               | 1U          | 28-Port SFP Fiber Switch                                   |
-| SYS-013  | BIFROST-02 | Edge-Core    | ECS4510-28F               | 1U          | 28-Port SFP Fiber Switch                                   |
-| SYS-014  | MODI       | HP           | V1910-24G-PoE             | 1U          | 365W PoE Switch (JE007A)                                   |
-| SYS-015  | MAGNI      | Cisco        | Catalyst 2960G            | 1U          | 24-Port Managed Gig Switch                                 |
-| SYS-016  | VALI       | HP           | ProCurve 1800-24G         | 1U          | Fanless/Silent Switch (J9028A)                             |
-| SYS-017  | RATATOSK   | Avocent      | KVM Switch                | 1U          | Rackmount KVM                                              |
-| SYS-018  | SURTR-01   | APC          | Back-UPS CS 650           | Desktop     | UPS Unit 1                                                 |
-| SYS-019  | SURTR-02   | APC          | Back-UPS CS 650           | Desktop     | UPS Unit 2                                                 |
-| SYS-020  | MUNINN     | Cisco        | Catalyst 2960 WS-C2960-24TC-L | 1U      | 24× 10/100 + 4× uplink                                    |
+| Asset ID | Hostname   | Manufacturer | Model                         | Form Factor | Notes                                                      |
+|----------|------------|--------------|-------------------------------|-------------|------------------------------------------------------------|
+| SYS-001  | FREJA      | IBM          | System x3550 M1 Type 7978     | 1U          | Rack server (S/N: KDHPPNN); 1/2 CPU slots populated        |
+| SYS-002  | TYR        | IBM          | System x3650 M1 Type 7979     | 2U          | Rack server                                                |
+| SYS-003  | TOR        | IBM          | System x3650 M1 Type 7979     | 2U          | Rack server                                                |
+| SYS-004  | MIMIR      | Dell         | PowerVault MD1200             | 2U          | Disk shelf                                                 |
+| SYS-005  | ODEN       | IBM          | System x3550 M3               | 1U          | Mixed DDR3 1333+1600 ECC Reg; PCIe x16 riser (FRU 43V7066) |
+| SYS-006  | LOKE       | IBM          | System x3550 M3               | 1U          | M3 board in M2 chassis; no RAM; CPU unknown                |
+| SYS-007  | ASGARD     | HP           | BladeSystem C7000             | 10U         | Blade enclosure (Hosts 1-16)                               |
+| SYS-008  | BALDER     | HP           | ProLiant DL320 G5p            | 1U          | Dual 250GB SATA                                            |
+| SYS-009  | HEIMDAL    | Sun          | Sun Fire X4150                | 1U          | 2× Xeon E5430 (8c/8t); 4× onboard GbE; OPNsense            |
+| SYS-010  | VIDAR      | HP           | ProCurve 1800-24G             | 1U          | Fanless/Silent Switch (J9028A)                             |
+| SYS-011  | GUNGNIR    | ZyXEL        | ZyWALL 110                    | 1U          | Security Gateway / Firewall                                |
+| SYS-012  | BIFROST-01 | Edge-Core    | ECS4510-28F                   | 1U          | 28-Port SFP Fiber Switch                                   |
+| SYS-013  | BIFROST-02 | Edge-Core    | ECS4510-28F                   | 1U          | 28-Port SFP Fiber Switch                                   |
+| SYS-014  | MODI       | HP           | V1910-24G-PoE                 | 1U          | 365W PoE Switch (JE007A)                                   |
+| SYS-015  | MAGNI      | Cisco        | Catalyst 2960G                | 1U          | 24-Port Managed Gig Switch                                 |
+| SYS-016  | VALI       | HP           | ProCurve 1800-24G             | 1U          | Fanless/Silent Switch (J9028A)                             |
+| SYS-017  | RATATOSK   | Avocent      | KVM Switch                    | 1U          | Rackmount KVM                                              |
+| SYS-018  | SURTR-01   | APC          | Back-UPS CS 650               | Desktop     | UPS Unit 1                                                 |
+| SYS-019  | SURTR-02   | APC          | Back-UPS CS 650               | Desktop     | UPS Unit 2                                                 |
+| SYS-020  | MUNINN     | Cisco        | Catalyst 2960 WS-C2960-24TC-L | 1U          | 24× 10/100 + 4× uplink                                     |
+| SYS-021  | BIFROST    | Raspberry Pi | Raspberry Pi 1 Model B        | SBC         | Jump node; Raspbian; port-forward 22222→22; rack-mounted   |
+| SYS-022  | —          | Raspberry Pi | Raspberry Pi 1 Model B        | SBC         | Spare                                                      |
+| SYS-023  | —          | Raspberry Pi | Raspberry Pi 1 Model B        | SBC         | Spare                                                      |
 
 ---
 

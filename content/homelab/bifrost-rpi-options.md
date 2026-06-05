@@ -1,6 +1,6 @@
 ---
-title: "BIFROST — Raspberry Pi jump node"
-description: "A Pi as a permanent low-power bridge into the homelab. Always on, always reachable — and the options for making that actually work from the outside."
+title: "BIFROST — Remote access options considered"
+description: "The options evaluated for making a Raspberry Pi jump node reachable from outside: Tailscale, Cloudflare Tunnel, WireGuard, and port forwarding."
 date: 2026-05-22
 draft: true
 showReadingTime: false
