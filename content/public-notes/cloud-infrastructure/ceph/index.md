@@ -47,6 +47,6 @@ A single-node Ceph cluster can be made to run (`allowMultiplePerNode: true` in R
 ## Related
 
 - [Ceph documentation](https://docs.ceph.com/)
-- [Rook](/public-notes/cloud-infrastructure/rook/) — Kubernetes operator that manages Ceph clusters inside K8s
+- [Rook](/public-notes/kubernetes/rook/) — Kubernetes operator that manages Ceph clusters inside K8s
 - [Proxmox](/public-notes/cloud-infrastructure/proxmox/) — Ceph is a native storage backend in Proxmox clusters
 - [Rook + Ceph in the homelab](/homelab/rook-ceph/)

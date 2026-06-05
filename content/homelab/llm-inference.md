@@ -24,7 +24,7 @@ A persistent inference endpoint on the lab network. Point a client at it and get
 | Layer | Technology | Role |
 |---|---|---|
 | Provisioning | PXE + iPXE | Boot ODEN from bare metal |
-| OS / Orchestration | [Talos](/public-notes/cloud-infrastructure/talos/) + Kubernetes | Immutable OS, container runtime |
+| OS / Orchestration | [Talos](/public-notes/kubernetes/talos/) + Kubernetes | Immutable OS, container runtime |
 | Inference serving | [vLLM](/public-notes/ai/vllm/) or [Ollama](/public-notes/ai/ollama/) | Model serving, OpenAI-compatible API |
 | GPU | NVIDIA GTX 770 (2GB VRAM) | Currently unplaced — target: ODEN |
 

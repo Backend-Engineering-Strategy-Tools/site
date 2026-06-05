@@ -7,7 +7,7 @@ layout: single
 tags: ["odf", "openshift", "ceph", "kubernetes", "storage", "rook"]
 ---
 
-OpenShift Data Foundation (ODF) is Red Hat's enterprise Kubernetes storage platform, built on [Ceph](/public-notes/cloud-infrastructure/ceph/) orchestrated by [Rook](/public-notes/cloud-infrastructure/rook/). Where Rook-Ceph is the open source upstream, ODF packages it with an operator, a validated configuration, enterprise support, and integration with the OpenShift console. It provides block (RBD), file (CephFS), and object (S3-compatible via Ceph RGW) storage as Kubernetes StorageClasses on the same hardware.
+OpenShift Data Foundation (ODF) is Red Hat's enterprise Kubernetes storage platform, built on [Ceph](/public-notes/cloud-infrastructure/ceph/) orchestrated by [Rook](/public-notes/kubernetes/rook/). Where Rook-Ceph is the open source upstream, ODF packages it with an operator, a validated configuration, enterprise support, and integration with the OpenShift console. It provides block (RBD), file (CephFS), and object (S3-compatible via Ceph RGW) storage as Kubernetes StorageClasses on the same hardware.
 
 ## What it provides
 

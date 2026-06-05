@@ -8,7 +8,7 @@ layout: single
 tags: ["talos", "omni", "pxe", "kubernetes", "bare-metal"]
 ---
 
-Getting [Talos Linux](/public-notes/cloud-infrastructure/talos/) running in the homelab via PXE boot and [Omni](https://omni.siderolabs.com) — starting with [ODEN (SYS-005)](/homelab/inventory/systems/), an IBM System x3550 M3. The full OPNSense + iPXE configuration lives in the [reference note](/public-notes/hardware/hardware-provisioning/ipxe-opnsense/); this covers what actually happened, in order.
+Getting [Talos Linux](/public-notes/kubernetes/talos/) running in the homelab via PXE boot and [Omni](https://omni.siderolabs.com) — starting with [ODEN (SYS-005)](/homelab/inventory/systems/), an IBM System x3550 M3. The full OPNSense + iPXE configuration lives in the [reference note](/public-notes/hardware/hardware-provisioning/ipxe-opnsense/); this covers what actually happened, in order.
 
 ---
 

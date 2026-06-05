@@ -8,7 +8,7 @@ layout: single
 tags: ["rook", "ceph", "storage", "kubernetes", "bare-metal"]
 ---
 
-Attempting to add persistent block storage to the [ODEN](/homelab/inventory/systems/) single-node Talos cluster using [Rook](/public-notes/cloud-infrastructure/rook/) and [Ceph](/public-notes/cloud-infrastructure/ceph/). This did not fully succeed — the setup reached the point of a bound PVC and a working write test, but the cluster was not left in a clean stable state. Notes are here for completeness.
+Attempting to add persistent block storage to the [ODEN](/homelab/inventory/systems/) single-node Talos cluster using [Rook](/public-notes/kubernetes/rook/) and [Ceph](/public-notes/cloud-infrastructure/ceph/). This did not fully succeed — the setup reached the point of a bound PVC and a working write test, but the cluster was not left in a clean stable state. Notes are here for completeness.
 
 This builds on the [Talos cluster setup on ODEN](/homelab/talos-omni/).
 

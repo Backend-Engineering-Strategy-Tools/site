@@ -134,7 +134,7 @@ docker compose down       # stop and remove containers
 
 Compose is useful for local development environments. It is a shame it exists as a separate abstraction — it taught people to think in multi-container terms without teaching them Kubernetes, and then left them with a gap to cross when they needed to go to production. That said, it is practical for what it does and is not going away.
 
-For production orchestration, see [Kubernetes](../../cloud-infrastructure/kubernetes/).
+For production orchestration, see [Kubernetes](../../kubernetes/kubernetes/).
 
 ## Skopeo
 
