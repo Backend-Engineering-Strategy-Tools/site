@@ -25,9 +25,9 @@ Both involve AI in the loop — either iterating on the Python with Claude, or u
 | 0 | Manual Blender modelling — [Packat & Klart badge](/garage/scout-badges-resin/) and [scout emblem casting master](/garage/casting-badges/); learning the tool before scripting | Done |
 | 1 | [Approach documented](/public-notes/frameworks-tools/blender-python/) — Python scripted geometry, config-block iteration pattern | Done |
 | 2 | [Rack Support Brace](/homelab/rack-support-brace/) — first implementation; flat plate, boolean hole grid, engraved text, automated renders | Done |
-| 3 | Headless render — run existing `.blend` files (badge, emblem, brace) from terminal without GUI; prove the pipeline before writing new geometry | Next |
+| 3 | Headless render — Blender 5.1.2 + Dagger pipeline; STL → multi-angle PNGs without opening Blender; smoke-tested and running in CI | Done |
 | 4 | [Scout Buckle](/garage/scout-buckle/) — complex geometry; compound curves, functional tongue mechanism, tolerances that matter | In progress |
-| 5 | CI/CD pipeline — parameter change → headless render → PNG artifacts in PR | Planned |
+| 5 | CI/CD pipeline — STL or script change → GitHub Actions → Dagger → PNG artifacts; [procedural-mesh-pipeline](https://github.com/Backend-Engineering-Strategy-Tools/procedural-mesh-pipeline) | Done |
 | 6 | AI feedback loop — describe correction → updated script → re-run, without opening Blender | Planned |
 | 7 | [Dragon Split](/garage/dragon-split/) — mesh manipulation; cut an existing articulated dragon STL into printable segments with connectors | Not started |
 
@@ -37,6 +37,8 @@ Both involve AI in the loop — either iterating on the Python with Claude, or u
 
 The rack brace (step 2) was easier than expected — straightforward geometry, minimal iteration. That is why the pipeline steps did not get built yet: the manual workflow was fast enough that the overhead of automating it was not justified for one part.
 
-The scout buckle (step 4) is the harder test. Compound curves and functional constraints mean the script has needed partial rebuilds rather than config-block edits. That is where the headless render pipeline (step 3 → 5) will actually pay off.
+The scout buckle (step 4) is the harder test. Compound curves and functional constraints mean the script has needed partial rebuilds rather than config-block edits. That is the case that justified building the render pipeline properly.
+
+Steps 3 and 5 ended up built together rather than sequentially. The pipeline lives in a separate repo — [procedural-mesh-pipeline](https://github.com/Backend-Engineering-Strategy-Tools/procedural-mesh-pipeline) — Dagger + GitHub Actions, Blender 5.1.2 headless, Cycles CPU. Renders run natively on the CI runner (amd64); locally the pipeline is used for smoke-testing the image only. Blender has no official ARM64 Linux binary so local renders under emulation are impractical.
 
 The dragon split (step 7) is a different class of problem — remixing rather than generating. Worth keeping in the same project because the tooling overlaps (Blender Python, STL export) even if the approach does not.
