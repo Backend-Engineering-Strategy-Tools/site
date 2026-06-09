@@ -1,4 +1,7 @@
-<a href="{{ .Get "href" }}" download class="dl-link">
+{{ $href := .Get "href" }}
+{{ $res := resources.Get (strings.TrimPrefix "/" $href) }}
+{{ if $res }}{{ $href = $res.RelPermalink }}{{ end }}
+<a href="{{ $href }}" download class="dl-link">
   <span class="dl-icon">↓</span>{{ .Get "label" }}
 </a>
 

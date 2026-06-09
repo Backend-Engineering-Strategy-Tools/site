@@ -18,7 +18,9 @@ First real casting project — a success.
 
 ## Master
 
-Modelled in Blender, printed in resin as the master for the silicon mould.
+Modeled in Blender, printed in resin as the master for the silicon mould.
+
+{{< carousel images="code/mesh/scout_emblem/renders/*" interval="2800" >}}
 
 {{< download href="/code/mesh/scout_emblem/scout_emblem.blend" label="scout_emblem.blend" >}}
 {{< download href="/code/mesh/scout_emblem/scout_emblem.stl" label="scout_emblem.stl" >}}

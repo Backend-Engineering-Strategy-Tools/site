@@ -16,7 +16,9 @@ First attempt at producing physical scout items rather than sourcing them.
 
 ## The Badge
 
-Modelled in Blender, exported to STL, printed in resin.
+Modeled in Blender, exported to STL, printed in resin.
+
+{{< carousel images="code/mesh/packat_klart/renders/*" interval="2800" >}}
 
 {{< download href="/code/mesh/packat_klart/packat_klart.blend" label="packat_klart.blend" >}}
 {{< download href="/code/mesh/packat_klart/packat_och_klart.stl" label="packat_och_klart.stl" >}}

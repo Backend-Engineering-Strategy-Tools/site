@@ -1,4 +1,4 @@
-{{ $images := .Page.Resources.Match (.Get "images") }}
+{{ $images := resources.Match (.Get "images") }}
 {{ $interval := or (.Get "interval") "3000" }}
 {{ $id := printf "carousel-%d" .Ordinal }}
 
