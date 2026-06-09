@@ -89,9 +89,14 @@ canonifyURLs = true
     weight = 42
 
   [[menu.main]]
+    name = ".\u00a0\u00a0\u00a0\u00a0Policy as Code"
+    url = "/public-notes/policy-as-code/"
+    weight = 43
+
+  [[menu.main]]
     name = ".\u00a0\u00a0\u00a0\u00a0AI"
     url = "/public-notes/ai/"
-    weight = 43
+    weight = 44
 
   [[menu.main]]
     name = "Homelab"
