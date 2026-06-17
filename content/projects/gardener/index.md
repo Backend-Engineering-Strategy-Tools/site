@@ -24,19 +24,7 @@ Provision a Gardener shoot cluster on Cleura. Cleura wraps Gardener behind their
 → [Provisioning via Cleura REST API](/public-notes/kubernetes/gardener/#provisioning-a-shoot-cluster-on-cleura)  
 → [Cleura docs issue #533 — IaC and gardenctl access](https://github.com/cleura/docs/issues/533)
 
-### 2 — Envoy Gateway
-
-Deploy [Envoy Gateway](https://gateway.envoyproxy.io/) into the shoot cluster — the CNCF implementation of the [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/). The NGINX Ingress Controller is deprecated; Gateway API is the forward path with a standardised spec for both HTTP and TCP.
-
-Envoy Gateway exposes a single `LoadBalancer` service via Octavia. Everything routes through it.
-
-### 3 — HTTPRoute, certificates, and BlueMap
-
-Deploy [BlueMap](https://bluemap.bluecolored.de/) — a Minecraft mod that renders the world as a live 3D web map served over HTTP. Route it through the Gateway with a `HTTPRoute` and wire [cert-manager](https://cert-manager.io/) to provision a Let's Encrypt certificate.
-
-A real HTTP service with a real use, not a throwaway test page. Validates the full HTTP + TLS path before touching the game server.
-
-### 4 — Minecraft via standard LoadBalancer
+### 2 — Minecraft via standard LoadBalancer
 
 Deploy [`itzg/minecraft-server`](https://github.com/itzg/docker-minecraft-server) as a StatefulSet with a plain `LoadBalancer` service for TCP 25565 — the direct Octavia path, no Gateway involved. Gets the server running quickly and confirms TCP exposure works on Cleura independently.
 
@@ -51,6 +39,57 @@ Minecraft Pod (itzg/minecraft-server)
     |
 PVC (Cinder)
 ```
+
+Manifests: [stateful_set.yaml](/scripts/mc/stateful_set.yaml) · [service.yaml](/scripts/mc/service.yaml)
+
+Apply directly from this repo:
+
+```bash
+kubectl apply -k "https://github.com/Backend-Engineering-Strategy-Tools/site//static/scripts/mc?ref=main"
+```
+
+Check the rollout and grab the external IP:
+
+```bash
+kubectl get all -l app=mc-example
+
+kubectl get svc mc-example \
+  -o jsonpath='{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}'
+```
+
+### 2.5 — Migrate to Helm chart
+
+Swap the raw manifests for the [`itzg/minecraft-server-charts`](https://github.com/itzg/minecraft-server-charts) Helm chart — actively maintained, covers server type, persistence, RCON, backups, and extra ports (BlueMap, Dynmap). The raw YAML stays useful as a reference for the underlying shape.
+
+Manifests: [values.yaml](/scripts/mc-helm/values.yaml)
+
+```bash
+helm repo add minecraft-server-charts https://itzg.github.io/minecraft-server-charts/
+helm upgrade --install mc minecraft-server-charts/minecraft \
+  -f https://backend-engineering-strategy-tools.github.io/site/scripts/mc-helm/values.yaml
+```
+
+Check the rollout and grab the external IP:
+
+```bash
+kubectl get all -l app.kubernetes.io/instance=mc
+```
+
+```bash
+kubectl get svc mc-example -o jsonpath='{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}'
+```
+
+### 3 — Envoy Gateway
+
+Deploy [Envoy Gateway](https://gateway.envoyproxy.io/) into the shoot cluster — the CNCF implementation of the [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/). The NGINX Ingress Controller is deprecated; Gateway API is the forward path with a standardised spec for both HTTP and TCP.
+
+Envoy Gateway exposes a single `LoadBalancer` service via Octavia. Everything routes through it.
+
+### 4 — HTTPRoute, certificates, and BlueMap
+
+Deploy [BlueMap](https://bluemap.bluecolored.de/) — a Minecraft mod that renders the world as a live 3D web map served over HTTP. Route it through the Gateway with a `HTTPRoute` and wire [cert-manager](https://cert-manager.io/) to provision a Let's Encrypt certificate.
+
+A real HTTP service with a real use, not a throwaway test page. Validates the full HTTP + TLS path before touching the game server.
 
 ### 5 — Migrate to TCPRoute
 
@@ -105,9 +144,10 @@ A feature request for gardenctl access or a native IaC provider has been filed w
 | Step                                    | Status  |
 |-----------------------------------------|---------|
 | 1 — Shoot cluster on Cleura             | done    |
-| 2 — Envoy Gateway                       | planned |
-| 3 — HTTPRoute + cert-manager + BlueMap  | planned |
-| 4 — Minecraft via LoadBalancer (itzg)   | planned |
+| 2 — Minecraft via LoadBalancer (itzg)   | planned |
+| 2.5 — Migrate to Helm chart             | planned |
+| 3 — Envoy Gateway                       | planned |
+| 4 — HTTPRoute + cert-manager + BlueMap  | planned |
 | 5 — Migrate to TCPRoute                 | planned |
 | 6 — Velocity                            | planned |
 | 7 — Plugin pipeline (Dagger)            | planned |

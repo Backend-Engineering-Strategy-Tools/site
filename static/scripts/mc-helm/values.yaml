@@ -1,0 +1,13 @@
+workloadAsStatefulSet: true
+strategyType: OnDelete
+
+minecraftServer:
+  eula: "TRUE"
+  version: "LATEST"
+  type: "VANILLA"
+  serviceType: LoadBalancer
+
+persistence:
+  dataDir:
+    enabled: true
+    Size: 10Gi

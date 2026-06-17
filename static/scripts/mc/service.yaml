@@ -1,0 +1,15 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: mc-example
+  name: mc-example
+spec:
+  ports:
+    - port: 25565
+      targetPort: 25565
+  selector:
+    app: mc-example
+  type: LoadBalancer
