@@ -104,7 +104,7 @@ A feature request for gardenctl access or a native IaC provider has been filed w
 
 | Step                                    | Status  |
 |-----------------------------------------|---------|
-| 1 — Shoot cluster on Cleura             | planned |
+| 1 — Shoot cluster on Cleura             | done    |
 | 2 — Envoy Gateway                       | planned |
 | 3 — HTTPRoute + cert-manager + BlueMap  | planned |
 | 4 — Minecraft via LoadBalancer (itzg)   | planned |

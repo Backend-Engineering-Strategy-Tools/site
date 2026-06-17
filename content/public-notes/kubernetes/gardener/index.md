@@ -317,6 +317,8 @@ The `expirationSeconds` field controls credential lifetime. A bug report has bee
 | `/Kubeconfig`      | POST   | yes        | unclear |
 | `/adminkubeconfig` | POST   | no         | yes     |
 
+→ [Cleura docs issue #534 — kubeconfig endpoint inconsistencies in Gardener REST API](https://github.com/cleura/docs/issues/534)
+
 ### Script
 
 A bash script wrapping the full workflow (list, create, wait, kubeconfig, delete) is available: [cleura-shoot.sh](/scripts/cleura-shoot.sh)
