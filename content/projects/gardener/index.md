@@ -84,6 +84,22 @@ Something with NPC behaviour, a bot, or plugin-side automation. Low priority, hi
 
 ---
 
+## IaC gap
+
+Cleura does not expose the garden cluster kubeconfig. That one limitation closes off the entire Gardener tooling ecosystem: `gardenctl` requires it, the [Gardener Terraform provider](https://registry.terraform.io/providers/gardener/gardener) requires it, and any Crossplane provider built on the Gardener API would require it too. There is no HCL path here.
+
+What remains is Cleura's own REST API — which is fine for interactive use but falls short the moment you want to drive cluster lifecycle from a pipeline. A bash script wrapping `curl` and `jq` works, and that is what [cleura-shoot.sh](/scripts/cleura-shoot.sh) does, but it is a workaround rather than a solution. No state, no plan, no diff — just imperative API calls.
+
+Options if this needs to graduate beyond a script:
+
+- **Crossplane `provider-http`** — can wrap the REST API declaratively, but has no native polling or deletion hooks, so the reconciliation story is awkward
+- **Custom Terraform provider** — full `plan`/`apply` semantics, but requires writing a Go provider from scratch
+- **Pulumi dynamic provider** — similar effort, Python or TypeScript
+
+A feature request for gardenctl access or a native IaC provider has been filed with Cleura (→ [cleura/docs#533](https://github.com/cleura/docs/issues/533)). Until something changes there, the bash script is as good as it gets.
+
+---
+
 ## Status
 
 | Step                                    | Status  |
