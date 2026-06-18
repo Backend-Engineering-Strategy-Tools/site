@@ -53,6 +53,23 @@ GitHub Secrets store credentials without putting them in the repository. Add the
 
 For pushing to external services — Docker Hub, a package registry, a cloud provider — this is the integration point. The workflow authenticates using the secret, the secret itself never appears in logs or code.
 
+### Organisation secrets
+
+Secrets can be set at the organisation level and inherited by all repositories — no per-repo configuration needed. Useful for shared CI credentials reused across many repos.
+
+Path: github.com/`<org>` → Settings → Secrets and variables → Actions → **New organisation secret**
+
+Set **Repository access** to "All repositories" or a selected subset once you know which repos need it.
+
+A worked example — shared image publishing credentials:
+
+```
+DOCKERHUB_TOKEN     # hub.docker.com → Account → Security → Access Tokens
+DAGGER_CLOUD_TOKEN  # cloud.dagger.io → Organisation → Tokens
+```
+
+Set once at org level; every `image-*` repo inherits them. Workflows reference them identically to repo secrets: `${{ secrets.DOCKERHUB_TOKEN }}`. See [Dagger](/public-notes/cicd/dagger/) for `DAGGER_CLOUD_TOKEN` context.
+
 ## Environments
 
 Environments add a protection layer on top of secrets. Define named environments (e.g. `staging`, `production`) and configure:
