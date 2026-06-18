@@ -22,7 +22,7 @@
 #   CLEURA_NODES_MIN — worker minimum, default: 1
 #   CLEURA_NODES_MAX — worker maximum, default: 3
 
-set -euox pipefail
+set -euo pipefail
 
 BASE_URL="https://rest.cleura.cloud"
 REGION="${CLEURA_REGION:-kna1}"

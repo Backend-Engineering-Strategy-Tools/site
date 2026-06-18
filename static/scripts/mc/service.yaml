@@ -8,7 +8,7 @@ metadata:
   name: mc-example
 spec:
   ports:
-    - port: 25565
+    - port: 80
       targetPort: 25565
   selector:
     app: mc-example
