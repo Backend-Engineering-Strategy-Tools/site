@@ -93,14 +93,18 @@ In CI the step just references the image directly — no installation step, no v
 
 ## The Repos
 
-Three images, each a superset of the previous:
+Three tooling images, each a superset of the previous, plus two supporting images:
 
-| Repo                    | Contents                                                      |
-|-------------------------|---------------------------------------------------------------|
-| `tooling-k8s`           | kubectl, helm, kustomize, jq, yq — generic Kubernetes tooling |
-| `tooling-k8s-aws`       | `tooling-k8s` + AWS CLI                                       |
-| `tooling-k8s-openstack` | `tooling-k8s` + OpenStack CLI                                 |
+| GitHub repo | Docker Hub | Contents |
+|-------------|-----------|---------|
+| `image-tooling` | `senare/tooling-k8s` | kubectl, helm, kustomize, argocd, k9s, jq, yq |
+| `image-tooling` | `senare/tooling-k8s-aws` | `tooling-k8s` + AWS CLI |
+| `image-tooling` | `senare/tooling-k8s-openstack` | `tooling-k8s` + OpenStack CLI |
+| `image-buildx` | `senare/buildx` | CI builder — Docker buildx, AWS CLI, Dagger CLI |
+| `image-pandoc` | `senare/pandoc` | PDF generation — pandoc + TeX Live |
 
-To be built and published to the [GitHub org](https://github.com/Backend-Engineering-Strategy-Tools).
+Repo names use `image-<purpose>` in the [Backend-Engineering-Strategy-Tools](https://github.com/Backend-Engineering-Strategy-Tools) org. Docker Hub names drop the prefix and just describe the tool. The three tooling flavours share one `image-tooling` monorepo so dependency updates and scanning are configured once.
+
+Pipelines are written in Go using [Dagger](/public-notes/cicd/dagger/) — the same pipeline runs locally and in CI, publishing multi-arch images (amd64 + arm64) triggered by a version tag.
 
 ---
