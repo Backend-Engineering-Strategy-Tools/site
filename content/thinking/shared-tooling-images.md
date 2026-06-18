@@ -95,13 +95,13 @@ In CI the step just references the image directly — no installation step, no v
 
 Three tooling images, each a superset of the previous, plus two supporting images:
 
-| GitHub repo | Docker Hub | Contents |
-|-------------|-----------|---------|
-| `image-tooling` | `senare/tooling-k8s` | kubectl, helm, kustomize, argocd, k9s, jq, yq |
-| `image-tooling` | `senare/tooling-k8s-aws` | `tooling-k8s` + AWS CLI |
-| `image-tooling` | `senare/tooling-k8s-openstack` | `tooling-k8s` + OpenStack CLI |
-| `image-buildx` | `senare/buildx` | CI builder — Docker buildx, AWS CLI, Dagger CLI |
-| `image-pandoc` | `senare/pandoc` | PDF generation — pandoc + TeX Live |
+| GitHub repo     | Docker Hub                     | Contents                                        |
+|-----------------|--------------------------------|-------------------------------------------------|
+| `image-tooling` | `best-tools/tooling-k8s`           | kubectl, helm, kustomize, argocd, k9s, jq, yq   |
+| `image-tooling` | `best-tools/tooling-k8s-aws`       | `tooling-k8s` + AWS CLI                         |
+| `image-tooling` | `best-tools/tooling-k8s-openstack` | `tooling-k8s` + OpenStack CLI                   |
+| `image-buildx`  | `best-tools/buildx`                | CI builder — Docker buildx, AWS CLI, Dagger CLI |
+| `image-pandoc`  | `best-tools/pandoc`                | PDF generation — pandoc + TeX Live              |
 
 Repo names use `image-<purpose>` in the [Backend-Engineering-Strategy-Tools](https://github.com/Backend-Engineering-Strategy-Tools) org. Docker Hub names drop the prefix and just describe the tool. The three tooling flavours share one `image-tooling` monorepo so dependency updates and scanning are configured once.
 
