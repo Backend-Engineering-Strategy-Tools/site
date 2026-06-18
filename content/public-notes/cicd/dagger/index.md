@@ -94,8 +94,27 @@ The split is clean: Argo owns workflow-level concerns, Dagger owns build reprodu
 | `dagger call <function> [args]` | Invoke a pipeline function |
 | `dagger run <command>` | Run an arbitrary command with Dagger Engine available |
 
+## Dagger Cloud
+
+Dagger Cloud is a hosted observability layer for Dagger pipelines. Free tier available.
+
+Every pipeline run — local or CI — produces a trace: a visualisation of the container graph with per-step timing, cache hit/miss, and log output. The trace is linked from the terminal output and browsable at cloud.dagger.io.
+
+Enable it by setting one environment variable:
+
+```bash
+export DAGGER_CLOUD_TOKEN=<token>
+dagger call build --src .
+# → Run URL: https://app.dagger.cloud/runs/<id>
+```
+
+In GitHub Actions, add `DAGGER_CLOUD_TOKEN` as an organisation-level secret (see [GitHub Actions](/public-notes/cicd/github/)). The `dagger/dagger-action` picks it up automatically — no workflow change needed beyond the env var being present.
+
+Sign up at cloud.dagger.io using GitHub login. Token is under Organisation → Tokens.
+
 ## Resources
 
 - [Dagger documentation](https://docs.dagger.io/)
 - [Go SDK reference](https://docs.dagger.io/api/sdk/go)
 - [Daggerverse — community modules](https://daggerverse.dev/)
+- [Dagger Cloud](https://dagger.cloud/)
