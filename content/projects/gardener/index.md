@@ -4,7 +4,7 @@ date: 2026-06-16
 draft: false
 showReadingTime: false
 layout: single
-tags: ["gardener", "kubernetes", "cleura", "openstack", "networking", "tcp", "ingress"]
+tags: ["gardener", "kubernetes", "cleura", "openstack", "networking", "tcp", "ingress", "dns", "externaldns", "designate"]
 ---
 
 Getting hands-on with [Gardener](https://gardener.cloud/) on [Cleura](https://cleura.com/) — a European OpenStack cloud — ahead of using it professionally. The focus is on the networking and traffic ingress side: how does a Gardener shoot cluster on OpenStack expose services, what does the LoadBalancer path actually look like, and when does ingress apply versus when it does not.
@@ -85,6 +85,15 @@ Deploy [Envoy Gateway](https://gateway.envoyproxy.io/) into the shoot cluster �
 
 Envoy Gateway exposes a single `LoadBalancer` service via Octavia. Everything routes through it.
 
+### 3.5 — ExternalDNS + Designate
+
+Once the Gateway has a LoadBalancer IP from Octavia, it needs a DNS name. [ExternalDNS](https://kubernetes-sigs.github.io/external-dns/) watches `Service` and `Gateway` resources and writes DNS records automatically — no manual record management as IPs change.
+
+On OpenStack/Cleura, the DNS service is [Designate](https://docs.openstack.org/designate/) — the OpenStack equivalent of Route 53. ExternalDNS has a Designate provider. The setup mirrors the Route 53 pattern: a hosted zone in Designate, ExternalDNS with credentials to write records, and annotation-driven control over which services get DNS entries.
+
+→ [DNS & DNSSEC reference](/public-notes/networking/dns-dnssec/) — Route 53 and DNS fundamentals; same concepts apply to Designate  
+→ [mjli.org — DNS & DNSSEC Lab](/projects/mjli-org/) — working through the DNS/ExternalDNS groundwork on AWS
+
 ### 4 — HTTPRoute, certificates, and BlueMap
 
 Deploy [BlueMap](https://bluemap.bluecolored.de/) — a Minecraft mod that renders the world as a live 3D web map served over HTTP. Route it through the Gateway with a `HTTPRoute` and wire [cert-manager](https://cert-manager.io/) to provision a Let's Encrypt certificate.
@@ -147,6 +156,7 @@ A feature request for gardenctl access or a native IaC provider has been filed w
 | 2 — Minecraft via LoadBalancer (itzg)   | planned |
 | 2.5 — Migrate to Helm chart             | planned |
 | 3 — Envoy Gateway                       | planned |
+| 3.5 — ExternalDNS + Designate           | planned |
 | 4 — HTTPRoute + cert-manager + BlueMap  | planned |
 | 5 — Migrate to TCPRoute                 | planned |
 | 6 — Velocity                            | planned |

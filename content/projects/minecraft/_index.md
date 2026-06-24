@@ -13,6 +13,4 @@ The longer-term goal is a proper setup: automated backups, world persistence acr
 
 *Notes and repo to follow.*
 
----
-
-*More to come.*
+The mod side — [TravelPack](/projects/minecraft/travelpack/) — is a Fabric mod built alongside this, and the target application for the build pipeline work.

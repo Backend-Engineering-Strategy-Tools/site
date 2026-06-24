@@ -110,7 +110,7 @@ The separation keeps the narrative and reference writing from muddying each othe
 
 The current setup — Hugo on GitHub Pages — is the right foundation for a content-heavy site. A few things are planned or in progress:
 
-- **Custom domain** — `best.mjnet.info` redirect via S3 + Route53 (see Domain section above). Proper custom domain with HTTPS as a follow-up.
+- **Custom domain** — `best.mjnet.info` redirect via S3 + Route53 (see Domain section above). Proper custom domain with HTTPS as a follow-up — groundwork via the [mjli.org DNS & DNSSEC lab](/projects/mjli-org/).
 - **Better build pipeline** — replacing the Makefile with a [Dagger](/public-notes/cicd/dagger/) Go module for local/CI parity and pinned Hugo versions.
 - **More content** — the backlog of notes and projects is long. The site grows as things get cleaned up and published.
 

@@ -8,6 +8,7 @@ showReadingTime: false
 
 The [GitHub org](https://github.com/Backend-Engineering-Strategy-Tools) is a curated space — a cleaner surface over a longer personal GitHub history. Work in progress, professional tools, and side projects worth sharing.
 
+- [mjli.org — DNS & DNSSEC Lab](/projects/mjli-org/)
 - [This Site](/projects/best-site/)
 - [Image Tooling](/projects/image-tooling/)
 - [Kubernetes Across the Stack](/projects/kubernetes-stack/)
