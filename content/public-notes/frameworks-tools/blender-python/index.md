@@ -126,6 +126,16 @@ bpy.data.objects.remove(cutter, do_unlink=True)
 
 Apply and remove the cutter immediately — leaving stale cutter objects causes confusion on subsequent runs.
 
+**Font/glyph-derived cutters need an explicit manifold pass.** Text converted to mesh (`obj.data.body` → `convert(target='MESH')`) can come out non-manifold even after `remove_doubles` + `normals_make_consistent` — ornate glyphs (Unicode symbols, not just plain letters) are the worst offenders. The dangerous part: `EXACT` doesn't error on this, it silently produces garbage (in one case, an entire 42mm gear plate collapsed down to a 2.4×2.8mm fragment matching the cutter's own bounding box — the boolean effectively returned the cutter instead of plate-minus-cutter). `MANIFOLD`/`FLOAT` solvers refuse non-manifold input with a warning instead of corrupting the mesh, which is how to catch this — if a solver switch changes the *shape* of the result rather than just failing, the geometry was already broken. Fix: voxel-remesh the cutter before the boolean.
+
+```python
+mod = cutter.modifiers.new("ForceManifold", 'REMESH')
+mod.mode = 'VOXEL'
+mod.voxel_size = 0.12   # small relative to feature size — letters/glyphs stay legible
+bpy.context.view_layer.objects.active = cutter
+bpy.ops.object.modifier_apply(modifier="ForceManifold")
+```
+
 ### Joining objects (single boolean cut for a grid of holes)
 
 Rather than applying one boolean per hole, join all cutters first:
@@ -146,6 +156,24 @@ One boolean operation is faster and produces cleaner topology than N serial cuts
 ```python
 bpy.ops.wm.stl_export(filepath="/abs/path/part.stl", export_selected_objects=True)
 ```
+
+**Exporting an aligned multi-part assembly as separate files doesn't survive re-import.** Most slicers (Orca/Bambu/Anycubic Slicer Next and similar) auto-center *each independently imported STL* rather than trusting its raw coordinates — reads as "the slicer won't align the parts" and "everything looks garbled/oversized" once several previously-aligned pieces all get individually recentered on top of each other. If parts must stay in relative position (e.g. a body plus separate color inserts that fit its recesses), select all the objects and export them together in **one** `wm.stl_export` call — a single multi-shell STL has nothing to mis-align on import, since there's only one thing to import. Slicers that support multi-material can then assign a filament per disconnected shell within that one file ("Split to Objects" / per-island color).
+
+### Multi-material via recessed inserts (AMS / ACE Gen2 / any multi-filament-single-nozzle feeder)
+
+For genuine per-region multi-color on a feeder that auto-swaps+purges (not a plain manual pause-swap, which only changes color per full layer): cut a shallow, exactly-sized recess into the body for each colored element, and export each element as its own insert mesh occupying that recess — everything in the same coordinate space, un-recentered.
+
+```python
+def make_element(body_text, size, y, depth, extra_top=0.0):
+    """extra_top=0 -> flush insert; extra_top>0 -> oversized cutter for a clean subtraction."""
+    ...
+
+cutter = make_element(text, size, y, depth, extra_top=0.6)   # carve the recess
+# ... boolean DIFFERENCE cutter from body ...
+insert = make_element(text, size, y, depth, extra_top=0.0)   # exact-fit standalone part
+```
+
+Carve all recesses with oversized cutters (clean boolean through the surface), then generate the flush-fit inserts separately with zero overhang. Export body + all inserts together as one combined STL (see above).
 
 ### Collections (organising multi-part output)
 
@@ -234,4 +262,5 @@ The workflow is: run → look at viewport → describe the problem → apply upd
 ## Related
 
 - [Garage — Scripted Parts](/garage/) — hole box and other physical builds using this approach
+- [Scout Gear Name Tags](/garage/scout-name-tags/) — parametric gear tags; source of the non-manifold-cutter and multi-part-export lessons above
 - [Rack Support Brace](/homelab/rack-support-brace/) — step-by-step: script → renders → headless → CI/CD
