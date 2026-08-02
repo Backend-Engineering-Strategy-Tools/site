@@ -45,6 +45,7 @@ Building a laser cutter from scratch — enclosure, motion system, and a touchsc
 - [Resin Badges — Packat & Klart](/garage/scout-badges-resin/) — 3D printed badges for the first Hajk
 - [Foo-Flames — HP Theme](/garage/foo-flames/) — coloured flames for a Harry Potter scout event
 - [Scout Gear Name Tags](/garage/scout-name-tags/) — parametric gear-shaped keyring tags, multi-material printing on the ACE Gen2
+- [Scout Scarf Slide](/garage/scarf-slide/) — same medallion, sibling project with a half-pipe loop and nameplate for a neckerchief woggle
 
 ---
 

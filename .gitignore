@@ -7,3 +7,10 @@ resources/*
 input/*
 research/*
 
+# Blender-Python script build output — regenerable, may contain private data
+# (e.g. real phone numbers baked into text meshes); published copies live in
+# each project's example_*/ and renders/example_*/ folders instead.
+assets/code/procedural-mesh/scout-name-tags/name_tags/
+assets/code/procedural-mesh/scout-scarf-slide/scarf_slides/
+__pycache__/
+

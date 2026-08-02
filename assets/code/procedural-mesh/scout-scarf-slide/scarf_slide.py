@@ -1,16 +1,14 @@
-# Gear Name Tag v4
-# Stylized cog-shaped tag, ~42mm across, 4mm thick, keyring hole near the top edge.
-# Two-sided: FRONT is the cog ring + fleur-de-lis only (matches the Mölndals
-# Scoutkår emblem), BACK carries the text ("Mölndal" + name, line-broken to fit).
-# Built for genuine 4-color multi-material printing (e.g. Anycubic Kobra X / ACE
-# Gen2, Bambu AMS, etc.): the body has a shallow recess on each face for its
-# element, and each element is exported as its own separate, exactly-fitting
-# STL insert. Import body.stl + all element STLs together into your slicer
-# (they share the same coordinate space, so they align automatically), then
-# assign a different filament/color to each imported object.
+# Scarf Slide (woggle) — sibling of the gear name tag, same front medallion
+# (cog + fleur-de-lis), different back: instead of text on the medallion
+# itself, a half-pipe channel (holds a rolled/folded neckerchief) is fused to
+# the medallion's back, and a wider white nameplate (70x40mm) is mounted
+# below and behind the channel, with the name recessed into it.
+# Genuine multi-material printing (Kobra X / ACE Gen2, Bambu AMS, etc.):
+# ring, half_pipe, white_cog, logo, sign, and name are each their own STL,
+# sharing one coordinate space so they align automatically on import.
 #
 # Run headless per name:
-#   blender --background --python gear_name_tag.py -- "Ivan" "Nilsson"
+#   blender --background --python scarf_slide.py -- "Manfred"
 
 import bpy
 import bmesh
@@ -38,17 +36,6 @@ WHITE_TOOTH_FRAC = 0.28  # narrower teeth for the white cog — same N_TEETH
                           # positions, thinner, so more red shows around them
 THICKNESS     = 4.0    # mm — body thickness
 
-HOLE_DIAM     = 4.0    # mm — keyring hole
-HOLE_R        = 13.0   # mm — hole centre distance from origin. Pulled back in
-                        # from 16 now that the angle is a tooth valley again
-                        # (white cog's root there is 16.5, so 13+diam/2=15
-                        # keeps a safe 1.5mm margin).
-HOLE_ANGLE_DEG = 165    # mirrored to the other side (180-15) — same valley
-                        # height as before, but text rows are center-aligned,
-                        # so the left side is where "+" (expendable) sits;
-                        # the right side put the hole into the phone number's
-                        # trailing digits instead, which isn't.
-
 BEVEL_WIDTH   = 0.25   # mm — just breaks the raw edge, kept small so corners read as square
 BEVEL_SEGMENTS = 1
 
@@ -75,34 +62,46 @@ LOGO_STAMP    = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lily_s
 LOGO_SIZE     = 1.6
 LOGO_Y        = 0.0    # centered — front face has nothing else on it
 
-# BACK face (disc) — "MÖLNDAL" + name, all caps for legibility (it's a name
-# tag). TEXT_FONT is a bold condensed face to echo the wordmark's look (incl.
-# the dotted, blocky Ö) — DIN Condensed Bold is the closest match available
-# locally; not the actual brand font.
+# BACK: no text on the medallion itself anymore. Instead, a half-pipe
+# channel is fused to the medallion's back for a rolled/folded neckerchief
+# to sit in — the medallion's own flat back face acts as the channel's lid,
+# so the channel cross-section only needs the open "C" (see build_half_pipe).
+HALF_PIPE_INNER_R = 14.0   # mm — fits a rolled scarf roughly 28mm across
+HALF_PIPE_WALL    = 2.5    # mm — channel wall thickness
+HALF_PIPE_OUTER_R = HALF_PIPE_INNER_R + HALF_PIPE_WALL
+HALF_PIPE_LENGTH  = 36.0   # mm — along X, a bit less than the medallion's own diameter
+HALF_PIPE_SEGMENTS = 24    # arc resolution
+
+# White nameplate — a rectangular plate wider than the medallion itself, NOT
+# stacked behind it — coplanar instead: the sign has a medallion-shaped slot
+# cut out of its top edge (see the slot cutout in build_sign), and the
+# medallion sits in that slot like a puzzle piece. Both then share the same
+# front-face convention and can print flat, face-down, in the same
+# orientation — stacking them in Z (tried first) made that impossible.
+SIGN_WIDTH     = 40.0
+SIGN_HEIGHT    = 40.0
+SIGN_THICKNESS = THICKNESS   # same thickness as the medallion — coplanar pieces need a flush back, not a step
+SIGN_SLOT_CLEARANCE = 0.2   # mm — how much bigger the slot is than the medallion, for a loose insert fit
+SIGN_OVERLAP_FRAC = 0.50   # fraction of sign height the medallion overlaps into (i.e. how deep the slot cuts)
+# The medallion's own round body (radius OUTER_R=21) reaches further down
+# than the half-pipe does, so "below" has to clear the medallion, not just
+# the pipe — and now deliberately overlaps it by SIGN_OVERLAP_FRAC.
+SIGN_Y_CENTER  = -OUTER_R + SIGN_OVERLAP_FRAC * SIGN_HEIGHT - SIGN_HEIGHT / 2
+SIGN_Z_CENTER  = 0.0   # coplanar with the medallion now, no Z offset needed
+
+# TEXT_FONT is a bold condensed face to echo the Mölndals Scoutkår wordmark's
+# look (incl. the dotted, blocky Ö) — DIN Condensed Bold is the closest match
+# available locally; not the actual brand font.
 TEXT_FONT     = "/System/Library/Fonts/Supplemental/DIN Condensed Bold.ttf"
+NAME_SIZE     = 20.0
+# The medallion's slot reaches down to the medallion's own bottom tip
+# (y = -OUTER_R, ~18mm deep from the sign's top edge) — below that is the
+# only band that's solid across the sign's full width. NAME_Y centers the
+# name in that band instead of the sign's overall center, clear of the slot.
+NAME_Y        = (-OUTER_R + (SIGN_Y_CENTER - SIGN_HEIGHT / 2)) / 2 - SIGN_Y_CENTER
+SIGN_MAX_TEXT_WIDTH = 32.0   # mm — auto-shrink if wider than this (SIGN_WIDTH minus margin)
 
-TOP_TEXT      = "MÖLNDAL"
-TOP_SIZE      = 8.0
-TOP_Y         = 6.0
-
-# Phone sits in the middle row (Y near 0) — the circle is widest there, and
-# the phone number is the longest string, so it gets the most room.
-PHONE_SIZE    = 8.0
-PHONE_Y       = 0.0
-
-NAME_SIZE     = 8.0    # first + surname, now two independent lines (not one
-                        # line-broken block) so their Y can be set explicitly
-                        # for uniform pitch with the rows above
-FIRSTNAME_Y   = -6.0
-SURNAME_Y     = -12.0
-# Pitch is uniform: MÖLNDAL(+6) -> phone(0) -> first name(-6) -> surname(-12).
-# 8mm pitch (matching font size) put surname past the white cog's safe width
-# and it clipped into the teeth — 6mm is a compromise that still fits.
-# 8mm between every consecutive row.
-
-MAX_TEXT_WIDTH = 34.0   # mm — auto-shrink a line if its rendered width exceeds this
-
-EXPORT_DIR    = os.path.join(os.path.dirname(os.path.abspath(__file__)), "name_tags")
+EXPORT_DIR    = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scarf_slides")
 EXPORT_3MF    = True   # combined.3mf — one file, every part pre-colored/pre-split
 
 RENDER_IMAGES = True
@@ -122,13 +121,12 @@ COLORS = {
     "black": (0.02, 0.02, 0.02, 1.0),
 }
 ELEMENT_COLORS = {   # render-only — STL has no color, this just makes previews readable
-    "ring": COLORS["red"],         # complete gear solid — full teeth, full side walls
-    "hub": COLORS["white"],        # hub + teeth_inlay joined — cog-shaped white piece
-    "logo": COLORS["blue"],        # fleur-de-lis
-    "molndal": COLORS["black"],    # text
-    "firstname": COLORS["black"],  # same filament slot as molndal
-    "surname": COLORS["black"],    # same filament slot as molndal
-    "phone": COLORS["black"],      # optional row — same filament slot as molndal/name
+    "ring": COLORS["red"],       # medallion body — full teeth, full side walls
+    "half_pipe": COLORS["black"],  # own STL — needs its own filament, not joined into the sign
+    "white_cog": COLORS["white"],
+    "logo": COLORS["blue"],      # fleur-de-lis
+    "sign": COLORS["white"],     # nameplate — same filament slot as white_cog
+    "name": COLORS["black"],     # text recessed into the sign — same slot as half_pipe
 }
 
 # ----------------------------
@@ -163,25 +161,19 @@ def apply_color(obj, name, rgba):
 
 def flip_and_shift_z(obj, shift):
     """Negate Z (scale.z=-1, NOT a 180deg rotation — that would also flip Y)
-    then shift up by `shift` — brings the face built at the LOCAL MAXIMUM z
-    (the logo, at +THICKNESS/2) down to the new z=0, so the tag sits flat on
-    the print bed logo-down for a crisp front finish, with the back/text
-    face ending up on top instead. This is a genuine mirror (not a rotation),
-    which is why the back-face text no longer needs its own build-time
-    X-mirror — that used to compensate for being physically viewed from the
-    opposite side; this flip already does the equivalent job for the whole
-    piece at once. Left un-mirrored, the front (logo/teeth) would also
-    technically be mirrored by this — invisible for symmetric shapes, which
-    is all that lives on the front.
+    then shift up by `shift` — used to bring a face that was built as the
+    LOCAL MAXIMUM z (e.g. the medallion's logo face) down to the new z=0,
+    with everything else ending up positive above it. That's what makes a
+    piece sit flat on the print bed with that face touching down.
 
     Mirroring via scale pivots around the OBJECT'S OWN origin, not world
-    Z=0 — fine for ring/white/logo (built from raw bmesh data with vertices
-    already baked in world space, origin left at the default (0,0,0)), but
-    text objects (built via text_add(location=(0,y,z))) keep their origin
-    at that build location. Skipping the reset below silently mirrored
-    each text insert around its own z instead of world z=0, offsetting it
-    by that same amount — sinking it deeper into the model than intended
-    instead of landing flush."""
+    Z=0 — fine for ring/white/logo/half_pipe (built from raw bmesh data
+    with vertices already baked in world space, origin left at the default
+    (0,0,0)), but the name text (built via text_add(location=(0,y,z)))
+    keeps its origin at that build location. Skipping the reset below
+    silently mirrored it around its own z instead of world z=0, offsetting
+    it by that same amount — sinking it deeper into the sign than
+    intended instead of landing flush."""
     bpy.ops.object.select_all(action='DESELECT')
     obj.select_set(True)
     bpy.context.view_layer.objects.active = obj
@@ -259,6 +251,31 @@ def _build_gear_solid(outer_r, inner_r, tooth_frac=TOOTH_FRAC, bevel_edges=True)
 
     return obj
 
+def _measure_bevel_surface_radii():
+    """The ring's bevel rounds its tooth edges, which shrinks its ACTUAL
+    outer/inner radius right at the surface (z = +-THICKNESS/2 — exactly
+    where it meets the sign) below the nominal OUTER_R/INNER_R used to
+    build it (measured: ~20.72mm and ~17.78mm against a nominal 21/18 —
+    the bevel eats ~0.2-0.3mm, more than the slot's own clearance). Sizing
+    the sign's slot cutter off the nominal radii left a visible ~0.5mm gap
+    around the medallion instead of the intended snug fit. Measuring the
+    real, as-built geometry instead of trusting the nominal constants is
+    what actually gets this right."""
+    temp = _build_gear_solid(OUTER_R, INNER_R, bevel_edges=True)
+    mesh = temp.data
+    mw = temp.matrix_world
+    max_r, min_r = 0.0, float("inf")
+    for v in mesh.vertices:
+        co = mw @ v.co
+        if abs(abs(co.z) - THICKNESS / 2) < 0.01:
+            r = math.hypot(co.x, co.y)
+            max_r = max(max_r, r)
+            min_r = min(min_r, r)
+    mesh_data = temp.data
+    bpy.data.objects.remove(temp, do_unlink=True)
+    bpy.data.meshes.remove(mesh_data)
+    return max_r, min_r
+
 def _boolean_diff(obj, cutter_obj):
     bpy.ops.object.select_all(action='DESELECT')
     bpy.context.view_layer.objects.active = obj
@@ -275,23 +292,14 @@ def build_ring_and_white():
     """Two full-thickness pieces: RING (red) is the complete, unbroken gear
     solid — full teeth, full side walls, nothing cut out of it except the
     inset white cog's footprint. WHITE_COG is the same castellated shape
-    inset by TEETH_INLAY_INSET, kept as ONE piece that does everything the
-    old separate "hub" used to (keyring hole, front logo recess, back-face
-    text recess) — no separate circular hub needed, since the inset cog's
-    own root is already big enough to hold that central area.
+    inset by TEETH_INLAY_INSET, kept as ONE piece that holds the front logo
+    recess — no separate circular hub needed, since the inset cog's own root
+    is already big enough for the lily.
 
     Tradeoff, chosen deliberately over a shallow front-only inlay (tried
-    first): white_cog's own tooth side-walls are exposed at the inset
-    boundary — a shallow (0.6mm) version avoided that but was too fragile to
-    print/handle as its own piece.
-
-    Does NOT cut the keyring hole — that happens last, in build(), after
-    every other boolean on white_cog. Cutting the hole earlier has bitten us
-    twice already (it vanished when cut before the teeth-inlay recess; a
-    hole-shaped gap in a duplicate-before-cutting cutter left a solid plug
-    in ring) — the EXACT solver seems to get confused when the hole
-    interacts with whatever boolean comes after it, so it's safest as the
-    final operation, full stop."""
+    first, on the sibling name-tag project): white_cog's own tooth
+    side-walls are exposed at the inset boundary — a shallow (0.6mm) version
+    avoided that but was too fragile to print/handle as its own piece."""
     ring = _build_gear_solid(OUTER_R, INNER_R)
     ring.name = "ring"
 
@@ -299,12 +307,6 @@ def build_ring_and_white():
                                tooth_frac=WHITE_TOOTH_FRAC, bevel_edges=False)
     white.name = "white_cog"
 
-    # duplicate for ring's cutter BEFORE cutting the hole — otherwise the
-    # cutter has a hole-shaped gap too, and subtracting a shape with a gap
-    # leaves ring's original material sitting there untouched (showed up as
-    # a solid red plug exactly where the hole should be). Cut the hole into
-    # white only, after; ring has no material in that area regardless once
-    # properly subtracted.
     bpy.ops.object.select_all(action='DESELECT')
     bpy.context.view_layer.objects.active = white
     white.select_set(True)
@@ -315,70 +317,120 @@ def build_ring_and_white():
     bpy.ops.object.transform_apply(scale=True)
 
     _boolean_diff(ring, cutter)
-    cut_hole(white)
 
     return ring, white
 
-def cut_hole(plate):
-    angle = math.radians(HOLE_ANGLE_DEG)
-    bpy.ops.mesh.primitive_cylinder_add(
-        vertices=32, radius=HOLE_DIAM / 2, depth=THICKNESS + 2,
-        location=(HOLE_R * math.cos(angle), HOLE_R * math.sin(angle), 0),
-    )
-    cutter = bpy.context.active_object
-    cutter.name = "hole_cutter"
+def build_half_pipe():
+    """Semi-circular channel (open 'C' cross-section), local frame — flat
+    open side at z=0 curving toward +Z, centered at the origin. Fused to the
+    SIGN (not the medallion) by the caller, which positions and rotates it
+    first. Cross-section is extruded along X."""
+    z0 = 0.0
+    steps = HALF_PIPE_SEGMENTS
+    profile_yz = []
+    for i in range(steps + 1):
+        theta = math.pi * i / steps
+        profile_yz.append((HALF_PIPE_OUTER_R * math.cos(theta), z0 + HALF_PIPE_OUTER_R * math.sin(theta)))
+    for i in range(steps, -1, -1):
+        theta = math.pi * i / steps
+        profile_yz.append((HALF_PIPE_INNER_R * math.cos(theta), z0 + HALF_PIPE_INNER_R * math.sin(theta)))
 
-    bpy.ops.object.select_all(action='DESELECT')
-    bpy.context.view_layer.objects.active = plate
-    plate.select_set(True)
+    bm = bmesh.new()
+    x0 = -HALF_PIPE_LENGTH / 2
+    verts = [bm.verts.new((x0, y, z)) for y, z in profile_yz]
+    face = bm.faces.new(verts)
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    ret = bmesh.ops.extrude_face_region(bm, geom=[face])
+    extruded_verts = [v for v in ret['geom'] if isinstance(v, bmesh.types.BMVert)]
+    bmesh.ops.translate(bm, vec=(HALF_PIPE_LENGTH, 0, 0), verts=extruded_verts)
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
 
-    mod = plate.modifiers.new(name="Hole", type='BOOLEAN')
-    mod.operation = 'DIFFERENCE'
-    mod.object = cutter
-    mod.solver = 'EXACT'
-    bpy.context.view_layer.update()
-    bpy.ops.object.modifier_apply(modifier="Hole")
-
-    bpy.data.objects.remove(cutter, do_unlink=True)
-
-# ----------------------------
-# TEXT / LOGO elements
-# ----------------------------
-def make_text_obj(body, size, y, depth, extra_top=0.0, font_path=None, face='top'):
-    """Text mesh recessed into either face. For 'top' it spans
-    [face_z-depth, face_z+extra_top]; for 'bottom', [face_z-extra_top, face_z+depth]
-    — extra_top=0 -> flush insert, extra_top>0 -> oversized cutter that pokes
-    out past the surface for a clean boolean subtraction."""
-    face_z = THICKNESS / 2 if face == 'top' else -THICKNESS / 2
-    if face == 'top':
-        lo, hi = face_z - depth, face_z + extra_top
-    else:
-        lo, hi = face_z - extra_top, face_z + depth
-    center_z = (lo + hi) / 2
-    half_thick = (hi - lo) / 2
-
-    bpy.ops.object.text_add(location=(0, y, center_z))
-    obj = bpy.context.active_object
-    obj.data.body = body
-    obj.data.size = size
-    obj.data.align_x = 'CENTER'
-    obj.data.align_y = 'CENTER'
-    obj.data.extrude = half_thick
-    if font_path:
-        obj.data.font = bpy.data.fonts.load(font_path)
-    bpy.ops.object.convert(target='MESH')
-
-    width = obj.dimensions.x
-    if width > MAX_TEXT_WIDTH:
-        scale = MAX_TEXT_WIDTH / width
-        obj.scale.x = scale
-        obj.scale.y = scale
-        bpy.ops.object.transform_apply(scale=True)
-
-    recalc_normals(obj)
-    force_manifold(obj)
+    mesh = bpy.data.meshes.new("half_pipe")
+    bm.to_mesh(mesh)
+    bm.free()
+    obj = bpy.data.objects.new("half_pipe", mesh)
+    bpy.context.collection.objects.link(obj)
     return obj
 
+def build_sign(name):
+    """White nameplate — same thickness as the medallion, and the name is
+    recessed into its TOP face (+SIGN_THICKNESS/2), the same face convention
+    as the medallion's own front (logo). That match matters: sign and
+    medallion are coplanar now, viewed from the same direction, so the name
+    needs the 'top'-face convention (naturally readable, no mirroring) —
+    not the old 'bottom'-face convention the earlier Z-stacked design used,
+    which would have read backwards once the two pieces share one front.
+
+    A medallion-shaped slot is cut out of the sign's top edge last (same
+    EXACT-solver ordering rule as the name-tag project's keyring hole — cut
+    full-depth features after every other boolean on the piece) so the
+    medallion inserts into it like a puzzle piece instead of sitting behind
+    it."""
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, SIGN_Y_CENTER, SIGN_Z_CENTER))
+    sign = bpy.context.active_object
+    sign.name = "sign"
+    sign.scale = (SIGN_WIDTH, SIGN_HEIGHT, SIGN_THICKNESS)
+    bpy.ops.object.transform_apply(scale=True)
+
+    face_z = SIGN_Z_CENTER + SIGN_THICKNESS / 2   # top face — same convention as the medallion's front
+
+    def make_name(extra_top):
+        lo, hi = face_z - INSERT_DEPTH, face_z + extra_top
+        center_z = (lo + hi) / 2
+        half_thick = (hi - lo) / 2
+        bpy.ops.object.text_add(location=(0, SIGN_Y_CENTER + NAME_Y, center_z))
+        obj = bpy.context.active_object
+        obj.data.body = name.upper()
+        obj.data.size = NAME_SIZE
+        obj.data.align_x = 'CENTER'
+        obj.data.align_y = 'CENTER'
+        obj.data.extrude = half_thick
+        obj.data.font = bpy.data.fonts.load(TEXT_FONT)
+        bpy.ops.object.convert(target='MESH')
+
+        width = obj.dimensions.x
+        if width > SIGN_MAX_TEXT_WIDTH:
+            scale = SIGN_MAX_TEXT_WIDTH / width
+            obj.scale.x = scale
+            obj.scale.y = scale
+            bpy.ops.object.transform_apply(scale=True)
+
+        # Pre-mirror on X (text is centered on x=0, so this doesn't move it) —
+        # the print-flat step (flip_and_shift_z) mirrors the whole sign on Z
+        # to keep its X/Y layout untouched, but a mirror is a mirror: it
+        # flips chirality, which is invisible on symmetric shapes (gear
+        # teeth, the logo) and very visible on text. This X-mirror composes
+        # with that later Z-mirror into a proper rotation, so the name reads
+        # correctly once the sign sits flat — same fix as the name-tag
+        # project's back-face text, same root cause.
+        obj.scale.x *= -1
+        bpy.ops.object.transform_apply(scale=True)
+
+        recalc_normals(obj)
+        force_manifold(obj)
+        return obj
+
+    cutter = make_name(extra_top=0.6)
+    _boolean_diff(sign, cutter)
+    insert = make_name(extra_top=0.0)
+
+    surface_outer_r, surface_inner_r = _measure_bevel_surface_radii()
+    slot_cutter = _build_gear_solid(surface_outer_r + SIGN_SLOT_CLEARANCE,
+                                     surface_inner_r + SIGN_SLOT_CLEARANCE,
+                                     bevel_edges=False)
+    slot_cutter.name = "sign_slot_cutter"
+    bpy.ops.object.select_all(action='DESELECT')
+    slot_cutter.select_set(True)
+    bpy.context.view_layer.objects.active = slot_cutter
+    slot_cutter.scale.z = (SIGN_THICKNESS + 2) / SIGN_THICKNESS
+    bpy.ops.object.transform_apply(scale=True)
+    _boolean_diff(sign, slot_cutter)
+
+    return sign, insert
+
+# ----------------------------
+# LOGO element
+# ----------------------------
 def _build_polygon_solid(points_2d, z_lo, z_hi):
     """Extrude an arbitrary closed 2D point loop (no holes) into a solid
     spanning z in [z_lo, z_hi] — same bmesh spin-and-extrude style as
@@ -402,10 +454,9 @@ def _build_polygon_solid(points_2d, z_lo, z_hi):
 
 def make_stamp_obj(stamp_path, size, y, depth, extra_top=0.0, face='top'):
     """Insert built from a traced silhouette (independent pieces, see
-    LOGO_STAMP's comment) instead of a font glyph — same recess/insert
-    depth convention as make_text_obj. `size` multiplies the JSON's
-    already-baked-to-mm coordinates; `y` is a plain Y offset (no rotation/
-    mirroring needed — the stamp is only ever used on the front)."""
+    LOGO_STAMP's comment) instead of a font glyph. `size` multiplies the
+    JSON's already-baked-to-mm coordinates; `y` is a plain Y offset (no
+    rotation/mirroring needed — the stamp is only ever used on the front)."""
     with open(stamp_path) as f:
         pieces = json.load(f)["pieces"]
 
@@ -431,51 +482,13 @@ def make_stamp_obj(stamp_path, size, y, depth, extra_top=0.0, face='top'):
     force_manifold(obj)
     return obj
 
-ELEMENTS = [
-    # front: cog + lily only, no text
-    # back: "Mölndal" + name
-    ("molndal", TOP_TEXT,   TOP_SIZE,  TOP_Y,  TEXT_FONT,  'bottom'),
-]
-# name added per-build since it depends on the person
-
-def recess_and_export_elements(plate, first_name, surname, phone=None):
-    text_elements = ELEMENTS + [
-        ("firstname", first_name.upper(), NAME_SIZE, FIRSTNAME_Y, TEXT_FONT, 'bottom'),
-        ("surname", surname.upper(), NAME_SIZE, SURNAME_Y, TEXT_FONT, 'bottom'),
-    ]
-    if phone:
-        text_elements = text_elements + [
-            ("phone", phone, PHONE_SIZE, PHONE_Y, TEXT_FONT, 'bottom'),
-        ]
-
-    def build_all(extra_top):
-        objs = {"logo": make_stamp_obj(LOGO_STAMP, LOGO_SIZE, LOGO_Y, INSERT_DEPTH, extra_top=extra_top, face='top')}
-        for key, body, size, y, font, face in text_elements:
-            objs[key] = make_text_obj(body, size, y, INSERT_DEPTH, extra_top=extra_top, font_path=font, face=face)
-        return objs
-
-    cutters = build_all(extra_top=0.6)
-
-    bpy.ops.object.select_all(action='DESELECT')
-    for c in cutters.values():
-        c.select_set(True)
-    bpy.context.view_layer.objects.active = cutters["logo"]
-    bpy.ops.object.join()
-    cutter_union = bpy.context.active_object
-    cutter_union.name = "recess_cutter"
-
-    bpy.ops.object.select_all(action='DESELECT')
-    bpy.context.view_layer.objects.active = plate
-    plate.select_set(True)
-    mod = plate.modifiers.new(name="Recess", type='BOOLEAN')
-    mod.operation = 'DIFFERENCE'
-    mod.object = cutter_union
-    mod.solver = 'EXACT'
-    bpy.context.view_layer.update()
-    bpy.ops.object.modifier_apply(modifier="Recess")
-    bpy.data.objects.remove(cutter_union, do_unlink=True)
-
-    return build_all(extra_top=0.0)
+def recess_and_export_logo(plate):
+    """Only one recessed element on this piece now (the lily) — no back-face
+    text on the medallion at all, so this is much simpler than the sibling
+    name-tag project's version."""
+    cutter = make_stamp_obj(LOGO_STAMP, LOGO_SIZE, LOGO_Y, INSERT_DEPTH, extra_top=0.6, face='top')
+    _boolean_diff(plate, cutter)
+    return make_stamp_obj(LOGO_STAMP, LOGO_SIZE, LOGO_Y, INSERT_DEPTH, extra_top=0.0, face='top')
 
 # ----------------------------
 # EXPORT
@@ -740,59 +753,90 @@ def render_angles(center, size, render_dir):
 # ----------------------------
 # MAIN
 # ----------------------------
-def build(first_name, surname, phone=None):
+def build(name):
     clear_scene()
-    if phone:
-        phone = phone.replace(" ", "")
     ring, white = build_ring_and_white()
-    inserts = recess_and_export_elements(white, first_name, surname, phone=phone)
-    cut_hole(white)   # last, always — see build_ring_and_white's docstring
-    cut_hole(inserts["logo"])   # the hole's position can overlap the logo insert's
-                                 # footprint — punch it there too so nothing blocks
-                                 # a keyring passing through
+    logo = recess_and_export_logo(white)
+    sign, name_insert = build_sign(name)
 
-    # Print flat, logo down, for a crisp front finish — same treatment as the
-    # scarf-slide sibling project. Applied uniformly to every piece so the
-    # whole assembly repositions together; see flip_and_shift_z's docstring
-    # for why the back-face text's old build-time X-mirror had to go.
-    for obj in [ring, white] + list(inserts.values()):
+    # Half-pipe fuses to the SIGN, not the medallion — keeps the medallion
+    # flat (prints logo-down with no protrusions) and lets the sign+pipe
+    # piece be oriented independently for its own best print orientation.
+    # Rotated 90deg around Z (the only one of the three axes that keeps the
+    # tube's length lying flat against the sign's face while standing the
+    # arc up vertically — the other two either pointed the opening somewhere
+    # impractical or sent the tube diagonally through the plate).
+    half_pipe = build_half_pipe()
+    half_pipe.rotation_euler = (0, 0, math.radians(90))
+    bpy.ops.object.select_all(action='DESELECT')
+    half_pipe.select_set(True)
+    bpy.context.view_layer.objects.active = half_pipe
+    bpy.ops.object.transform_apply(rotation=True)
+
+    # build_half_pipe's local frame curls toward +Z from its flat side — right
+    # when the flat side sat on the sign's FRONT face (curls away, into free
+    # space in front). Now it's fused to the BACK face instead, so without
+    # this flip it would curl the wrong way — back through the sign's own
+    # body — instead of away from it.
+    half_pipe.scale.z = -1
+    bpy.ops.object.transform_apply(scale=True)
+
+    # Centered on the sign (Y) so it doesn't hang off the bottom edge —
+    # measured: the pipe is 36mm long, the sign is only 40mm tall, so there's
+    # a narrow ~4mm window (y in [-25,-21]) where it fits within the sign at
+    # all. That window still overlaps the medallion's slot substantially
+    # (the slot reaches down to y=-21, the medallion's own tip) — a real
+    # dimension conflict, not resolved by repositioning alone.
+    pipe_y = SIGN_Y_CENTER
+    pipe_z = SIGN_Z_CENTER - SIGN_THICKNESS / 2   # fused to the BACK face — the front stays flat for the name
+    half_pipe.location = (0, pipe_y, pipe_z)
+    bpy.context.view_layer.objects.active = half_pipe
+    half_pipe.select_set(True)
+    bpy.ops.object.transform_apply(location=True)
+
+    # Kept as its own STL, NOT joined into the sign — it needs its own black
+    # filament, same as the medallion's ring/logo split. Joining would have
+    # merged it into whatever slot the sign uses (white).
+    for obj in (ring, white, logo, sign, name_insert, half_pipe):
         flip_and_shift_z(obj, THICKNESS / 2)
 
-    out_dir = os.path.join(EXPORT_DIR, f"{first_name}_{surname}")
+    out_dir = os.path.join(EXPORT_DIR, name)
     export_stl(ring, os.path.join(out_dir, "ring.stl"))
     export_stl(white, os.path.join(out_dir, "white_cog.stl"))
-    export_stl(inserts["logo"], os.path.join(out_dir, "logo.stl"))
-    export_stl(inserts["molndal"], os.path.join(out_dir, "molndal.stl"))
-    export_stl(inserts["firstname"], os.path.join(out_dir, "firstname.stl"))
-    export_stl(inserts["surname"], os.path.join(out_dir, "surname.stl"))
-    if "phone" in inserts:
-        export_stl(inserts["phone"], os.path.join(out_dir, "phone.stl"))
+    export_stl(logo, os.path.join(out_dir, "logo.stl"))
+    export_stl(sign, os.path.join(out_dir, "sign.stl"))
+    export_stl(name_insert, os.path.join(out_dir, "name.stl"))
+    export_stl(half_pipe, os.path.join(out_dir, "pipe.stl"))
 
     if EXPORT_3MF:
-        insert_names = {
-            "logo": "blue_logo", "molndal": "black_molndal",
-            "firstname": "black_firstname", "surname": "black_surname",
-            "phone": "black_phone",
-        }
-        parts = [(ring, ELEMENT_COLORS["ring"], "red_ring"),
-                 (white, ELEMENT_COLORS["hub"], "white_cog")]
-        parts += [(obj, ELEMENT_COLORS[key], insert_names[key]) for key, obj in inserts.items()]
-        export_3mf(parts, os.path.join(out_dir, "combined.3mf"))
+        export_3mf([
+            (ring, ELEMENT_COLORS["ring"], "red_ring"),
+            (white, ELEMENT_COLORS["white_cog"], "white_cog"),
+            (logo, ELEMENT_COLORS["logo"], "blue_logo"),
+            (sign, ELEMENT_COLORS["sign"], "white_sign"),
+            (name_insert, ELEMENT_COLORS["name"], "black_name"),
+            (half_pipe, ELEMENT_COLORS["half_pipe"], "black_pipe"),
+        ], os.path.join(out_dir, "combined.3mf"))
 
         def _slot(rgba):
             return next(s for n, s in EXTRUDER_SLOT.items() if COLORS[n] == rgba)
 
-        project_parts = [(ring, "red_ring", _slot(ELEMENT_COLORS["ring"])),
-                          (white, "white_cog", _slot(ELEMENT_COLORS["hub"]))]
-        project_parts += [(obj, insert_names[key], _slot(ELEMENT_COLORS[key]))
-                           for key, obj in inserts.items()]
-        export_project_3mf(project_parts, os.path.join(out_dir, "anycubic_print_ready.3mf"))
+        export_project_3mf([
+            (ring, "red_ring", _slot(ELEMENT_COLORS["ring"])),
+            (white, "white_cog", _slot(ELEMENT_COLORS["white_cog"])),
+            (logo, "blue_logo", _slot(ELEMENT_COLORS["logo"])),
+            (sign, "white_sign", _slot(ELEMENT_COLORS["sign"])),
+            (name_insert, "black_name", _slot(ELEMENT_COLORS["name"])),
+            (half_pipe, "black_pipe", _slot(ELEMENT_COLORS["half_pipe"])),
+        ], os.path.join(out_dir, "anycubic_print_ready.3mf"))
 
     if RENDER_IMAGES:
         apply_color(ring, "ring_color", ELEMENT_COLORS["ring"])
-        apply_color(white, "white_color", ELEMENT_COLORS["hub"])
-        for key, obj in inserts.items():
-            apply_color(obj, f"{key}_color", ELEMENT_COLORS[key])
+        apply_color(white, "white_color", ELEMENT_COLORS["white_cog"])
+        apply_color(logo, "logo_color", ELEMENT_COLORS["logo"])
+        apply_color(sign, "sign_color", ELEMENT_COLORS["sign"])
+        apply_color(name_insert, "name_color", ELEMENT_COLORS["name"])
+        apply_color(half_pipe, "half_pipe_color", ELEMENT_COLORS["half_pipe"])
         center, size = compute_scene_bounds()
         render_angles(center, size, os.path.join(out_dir, "renders"))
 
@@ -800,11 +844,11 @@ def build(first_name, surname, phone=None):
 
 if __name__ == "__main__":
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
-    if len(argv) not in (2, 3):
-        raise SystemExit('Usage: blender --background --python gear_name_tag.py -- "First" "Last" ["Phone"]')
-    build(argv[0], argv[1], phone=argv[2] if len(argv) == 3 else None)
-    print("Import ring.stl + white_cog.stl + logo.stl + molndal.stl + firstname.stl + surname.stl")
-    print("(+ phone.stl if a phone number was given) together; they share coordinates")
-    print("and align automatically. Assign a filament/color to each (molndal+firstname")
-    print("+surname+phone share black — 4 colors total).")
+    if len(argv) != 1:
+        raise SystemExit('Usage: blender --background --python scarf_slide.py -- "Name"')
+    build(argv[0])
+    print("Import ring.stl + white_cog.stl + logo.stl + sign.stl + name.stl + pipe.stl")
+    print("together; they share coordinates and align automatically. Assign a")
+    print("filament/color to each (ring=red, white_cog/sign=white, logo=blue,")
+    print("name/pipe=black).")
     print("Done.")

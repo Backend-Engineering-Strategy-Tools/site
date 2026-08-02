@@ -249,6 +249,42 @@ The workflow is: run → look at viewport → describe the problem → apply upd
 
 ---
 
+## Gotchas from real builds
+
+**Full-depth cuts (a hole, a through-slot) must go last.** Cutting one before other recesses on the same piece is unreliable with the `EXACT` solver — sometimes the hole silently vanishes (a hole-shaped gap in a duplicated cutter leaves the surrounding piece solid instead), sometimes it leaves a solid plug exactly where it should be open. Not consistent about which way it fails, which makes it easy to miss. Do every other boolean on a piece first, cut the full-depth feature dead last, full stop.
+
+**A negative-scale "flip" is a reflection, not a rotation — it mirrors chirality.** Reorienting a part for printing (e.g. flipping its decorative face down to sit on the bed) by negating one scale axis is tempting because it leaves the other two axes' positions untouched — a real rotation can't do that; any single-axis rotation that inverts one axis necessarily scrambles at least one of the other two. But `obj.scale.z = -1` is a mirror, and mirrors invert chirality. On a symmetric shape (gear teeth, a roughly-symmetric emblem) this is invisible — on text or anything with real left-right asymmetry, it silently comes out backwards. Fix: pre-mirror the affected content once, at build time, on an axis perpendicular to the eventual flip — two reflections compose into a proper rotation, so it reads correctly once flipped:
+
+```python
+# at build time, on the text object only — cancels out later, doesn't move it
+# if it's already centered on that axis
+obj.scale.x = -1
+bpy.ops.object.transform_apply(scale=True)
+
+# later, applied to the whole assembly (ring, plate, everything) to bring
+# the decorative face down to z=0 for printing
+obj.scale.z = -1
+```
+
+**Camera constraints can mirror below-target shots.** `TRACK_TO` with `up_axis='UP_Y'` produces a mirrored chirality specifically when the camera sits below the target looking up — confirmed by comparing against an explicit look-at matrix built with the same up vector. Any render angle that needs to be trustworthy for reading text (e.g. checking a back face isn't mirrored) should use a manual look-at matrix instead of the constraint:
+
+```python
+def point_camera(cam_obj, target_pos, up=mathutils.Vector((0, 1, 0))):
+    direction = (target_pos - cam_obj.location).normalized()
+    right = direction.cross(up).normalized()
+    true_up = right.cross(direction).normalized()
+    rot = mathutils.Matrix((right, true_up, -direction)).transposed().to_4x4()
+    cam_obj.matrix_world = mathutils.Matrix.Translation(cam_obj.location) @ rot
+```
+
+**Deriving a profile from a reference mesh beats guessing.** For a part that has to match an existing physical object (a logo, a gear), extract the actual geometry instead of eyeballing it: parse the reference mesh, sample a radial (angle vs. radius) profile, and run an FFT over it — the dominant harmonic gives you tooth/lobe count directly, no manual counting or guessing at a profile shape (diagonal ramp vs. flat-topped castellation, rounded vs. sharp) needed.
+
+**Tracing a raster logo into mesh pieces beats a font glyph.** A font's version of a symbol (e.g. a fleur-de-lis Unicode character) rarely matches a specific real emblem closely enough up close. `skimage.measure.find_contours` (marching squares) on a raster image of the actual logo gives independent closed polygons that can be extruded directly — keep them as separate islands rather than merging/dilating them into one blob, which smears out fine detail.
+
+**A "puzzle piece" slot beats stacking two parts in Z when both need to print flat.** If two parts each have their own decorative face that should print face-down for a crisp finish, stacking one behind the other in Z means only one of them can be at the bottom of the print — flipping the whole stack can't put both decorative faces at z=0 simultaneously. Cutting a slot shaped like part A out of part B (matching silhouette plus a small clearance) and printing them as two separate flat pieces that interlock afterward sidesteps the problem entirely — each has its own independent, correct print orientation.
+
+---
+
 ## Limitations
 
 **Booleans are fragile on non-manifold geometry.** If a cutter face is coplanar with the target, or vertices are nearly coincident, Blender's solver can produce garbage. Add a small bleed (0.5–1 mm) so cutters fully penetrate surfaces.
@@ -262,5 +298,6 @@ The workflow is: run → look at viewport → describe the problem → apply upd
 ## Related
 
 - [Garage — Scripted Parts](/garage/) — hole box and other physical builds using this approach
-- [Scout Gear Name Tags](/garage/scout-name-tags/) — parametric gear tags; source of the non-manifold-cutter and multi-part-export lessons above
+- [Scout Gear Name Tags](/garage/scout-name-tags/) — parametric gear tags; source of the non-manifold-cutter, hole-ordering, FFT-profile, and logo-tracing lessons above
+- [Scout Scarf Slide](/garage/scarf-slide/) — sibling project; source of the reflection/chirality and puzzle-piece-slot lessons above
 - [Rack Support Brace](/homelab/rack-support-brace/) — step-by-step: script → renders → headless → CI/CD
