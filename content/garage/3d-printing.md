@@ -105,7 +105,21 @@ Mono LCD resin printer. Used for detail parts — scout badges, finer geometry �
 
 ## Slicer / Workflow
 
-*Notes to follow — slicer setup, print profiles, export workflow.*
+**Anycubic Slicer Next** (Orca-based) for the Kobra X.
+
+### Multi-color with ACE Gen2
+
+The ACE Gen2 feeder is genuine multi-material into a single hotend — like Bambu's AMS, not a single-nozzle manual pause-swap. It can hold independent per-region colors anywhere on a part (not just full-layer color changes), swapping and purging to a wipe tower automatically.
+
+Workflow for a multi-part model (e.g. a body plus separate color inserts):
+
+1. Import the parts as **one combined STL** if they need to stay aligned — importing them as separate files gets each one independently re-centered on the plate, destroying the relative positions. (Design the parts in the same coordinate space up front and export them together in a single file.)
+2. Once imported, use **Split to Objects** (or per-shell color paint) to assign a different filament to each disconnected mesh shell.
+3. Slice — the wipe tower and swap sequence are generated automatically.
+
+A plain single-nozzle printer *without* a feeder like ACE Gen2 can't do this the same way: a manual color-change swaps color for the whole layer, so elements at different X/Y positions can't each get an independent color without some of them printing unsupported in mid-air. That only works if every accent color shares one Z-band, touching the bed together (one shared accent color, one swap, everything else in the body color).
+
+See [Blender Python — Procedural Mesh](/public-notes/frameworks-tools/blender-python/) for the modeling-side technique (recessed inserts, boolean gotchas with font/glyph geometry) behind multi-material parts built this way.
 
 ---
 
