@@ -30,6 +30,7 @@ Both involve AI in the loop — either iterating on the Python with Claude, or u
 | 5 | CI/CD pipeline — STL or script change → GitHub Actions → Dagger → PNG artifacts; [procedural-mesh-pipeline](https://github.com/Backend-Engineering-Strategy-Tools/procedural-mesh-pipeline) | Done |
 | 6 | AI feedback loop — describe correction → updated script → re-run, without opening Blender | Planned |
 | 7 | [Dragon Split](/garage/dragon-split/) — mesh manipulation; cut an existing articulated dragon STL into printable segments with connectors | Not started |
+| 8 | [Pump-to-Hose Adapter](/garage/pump-adapter/) — solid of revolution via `bmesh.ops.spin` instead of booleans; nine iterations chasing self-supporting FDM geometry and a load-bearing lanyard tab | Done |
 
 ---
 
@@ -42,3 +43,5 @@ The scout buckle (step 4) is the harder test. Compound curves and functional con
 Steps 3 and 5 ended up built together rather than sequentially. The pipeline lives in a separate repo — [procedural-mesh-pipeline](https://github.com/Backend-Engineering-Strategy-Tools/procedural-mesh-pipeline) — Dagger + GitHub Actions, Blender 5.1.2 headless, Cycles CPU. Renders run natively on the CI runner (amd64); locally the pipeline is used for smoke-testing the image only. Blender has no official ARM64 Linux binary so local renders under emulation are impractical.
 
 The dragon split (step 7) is a different class of problem — remixing rather than generating. Worth keeping in the same project because the tooling overlaps (Blender Python, STL export) even if the approach does not.
+
+The pump adapter (step 8) introduced a third generation technique alongside booleans: a solid of revolution, spinning one closed (r, z) profile 360° with `bmesh.ops.spin`. No booleans in the base shape at all — a better fit for rotationally symmetric parts than the plate-and-holes approach used through step 4.

@@ -36,6 +36,7 @@ Building a laser cutter from scratch — enclosure, motion system, and a touchsc
 
 - [Dragon Split](/garage/dragon-split/) — slicing an articulated dragon STL into printable segments
 - [Scout Buckle — Parametric Design](/garage/scout-buckle/) — reverse-engineering a buckle in Blender Python for casting
+- [Pump-to-Hose Adapter](/garage/pump-adapter/) — camping fix, mismatched pillow/mattress valves, nine iterations
 
 ---
 
@@ -43,6 +44,7 @@ Building a laser cutter from scratch — enclosure, motion system, and a touchsc
 
 - [Resin Badges — Packat & Klart](/garage/scout-badges-resin/) — 3D printed badges for the first Hajk
 - [Foo-Flames — HP Theme](/garage/foo-flames/) — coloured flames for a Harry Potter scout event
+- [Scout Gear Name Tags](/garage/scout-name-tags/) — parametric gear-shaped keyring tags, multi-material printing on the ACE Gen2
 
 ---
 
