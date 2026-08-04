@@ -136,6 +136,22 @@ bpy.context.view_layer.objects.active = cutter
 bpy.ops.object.modifier_apply(modifier="ForceManifold")
 ```
 
+**A bevel operator run on a primitive's edges, then boolean-unioned, can silently corrupt the result — and neither a manifold check nor the bounding box catches it.** Selecting a cube's edges and running `bmesh.ops.bevel()` on them to round its corners, then union-ing that piece onto another, produced a self-intersecting mess after the union — every edge still had exactly two faces (`edge.is_manifold` all true), the bounding box was still exactly right, and it was only obvious once rendered. Building the rounded shape by extruding a rounded-rectangle *profile* directly instead — a closed loop of points, corners as short arcs, extruded straight up — sidesteps the bevel operator entirely:
+
+```python
+def rounded_rect_profile(size_x, size_y, radius, segments):
+    hx, hy = size_x / 2 - radius, size_y / 2 - radius
+    corners = [(hx, hy, 0), (-hx, hy, 90), (-hx, -hy, 180), (hx, -hy, 270)]
+    points = []
+    for cx, cy, start_deg in corners:
+        for i in range(segments + 1):
+            a = math.radians(start_deg + 90 * i / segments)
+            points.append((cx + radius * math.cos(a), cy + radius * math.sin(a)))
+    return points   # extrude this straight up instead of beveling a cube's edges
+```
+
+**"Manifold" doesn't mean "one connected solid."** A union of two pieces that don't quite touch silently produces two disconnected shells inside a single mesh, and the `EXACT` solver doesn't complain — every edge still has exactly two faces, the bounding box is still correct (both disconnected pieces fit inside it), it just isn't the single part it looks like. This happened from a chain of `+`/`-` fudge factors on piece centers and heights meant to create a small overlap at a shared joint — one offset intended for a *different* joint ended up canceling most of it, leaving a 0.025mm gap instead. The only ways to catch it are an explicit connected-components check (flood-fill over `vert.link_edges`) or a render. Fix: give every joint an absolute bottom/top Z (or equivalent), computed with one named `OVERLAP` constant reused everywhere two pieces are meant to touch — not arithmetic on centers-and-heights with a different ad-hoc fudge per joint.
+
 ### Joining objects (single boolean cut for a grid of holes)
 
 Rather than applying one boolean per hole, join all cutters first:
@@ -277,6 +293,15 @@ def point_camera(cam_obj, target_pos, up=mathutils.Vector((0, 1, 0))):
     cam_obj.matrix_world = mathutils.Matrix.Translation(cam_obj.location) @ rot
 ```
 
+**A manual look-at matrix still goes degenerate if the up-vector hint is parallel to the view direction, and the up-vector you pick decides which world axis reads as vertical.** The manual matrix above fixes the mirroring bug, but a straight-on "front" view (looking along Y) with `up=(0,1,0)` is still undefined — direction and up point the same way, so there's no well-defined "up," and the camera rolls arbitrarily. Separately, even once that's avoided, using `up=(0,1,0)` for every angle keeps working but puts world Z on the image's *horizontal* axis for any view looking along X — not vertical, as CAD-drawing convention expects — which reads as "the geometry is wrong" when it's really just an unconventional but valid camera roll. Pick the up-vector per view instead: world Z for anything that isn't a top/bottom shot, world Y only where the view direction *is* Z:
+
+```python
+up = mathutils.Vector((0, 1, 0)) if abs(dir_vec.z) > 0.9 else mathutils.Vector((0, 0, 1))
+point_camera(cam, center, up=up)
+```
+
+**When a render looks wrong, verify with a true axis-aligned orthographic camera before trusting a "hero angle" shot.** Presentation renders (a slight iso tilt, a front view nudged a few degrees off-axis, matching `RENDER_ANGLES` elsewhere on this page) are deliberately not pure elevations — several fixes above were only spotted correctly by switching temporarily to a pure `(1,0,0)`/`(0,-1,0)`/`(0,0,1)` direction with `cam.data.type = 'ORTHO'`, which removes both perspective and camera-angle ambiguity. Debug with a true orthogonal view, then switch back to the angled cameras for the actual presentation renders once the shape is confirmed correct.
+
 **Deriving a profile from a reference mesh beats guessing.** For a part that has to match an existing physical object (a logo, a gear), extract the actual geometry instead of eyeballing it: parse the reference mesh, sample a radial (angle vs. radius) profile, and run an FFT over it — the dominant harmonic gives you tooth/lobe count directly, no manual counting or guessing at a profile shape (diagonal ramp vs. flat-topped castellation, rounded vs. sharp) needed.
 
 **Tracing a raster logo into mesh pieces beats a font glyph.** A font's version of a symbol (e.g. a fleur-de-lis Unicode character) rarely matches a specific real emblem closely enough up close. `skimage.measure.find_contours` (marching squares) on a raster image of the actual logo gives independent closed polygons that can be extruded directly — keep them as separate islands rather than merging/dilating them into one blob, which smears out fine detail.
@@ -300,4 +325,5 @@ def point_camera(cam_obj, target_pos, up=mathutils.Vector((0, 1, 0))):
 - [Garage — Scripted Parts](/garage/) — hole box and other physical builds using this approach
 - [Scout Gear Name Tags](/garage/scout-name-tags/) — parametric gear tags; source of the non-manifold-cutter, hole-ordering, FFT-profile, and logo-tracing lessons above
 - [Scout Scarf Slide](/garage/scarf-slide/) — sibling project; source of the reflection/chirality and puzzle-piece-slot lessons above
+- [Extrusion Feet](/garage/extrusion-feet/) — source of the bevel-after-boolean, manifold-vs-connected, and camera up-vector lessons above
 - [Rack Support Brace](/homelab/rack-support-brace/) — step-by-step: script → renders → headless → CI/CD

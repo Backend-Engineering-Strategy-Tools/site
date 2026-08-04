@@ -37,6 +37,7 @@ Building a laser cutter from scratch — enclosure, motion system, and a touchsc
 - [Dragon Split](/garage/dragon-split/) — slicing an articulated dragon STL into printable segments
 - [Scout Buckle — Parametric Design](/garage/scout-buckle/) — reverse-engineering a buckle in Blender Python for casting
 - [Pump-to-Hose Adapter](/garage/pump-adapter/) — camping fix, mismatched pillow/mattress valves, nine iterations
+- [Extrusion Feet — 2020 / 2040 T-Slot](/garage/extrusion-feet/) — parametric feet for the [laser cutter](/garage/laser-cutter/) frame, single- and dual-track
 
 ---
 

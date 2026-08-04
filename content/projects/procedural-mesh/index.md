@@ -31,6 +31,7 @@ Both involve AI in the loop — either iterating on the Python with Claude, or u
 | 6 | AI feedback loop — describe correction → updated script → re-run, without opening Blender | Planned |
 | 7 | [Dragon Split](/garage/dragon-split/) — mesh manipulation; cut an existing articulated dragon STL into printable segments with connectors | Not started |
 | 8 | [Pump-to-Hose Adapter](/garage/pump-adapter/) — solid of revolution via `bmesh.ops.spin` instead of booleans; nine iterations chasing self-supporting FDM geometry and a load-bearing lanyard tab | Done |
+| 9 | [Extrusion Feet](/garage/extrusion-feet/) — one script, single- and dual-track T-slot variants via a `TRACK_COUNT` switch; source of the bevel-after-boolean and manifold-vs-connected-solid gotchas on the [Blender Python](/public-notes/frameworks-tools/blender-python/) page | Done |
 
 ---
 
@@ -45,3 +46,5 @@ Steps 3 and 5 ended up built together rather than sequentially. The pipeline liv
 The dragon split (step 7) is a different class of problem — remixing rather than generating. Worth keeping in the same project because the tooling overlaps (Blender Python, STL export) even if the approach does not.
 
 The pump adapter (step 8) introduced a third generation technique alongside booleans: a solid of revolution, spinning one closed (r, z) profile 360° with `bmesh.ops.spin`. No booleans in the base shape at all — a better fit for rotationally symmetric parts than the plate-and-holes approach used through step 4.
+
+The extrusion feet (step 9) went back to booleans, and turned into the most expensive debugging session of the family so far — the actual design took a few rounds of user feedback (T-slot key profile, box stacking order), but a plain-looking rounded box hid two separate silent-corruption bugs (bevel-post-boolean, and a near-zero gap masquerading as a valid union) that both passed manifold and bounding-box checks and were only caught by rendering. Worth the detour: the render-camera fixes and the "manifold isn't the same as one connected solid" lesson both apply to every future step in this family, not just this one part.

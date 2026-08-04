@@ -21,6 +21,8 @@ Work in progress.
 
 *Build notes to follow.*
 
+Frame stands on 20-series T-slot extrusion — designed parametric feet for it, single-track and dual-track: [Extrusion Feet — 2020 / 2040 T-Slot](/garage/extrusion-feet/).
+
 ---
 
 ## Motion System
