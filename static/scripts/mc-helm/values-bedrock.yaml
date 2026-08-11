@@ -1,0 +1,25 @@
+workloadAsStatefulSet: true
+strategyType: OnDelete
+
+minecraftServer:
+  eula: "TRUE"
+  version: "LATEST"
+  type: "PAPER"
+  serviceType: LoadBalancer
+  servicePort: 80
+  pluginUrls:
+    - "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot"
+    - "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot"
+  extraPorts:
+    - name: bedrock
+      containerPort: 19132
+      protocol: UDP
+      service:
+        enabled: true
+        type: LoadBalancer
+        port: 80
+
+persistence:
+  dataDir:
+    enabled: true
+    Size: 10Gi

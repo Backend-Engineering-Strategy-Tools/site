@@ -79,6 +79,22 @@ kubectl get all -l app.kubernetes.io/instance=mc
 kubectl get svc mc-example -o jsonpath='{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}'
 ```
 
+### 2.6 — Second instance: Bedrock play via Geyser/Floodgate
+
+A second, independent Helm release — `TYPE=PAPER` instead of vanilla, so it can carry [Geyser](https://geysermc.org/) (protocol translation) and [Floodgate](https://github.com/GeyserMC/Floodgate) (lets Xbox-Live-authenticated Bedrock accounts join without a Java account) as plugins. Runs alongside the vanilla instance from step 2, not in place of it — separate release name, separate PVC, own Octavia LoadBalancer for the extra Bedrock UDP port (19132) plus the usual Java TCP port (25565).
+
+Manifests: [values-bedrock.yaml](/scripts/mc-helm/values-bedrock.yaml)
+
+```bash
+helm upgrade --install mc-bedrock minecraft-server-charts/minecraft \
+  -f https://backend-engineering-strategy-tools.github.io/site/scripts/mc-helm/values-bedrock.yaml
+```
+
+```bash
+kubectl get svc -l app.kubernetes.io/instance=mc-bedrock \
+  -o jsonpath='{range .items[*]}{.metadata.name}{" -> "}{.status.loadBalancer.ingress[0].ip}{"\n"}{end}'
+```
+
 ### 3 — Envoy Gateway
 
 Deploy [Envoy Gateway](https://gateway.envoyproxy.io/) into the shoot cluster — the CNCF implementation of the [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/). The NGINX Ingress Controller is deprecated; Gateway API is the forward path with a standardised spec for both HTTP and TCP.
@@ -155,6 +171,7 @@ A feature request for gardenctl access or a native IaC provider has been filed w
 | 1 — Shoot cluster on Cleura             | done    |
 | 2 — Minecraft via LoadBalancer (itzg)   | planned |
 | 2.5 — Migrate to Helm chart             | planned |
+| 2.6 — Second instance (Geyser/Floodgate)| planned |
 | 3 — Envoy Gateway                       | planned |
 | 3.5 — ExternalDNS + Designate           | planned |
 | 4 — HTTPRoute + cert-manager + BlueMap  | planned |
