@@ -39,6 +39,7 @@ Building a laser cutter from scratch — enclosure, motion system, and a touchsc
 - [Pump-to-Hose Adapter](/garage/pump-adapter/) — camping fix, mismatched pillow/mattress valves, nine iterations
 - [Extrusion Feet — 2020 / 2040 T-Slot](/garage/extrusion-feet/) — parametric feet for the [laser cutter](/garage/laser-cutter/) frame, single- and dual-track
 - [Ping-Pong Ball-Catch Net Mount](/garage/pingis-bracket/) — rail-clamping bracket and plywood spacers for a training-robot catch net
+- [Door & Window Guard — Bud](/garage/door-window-guard/) — nephew's window/door guard, found models need the body elongated to fit
 
 ---
 
