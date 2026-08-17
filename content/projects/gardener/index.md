@@ -169,9 +169,9 @@ A feature request for gardenctl access or a native IaC provider has been filed w
 | Step                                    | Status  |
 |-----------------------------------------|---------|
 | 1 — Shoot cluster on Cleura             | done    |
-| 2 — Minecraft via LoadBalancer (itzg)   | planned |
+| 2 — Minecraft via LoadBalancer (itzg)   | done    |
 | 2.5 — Migrate to Helm chart             | planned |
-| 2.6 — Second instance (Geyser/Floodgate)| planned |
+| 2.6 — Second instance (Geyser/Floodgate)| done    |
 | 3 — Envoy Gateway                       | planned |
 | 3.5 — ExternalDNS + Designate           | planned |
 | 4 — HTTPRoute + cert-manager + BlueMap  | planned |
