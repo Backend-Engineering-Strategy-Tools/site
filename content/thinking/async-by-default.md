@@ -2,7 +2,7 @@
 title: "Async by Default"
 description: "How I run remote. A handful of defaults, not a philosophy: async first, overcommunicate status, virtual fika, screen share for concrete tasks, docs over meetings."
 date: 2026-08-17
-draft: true
+draft: false
 showReadingTime: false
 layout: single
 tags: ["remote-work", "leadership", "platform-engineering"]

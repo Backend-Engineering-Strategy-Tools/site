@@ -2,7 +2,7 @@
 title: "Point, Don't Describe"
 description: "A running list of what actually works directing Claude on real projects — grounding things in something concrete beats describing them, almost every time."
 date: 2026-08-13
-draft: true
+draft: false
 showReadingTime: false
 layout: single
 tags: ["ai", "llm", "claude-code", "workflow"]
