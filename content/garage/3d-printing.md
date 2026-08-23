@@ -123,4 +123,12 @@ See [Blender Python — Procedural Mesh](/public-notes/frameworks-tools/blender-
 
 ---
 
+## Found Models — Queue
+
+| Model                                                                                                          | Notes                 |
+|------------------------------------------------------------------------------------------------------------------|------------------------|
+| [ID Card and new Pointsharp Holder](https://www.printables.com/model/1021722-id-card-and-new-pointsharp-holder/files) | Printed                |
+
+---
+
 **Rack and homelab prints**: [3D Printed Rack Parts](/homelab/rack-3d-prints/)
